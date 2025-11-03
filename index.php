@@ -1,6 +1,7 @@
 <?php
 // Include the main Smarty class
 require_once __DIR__ . '/smarty-libs/Smarty.class.php';
+require_once __DIR__ . '/db.php';
 
 // Create Smarty instance
 $smarty = new Smarty();
@@ -10,31 +11,33 @@ $smarty->setTemplateDir(__DIR__ . '/templates/');
 $smarty->setCompileDir(__DIR__ . '/templates_c/');
 
 // Database connection
-$host = 'localhost';
-$db   = 'test';
-$user = 'ps_user';
-$pass = 'ps_password';
-$charset = 'utf8mb4';
-
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+$db = new Database();
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = $db->connect();
+
+    // Fetch all cities
+    $stmt = $pdo->query("SELECT city_name FROM cities");
+    $cities = $stmt->fetchAll();
+
+    // Assign to Smarty
+    $smarty->assign('cities', $cities);
+
+    // Render the template
+    $smarty->display('index.tpl');
+
 } catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
+    // Log the error if needed
+    error_log($e->getMessage());
+
+    // Assign error message to Smarty (optional)
+    $smarty->assign('error_message', 'Sorry, something went wrong with the database: ' . $e->getMessage());
+
+    // Render a custom error page
+    $smarty->display('error.tpl');
+
+    // Stop further execution
+    exit;
 }
 
-// Fetch all cities
-$stmt = $pdo->query("SELECT city_name FROM cities");
-$cities = $stmt->fetchAll();
-
-// Assign to Smarty
-$smarty->assign('cities', $cities);
-
-// Render the template
-$smarty->display('index.tpl');
 ?>

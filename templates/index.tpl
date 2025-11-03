@@ -1,5 +1,7 @@
 <html>
-<head><title>City List</title></head>
+<head>
+    <title>City List</title>
+</head>
 <body>
     <h1>All Cities</h1>
     <ul>

@@ -1,5 +1,8 @@
-<html>
-<head><title>Weather for {$city_name|escape}</title></head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Weather for {$city_name|escape}</title>
+</head>
 <body>
     <h1>Weather for {$city_name|escape}</h1>
 
