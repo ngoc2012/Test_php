@@ -29,7 +29,7 @@ try {
 }
 
 // Fetch all cities
-$stmt = $pdo->query("SELECT city_name FROM cities ORDER BY city_name ASC");
+$stmt = $pdo->query("SELECT city_name FROM cities");
 $cities = $stmt->fetchAll();
 
 // Assign to Smarty

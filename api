@@ -1,0 +1,5 @@
+curl "https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=33.44;lon=-94.04;appid=6bd83c8ba20d3606bd49cef93d45f943"
+
+curl "https://api.openweathermap.org/data/2.5/weather?q=AbuDhabi&units=metric&lang=fr&appid=6bd83c8ba20d3606bd49cef93d45f943"
+
+https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=6bd83c8ba20d3606bd49cef93d45f943
