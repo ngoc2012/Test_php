@@ -1,0 +1,4 @@
+curl "https://api.openweathermap.org/data/2.5/weather?q=Chicago&units=metric&lang=fr&appid=6bd83c8ba20d3606bd49cef93d45f943"
+
+# Reponse:
+# {"coord":{"lon":-87.65,"lat":41.85},"weather":[{"id":804,"main":"Clouds","description":"couvert","icon":"04n"}],"base":"stations","main":{"temp":6.8,"feels_like":4.61,"temp_min":6.14,"temp_max":7.31,"pressure":1024,"humidity":54,"sea_level":1024,"grnd_level":1002},"visibility":10000,"wind":{"speed":3.09,"deg":240},"clouds":{"all":100},"dt":1762247950,"sys":{"type":2,"id":2075214,"country":"US","sunrise":1762259215,"sunset":1762296084},"timezone":-21600,"id":4887398,"name":"Chicago","cod":200}

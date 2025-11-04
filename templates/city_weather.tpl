@@ -20,6 +20,6 @@
         <p>No weather data available.</p>
     {/if}
 
-    <a href="index.php">Back to city list</a>
+    <a href="index.php">Return to home</a>
 </body>
 </html>
