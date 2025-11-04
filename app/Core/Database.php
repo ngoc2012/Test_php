@@ -20,7 +20,7 @@ class Database {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ];
 
-    // Singleton instance
+    /** Singleton instance */
     private static $instance = null;
 
     public function __construct($host = null, $db = null, $user = null, $pass = null, $charset = null) {
@@ -32,13 +32,13 @@ class Database {
         $this->dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
     }
 
-    // Prevent cloning
+    /** Prevent cloning */
     private function __clone() {}
 
-    // Prevent unserialization
+    /** Prevent unserialization */
     private function __wakeup() {}
 
-    // Get the singleton instance
+    /** Get the singleton instance */
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new Database();
@@ -46,6 +46,12 @@ class Database {
         return self::$instance;
     }
 
+    /**
+     * Connect to the database and return the PDO instance.
+     *
+     * @return PDO The PDO instance.
+     * @throws Exception If the connection fails.
+     */
     public function connect() {
         if ($this->pdo === null) {
             try {

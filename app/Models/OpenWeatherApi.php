@@ -27,6 +27,12 @@ class OpenWeatherApi extends WeatherApi
         return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";
     }
 
+    /**
+     * Get weather data for a specified city.
+     * @param string $city
+     * @throws \Exception
+     * @return array{humidity: float, temperature: float}
+     */
     public function fetchWeather($city)
     {
         $cityNameEscaped = $this->encodeCityName($city);

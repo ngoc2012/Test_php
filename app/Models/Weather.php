@@ -6,7 +6,14 @@ require_once __DIR__ . '/WeatherApi.php';
 use App\Models\WeatherApiInterface;
 
 class Weather {
-
+    /**
+     * Fetch weather metrics for a given city using the specified API.
+     *
+     * @param string $city The name of the city.
+     * @param string|null $apiName The name of the API to use (optional).
+     * @return array An associative array containing 'api', 'temperature', and 'humidity'.
+     * @throws \Exception If the API fetch fails.
+     */
     public static function getMetrics($city, $apiName = null) {
         switch ($apiName) {
             case 'FreeWeatherApi':

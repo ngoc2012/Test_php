@@ -15,17 +15,17 @@
         <ul class="list-group list-group-flush">
         {foreach from=$cities item=city}
             <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold">{$city.cityName|escape}</span>
+                <span class="fw-semibold">{$city.name|escape}</span>
 
                 <div class="d-flex gap-2 ms-auto">
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="{$city.cityName|escape}">
+                        <input type="hidden" name="cityName" value="{$city.name|escape}">
                         <input type="hidden" name="api" value="OpenWeatherApi">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="{$city.cityName|escape}">
+                        <input type="hidden" name="cityName" value="{$city.name|escape}">
                         <input type="hidden" name="api" value="FreeWeatherApi">
                         <button type="submit" class="btn btn-outline-info btn-sm">Free Weather</button>
                     </form>

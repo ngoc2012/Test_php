@@ -2,32 +2,30 @@
 namespace App\Controllers;
 
 require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Views/ViewFactory.php';
+require_once __DIR__ . '/ViewController.php';
+require_once __DIR__ . '/ErrorController.php';
 
 use App\Core\Database;
-use App\Views\ViewFactory;
+use Exception;
 
-abstract class BaseController
+class BaseController extends ViewController
 {
-    protected $view;
     protected $pdo;
 
+    /**
+     * Constructor:
+     * - Connect to database
+     * @param string $viewType
+     */
     public function __construct($viewType = 'smarty')
     {
-        $this->view = ViewFactory::create($viewType);
+        parent::__construct($viewType);
 
         try {
             $this->pdo = Database::getInstance()->connect();
         } catch (Exception $e) {
-            error_log($e->getMessage());
-            $this->view->render('error.tpl', ['error_message' => 'Sorry, something went wrong with the database: ' . $e->getMessage()]);
-            // Stop further execution
+            (new ErrorController())->error($e->getMessage());
             exit;
         }
-    }
-
-    protected function render($template, $data = [])
-    {
-        $this->view->render($template, $data);
     }
 }

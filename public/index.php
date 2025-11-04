@@ -5,4 +5,3 @@ use App\Controllers\CityListController;
 
 $controller = new CityListController('smarty');
 $controller->index();
-?>

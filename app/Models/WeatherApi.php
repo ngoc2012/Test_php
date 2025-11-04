@@ -7,9 +7,15 @@ interface WeatherApiInterface {
 
 abstract class WeatherApi implements WeatherApiInterface {
     protected $apiKey;
-    protected $url;
+    protected $baseUrl;
     protected $cityNameEscaped;
 
+    /**
+     * Encode the city name for URL usage.
+     *
+     * @param string $cityName The name of the city.
+     * @return string The URL-encoded city name.
+     */
     protected function encodeCityName($cityName) {
         return urlencode($cityName);
     }

@@ -22,11 +22,23 @@ class FreeWeatherApi extends WeatherApi
         $this->baseUrl = $baseUrl ?: FREEWEATHER_BASE_URL;
     }
 
+    /**
+     * Construct the full API URL for fetching weather data.
+     *
+     * @param string $cityNameEscaped The URL-encoded city name.
+     * @return string The complete API URL.
+     */
     private function getUrl($cityNameEscaped)
     {
         return $this->baseUrl . "?key={$this->apiKey}&q={$cityNameEscaped}&aqi=no";
     }
 
+    /**
+     * Get weather data for a specified city.
+     * @param string $city
+     * @throws \Exception
+     * @return array{humidity: float, temperature: float}
+     */
     public function fetchWeather($city)
     {
         $cityNameEscaped = $this->encodeCityName($city);
