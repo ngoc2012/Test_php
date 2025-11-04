@@ -1,7 +1,7 @@
 <?php
 namespace App\Views;
 
-require_once __DIR__ . '/../../smarty-libs/Smarty.class.php';
+require_once __DIR__ . '/../../libs/smarty/Smarty.class.php';
 require_once __DIR__ . '/ViewInterface.php';
 
 use Smarty;
