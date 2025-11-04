@@ -10,7 +10,9 @@ class ViewFactory
     {
         switch (strtolower($type)) {
             case 'smarty':
+                return new SmartyView();
             default:
+                error_log("Unknown view type: $type. Defaulting to SmartyView.");
                 return new SmartyView();
         }
     }

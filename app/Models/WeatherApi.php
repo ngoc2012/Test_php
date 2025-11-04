@@ -1,23 +1,23 @@
 <?php
+namespace App\Models;
 
 interface WeatherApiInterface {
-    public function fetchWeather();
+    public function fetchWeather($cityName);
 }
 
-class WeatherApi implements WeatherApiInterface {
+abstract class WeatherApi implements WeatherApiInterface {
     protected $apiKey;
     protected $url;
-    protected $city_name_escaped;
+    protected $cityNameEscaped;
 
-    private function encodeCityName($city) {
-        return urlencode($city);
+    protected function encodeCityName($cityName) {
+        return urlencode($cityName);
     }
 }
 
 class MockWeatherApi implements WeatherApiInterface {
-    public function fetchWeather() {
-        // Fake data for tests
-        return ['temp' => 18, 'city' => 'Test City'];
+    public function fetchWeather($cityName) {
+        return ['cityName' => $cityName, 'temperature' => 18, 'humidity' => 65];
     }
 }
 ?>

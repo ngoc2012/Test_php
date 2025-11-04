@@ -1,6 +1,9 @@
 <?php
+namespace App\Models;
 
-class WeatherMetrics implements JsonSerializable{
+use InvalidArgumentException;
+
+class WeatherMetrics {
     private $temperature;
     private $humidity;
 
@@ -12,7 +15,7 @@ class WeatherMetrics implements JsonSerializable{
         $this->humidity = $humidity;
     }
 
-    public function jsonSerialize() {
+    public function toArray() {
         return [
             'temperature' => $this->temperature,
             'humidity' => $this->humidity,

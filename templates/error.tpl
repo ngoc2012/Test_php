@@ -7,8 +7,8 @@
 </head>
 <body>
     <div class="error-box">
-        <h1>Oops! Something went wrong.</h1>
-        <p>{$error_message|escape}</p>
+        <h1>Error</h1>
+        <p>{$errorMessage|escape}</p>
         <a href="index.php">Return to Home</a>
     </div>
 </body>

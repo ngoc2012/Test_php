@@ -11,8 +11,8 @@
     {foreach from=$cities item=city}
         <li>
             <form method="post" action="city_weather.php" style="display:inline">
-                <input type="hidden" name="city_name" value="{$city.city_name|escape}">
-                <button type="submit">{$city.city_name|escape}</button>
+                <input type="hidden" name="cityName" value="{$city.cityName|escape}">
+                <button type="submit">{$city.cityName|escape}</button>
             </form>
         </li>
     {/foreach}

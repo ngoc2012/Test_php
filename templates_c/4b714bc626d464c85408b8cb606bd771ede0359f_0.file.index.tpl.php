@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-04 12:34:04
+/* Smarty version 3.1.48, created on 2025-11-04 14:33:13
   from '/home/minh/Test/templates/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6909e4acea2bf7_10017684',
+  'unifunc' => 'content_690a00992eb038_02465121',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4b714bc626d464c85408b8cb606bd771ede0359f' => 
     array (
       0 => '/home/minh/Test/templates/index.tpl',
-      1 => 1762256039,
+      1 => 1762263190,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6909e4acea2bf7_10017684 (Smarty_Internal_Template $_smarty_tpl) {
+function content_690a00992eb038_02465121 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +39,9 @@ $_smarty_tpl->tpl_vars['city']->do_else = false;
 ?>
         <li>
             <form method="post" action="city_weather.php" style="display:inline">
-                <input type="hidden" name="city_name" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['city_name'], ENT_QUOTES, 'UTF-8', true);?>
+                <input type="hidden" name="cityName" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['cityName'], ENT_QUOTES, 'UTF-8', true);?>
 ">
-                <button type="submit"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['city_name'], ENT_QUOTES, 'UTF-8', true);?>
+                <button type="submit"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['cityName'], ENT_QUOTES, 'UTF-8', true);?>
 </button>
             </form>
         </li>

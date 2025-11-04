@@ -5,17 +5,15 @@ require_once __DIR__ . '/../Controllers/BaseController.php';
 
 use App\Controllers\BaseController;
 
-class CityListController extends BaseController
+class ErrorController extends BaseController
 {
     public function __construct($viewType = 'smarty')
     {
         parent::__construct($viewType);
     }
 
-    public function index()
+    public function error($message)
     {
-        $stmt = $this->pdo->query("SELECT cityName FROM cities");
-        $cities = $stmt->fetchAll();
-        $this->view->render('index.tpl', ['cities' => $cities]);
+        $this->view->render('error.tpl', ['errorMessage' => $message]);
     }
 }

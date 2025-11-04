@@ -1,12 +1,13 @@
 <?php
 namespace App\Models;
-require_once __DIR__ . '/../config/config.php';
+
+require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/WeatherApi.php';
+
+use App\Models\WeatherApi;
 
 class OpenWeatherApi extends WeatherApi
 {
-    private $apiKey;
-    private $baseUrl;
 
     /**
      * Constructor allows overriding the API key and base URL.
@@ -21,23 +22,26 @@ class OpenWeatherApi extends WeatherApi
         $this->baseUrl = $baseUrl ?: OPENWEATHER_BASE_URL;
     }
 
-    private function getUrl($city_name_escaped)
+    private function getUrl($cityNameEscaped)
     {
-        return $this->baseUrl . "?q={$city_name_escaped}&units=metric&lang=en&appid={$this->apiKey}";
+        return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";
     }
 
     public function fetchWeather($city)
     {
-        $city_name_escaped = $this->encodeCityName($city);
-        $url = $this->getUrl($city_name_escaped);
-
+        $cityNameEscaped = $this->encodeCityName($city);
+        $url = $this->getUrl($cityNameEscaped);
+        error_log("Fetching weather data from URL: " . $url);
         $response = file_get_contents($url);
 
         if (!$response) {
             throw new \Exception("Failed to fetch weather data.");
         }
-
-        return json_decode($response, true);
+        $data = json_decode($response, true);
+        return [
+            'temp' => $data['main']['temp'],
+            'humidity' => $data['main']['humidity'],
+        ];
     }
 }
 ?>
