@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-04 15:12:34
+/* Smarty version 3.1.48, created on 2025-11-04 15:52:04
   from '/home/minh/Test/templates/city_weather.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_690a09d22eb2b0_42798991',
+  'unifunc' => 'content_690a1314e990c5_11509895',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '17a06f21b341aa4cc8f24c5c009595fab739b197' => 
     array (
       0 => '/home/minh/Test/templates/city_weather.tpl',
-      1 => 1762265551,
+      1 => 1762267922,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_690a09d22eb2b0_42798991 (Smarty_Internal_Template $_smarty_tpl) {
+function content_690a1314e990c5_11509895 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,6 +36,8 @@ function content_690a09d22eb2b0_42798991 (Smarty_Internal_Template $_smarty_tpl)
     <div class="card bg-transparent text-light shadow-sm p-4 mb-4 border-2">
         <h1 class="text-center mb-4">🌤️ Weather for <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value, ENT_QUOTES, 'UTF-8', true);?>
 </h1>
+        <p class="fs-5"><strong>API:</strong> <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['weather']->value['api'], ENT_QUOTES, 'UTF-8', true);?>
+</p>
         <p class="fs-5"><strong>Temperature:</strong> <?php echo $_smarty_tpl->tpl_vars['weather']->value['temperature'];?>
  °C</p>
         <p class="fs-5"><strong>Humidity:</strong> <?php echo $_smarty_tpl->tpl_vars['weather']->value['humidity'];?>
@@ -44,27 +46,41 @@ function content_690a09d22eb2b0_42798991 (Smarty_Internal_Template $_smarty_tpl)
 
     <?php if (!empty($_smarty_tpl->tpl_vars['history']->value)) {?>
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">
-        <h2 class="mb-3">Recent Weather Records</h2>
-        <ul class="list-group list-group-flush">
-        <?php
+        <h2 class="mb-4">Recent Weather Records</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="table-dark text-light">
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">API</th>
+                        <th scope="col">Temperature</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['history']->value, 'record');
 $_smarty_tpl->tpl_vars['record']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['record']->value) {
 $_smarty_tpl->tpl_vars['record']->do_else = false;
 ?>
-            <li class="list-group-item bg-dark text-light border-secondary">
-                <span class="text-info"><?php echo $_smarty_tpl->tpl_vars['record']->value['date'];?>
+                    <tr>
+                        <td class="text-info"><?php echo $_smarty_tpl->tpl_vars['record']->value['date'];?>
  <?php echo $_smarty_tpl->tpl_vars['record']->value['time'];?>
-</span>
-                <span class="ms-3">🌡️ <?php echo $_smarty_tpl->tpl_vars['record']->value['temperature'];?>
- °C</span>
-                <span class="ms-3">💧 <?php echo $_smarty_tpl->tpl_vars['record']->value['humidity'];?>
-%</span>
-            </li>
-        <?php
+</td>
+                        <td><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['record']->value['api'], ENT_QUOTES, 'UTF-8', true);?>
+</td>
+                        <td>🌡️ <?php echo $_smarty_tpl->tpl_vars['record']->value['temperature'];?>
+ °C</td>
+                        <td>💧 <?php echo $_smarty_tpl->tpl_vars['record']->value['humidity'];?>
+%</td>
+                    </tr>
+                <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-        </ul>
+                </tbody>
+            </table>
+        </div>
     </div>
     <?php }?>
 

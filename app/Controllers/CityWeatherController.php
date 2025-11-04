@@ -12,11 +12,13 @@ use App\Models\Weather;
 class CityWeatherController extends BaseController
 {
     private $cityName;
+    private $api;
 
-    public function __construct($viewType = 'smarty', $cityName = null)
+    public function __construct($viewType = 'smarty', $cityName = null, $api = null)
     {
         parent::__construct($viewType);
         $this->cityName = $cityName;
+        $this->api = $api;
     }
 
     private function getHistory()
@@ -26,6 +28,7 @@ class CityWeatherController extends BaseController
             CREATE TABLE IF NOT EXISTS history (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 cityName VARCHAR(100) NOT NULL,
+                api VARCHAR(100) NOT NULL,
                 temperature FLOAT,
                 humidity FLOAT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -47,11 +50,12 @@ class CityWeatherController extends BaseController
     private function insertHistory($weather)
     {
         $stmt = $this->pdo->prepare("
-            INSERT INTO history (cityName, temperature, humidity, created_at)
-            VALUES (:cityName, :temperature, :humidity, NOW())
+            INSERT INTO history (cityName, api, temperature, humidity, created_at)
+            VALUES (:cityName, :api, :temperature, :humidity, NOW())
         ");
         $stmt->execute([
             ':cityName'   => $this->cityName,
+            ':api'        => $weather['api'],
             ':temperature' => $weather['temperature'],
             ':humidity'    => $weather['humidity']
         ]);
@@ -60,7 +64,7 @@ class CityWeatherController extends BaseController
     public function index()
     {
         $history = $this->getHistory();
-        $weather = Weather::getMetrics($this->cityName, null);
+        $weather = Weather::getMetrics($this->cityName, $this->api);
         $this->insertHistory($weather);
         $this->view->render('city_weather.tpl', ['history' => $history, 'city' => $this->cityName, 'weather' => $weather]);
     }

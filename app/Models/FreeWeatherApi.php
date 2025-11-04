@@ -6,7 +6,7 @@ require_once __DIR__ . '/WeatherApi.php';
 
 use App\Models\WeatherApi;
 
-class OpenWeatherApi extends WeatherApi
+class FreeWeatherApi extends WeatherApi
 {
 
     /**
@@ -18,13 +18,13 @@ class OpenWeatherApi extends WeatherApi
      */
     public function __construct($apiKey = null, $baseUrl = null)
     {
-        $this->apiKey  = $apiKey ?: OPENWEATHER_API_KEY;
-        $this->baseUrl = $baseUrl ?: OPENWEATHER_BASE_URL;
+        $this->apiKey  = $apiKey ?: FREEWEATHER_API_KEY;
+        $this->baseUrl = $baseUrl ?: FREEWEATHER_BASE_URL;
     }
 
     private function getUrl($cityNameEscaped)
     {
-        return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";
+        return $this->baseUrl . "?key={$this->apiKey}&q={$cityNameEscaped}&aqi=no";
     }
 
     public function fetchWeather($city)
@@ -39,8 +39,8 @@ class OpenWeatherApi extends WeatherApi
         }
         $data = json_decode($response, true);
         return [
-            'temperature' => $data['main']['temp'],
-            'humidity' => $data['main']['humidity'],
+            'temperature' => $data['current']['temp_c'],
+            'humidity' => $data['current']['humidity'],
         ];
     }
 }

@@ -11,22 +11,36 @@
 <div class="container py-5">
     <div class="card bg-transparent text-light shadow-sm p-4 mb-4 border-2">
         <h1 class="text-center mb-4">🌤️ Weather for {$city|escape}</h1>
+        <p class="fs-5"><strong>API:</strong> {$weather.api|escape}</p>
         <p class="fs-5"><strong>Temperature:</strong> {$weather.temperature} °C</p>
         <p class="fs-5"><strong>Humidity:</strong> {$weather.humidity}%</p>
     </div>
 
     {if !empty($history)}
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">
-        <h2 class="mb-3">Recent Weather Records</h2>
-        <ul class="list-group list-group-flush">
-        {foreach from=$history item=record}
-            <li class="list-group-item bg-dark text-light border-secondary">
-                <span class="text-info">{$record.date} {$record.time}</span>
-                <span class="ms-3">🌡️ {$record.temperature} °C</span>
-                <span class="ms-3">💧 {$record.humidity}%</span>
-            </li>
-        {/foreach}
-        </ul>
+        <h2 class="mb-4">Recent Weather Records</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead class="table-dark text-light">
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">API</th>
+                        <th scope="col">Temperature</th>
+                        <th scope="col">Humidity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {foreach from=$history item=record}
+                    <tr>
+                        <td class="text-info">{$record.date} {$record.time}</td>
+                        <td>{$record.api|escape}</td>
+                        <td>🌡️ {$record.temperature} °C</td>
+                        <td>💧 {$record.humidity}%</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
     </div>
     {/if}
 

@@ -14,10 +14,4 @@ abstract class WeatherApi implements WeatherApiInterface {
         return urlencode($cityName);
     }
 }
-
-class MockWeatherApi implements WeatherApiInterface {
-    public function fetchWeather($cityName) {
-        return ['cityName' => $cityName, 'temperature' => 18, 'humidity' => 65];
-    }
-}
 ?>
