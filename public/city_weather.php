@@ -1,8 +1,13 @@
 <?php
 
 require_once __DIR__ . '/../app/Controllers/CityWeatherController.php';
+require_once __DIR__ . '/../Views/ViewFactory.php';
 
 use App\Controllers\CityWeatherController;
+
+if (!isset($_POST['city_name'])) {
+    die('Missing city data.');
+}
 
 $controller = new CityWeatherController();
 $controller->index();
