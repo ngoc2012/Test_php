@@ -1,9 +1,9 @@
 <?php
-namespace App\Models;
+namespace App\Services;
 
-use App\Models\History;
-use App\Models\FreeWeatherApi;
-use App\Models\OpenWeatherApi;
+use App\Models\City;
+use App\Services\API\FreeWeatherApi;
+use App\Services\API\OpenWeatherApi;
 use App\Controllers\ErrorController;
 use Exception;
 
@@ -15,12 +15,10 @@ class WeatherService {
     /**
      * Fetch weather metrics for a given city using the specified API.
      *
-     * @param int $cityId The ID of the city.
-     * @param string $cityName The name of the city.
+     * @param City $city The City object.
      * @param string|null $apiName The name of the API to use (optional).
-     * @return History The History object.
      */
-    public static function getData($cityId, $cityName, $apiName = null) {
+    public static function getData($city, $apiName = null) {
         switch ($apiName) {
             case 'FreeWeatherApi':
                 $api = new FreeWeatherApi();
@@ -30,9 +28,7 @@ class WeatherService {
                 break;
         }
         try {
-            $weatherData = $api->fetchWeather($cityName);
-            $weather = new History($cityId, $apiName, $weatherData['temperature'], $weatherData['humidity']);
-            return $weather;
+            $api->fetchWeather($city);
         } catch (Exception $e) {
             (new ErrorController('smarty'))->error($e->getMessage());
             exit;

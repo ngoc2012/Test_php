@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-04 17:00:23
+/* Smarty version 3.1.48, created on 2025-11-05 17:11:42
   from '/home/minh/Test/templates/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_690a23176af534_40836230',
+  'unifunc' => 'content_690b773e245974_10757161',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4b714bc626d464c85408b8cb606bd771ede0359f' => 
     array (
       0 => '/home/minh/Test/templates/index.tpl',
-      1 => 1762272017,
+      1 => 1762359099,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_690a23176af534_40836230 (Smarty_Internal_Template $_smarty_tpl) {
+function content_690b773e245974_10757161 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,21 +43,25 @@ if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['city']->value) {
 $_smarty_tpl->tpl_vars['city']->do_else = false;
 ?>
             <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
+                <span class="fw-semibold"><?php echo $_smarty_tpl->tpl_vars['city']->value->getName();?>
 </span>
 
                 <div class="d-flex gap-2 ms-auto">
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
+                        <input type="hidden" name="name" value="<?php echo $_smarty_tpl->tpl_vars['city']->value->getName();?>
 ">
                         <input type="hidden" name="api" value="OpenWeatherApi">
+                        <input type="hidden" name="id" value="<?php echo $_smarty_tpl->tpl_vars['city']->value->getId();?>
+">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="<?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value['name'], ENT_QUOTES, 'UTF-8', true);?>
+                        <input type="hidden" name="name" value="<?php echo $_smarty_tpl->tpl_vars['city']->value->getName();?>
 ">
                         <input type="hidden" name="api" value="FreeWeatherApi">
+                        <input type="hidden" name="id" value="<?php echo $_smarty_tpl->tpl_vars['city']->value->getId();?>
+">
                         <button type="submit" class="btn btn-outline-info btn-sm">Free Weather</button>
                     </form>
                 </div>

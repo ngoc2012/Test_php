@@ -1,7 +1,9 @@
 <?php
-namespace App\Models;
+namespace App\Services\API;
 
-use App\Models\WeatherApi;
+use App\Models\City;
+use App\Models\History;
+use App\Services\API\WeatherApi;
 use Config\AppConfig;
 
 /**
@@ -22,12 +24,11 @@ class OpenWeatherApi extends WeatherApi {
 
     /**
      * Get weather data for a specified city.
-     * @param string $city
+     * @param City $city
      * @throws \Exception
-     * @return array{humidity: float, temperature: float}
      */
     public function fetchWeather($city) {
-        $cityNameEscaped = $this->encodeCityName($city);
+        $cityNameEscaped = $this->encodeCityName($city->getName());
         $url = $this->getUrl($cityNameEscaped);
         $response = file_get_contents($url);
 
@@ -35,10 +36,15 @@ class OpenWeatherApi extends WeatherApi {
             throw new \Exception("Failed to fetch weather data from OpenWeather API.");
         }
         $data = json_decode($response, true);
-        return [
-            'temperature' => $data['main']['temp'],
-            'humidity' => $data['main']['humidity'],
-        ];
+        $new_history = new History(
+            $city->getId(),
+            "OpenWeatherApi",
+            $data['main']['temp'],
+            $data['main']['humidity'],
+            ""
+        );
+        $city->setWeather($new_history);
+        History::save($new_history);
     }
 
     /**

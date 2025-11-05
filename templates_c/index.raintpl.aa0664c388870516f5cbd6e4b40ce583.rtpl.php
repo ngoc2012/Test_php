@@ -16,20 +16,20 @@
         <?php $counter1=-1; if( !is_null($cities) && is_array($cities) && sizeof($cities) ) foreach( $cities as $key1 => $value1 ){ $counter1++; ?>
 
             <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold"><?php echo $value1["name"];?></span>
+                <span class="fw-semibold"><?php echo $value1->getName();?></span>
 
                 <div class="d-flex gap-2 ms-auto">
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="name" value="<?php echo $value1["name"];?>">
+                        <input type="hidden" name="name" value="<?php echo $value1->getName();?>">
                         <input type="hidden" name="api" value="OpenWeatherApi">
-                        <input type="hidden" name="id" value="<?php echo $value1["id"];?>">
+                        <input type="hidden" name="id" value="<?php echo $value1->getId();?>">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="name" value="<?php echo $value1["name"];?>">
+                        <input type="hidden" name="name" value="<?php echo $value1->getName();?>">
                         <input type="hidden" name="api" value="FreeWeatherApi">
-                        <input type="hidden" name="id" value="<?php echo $value1["id"];?>">
+                        <input type="hidden" name="id" value="<?php echo $value1->getId();?>">
                         <button type="submit" class="btn btn-outline-info btn-sm">Free Weather</button>
                     </form>
                 </div>

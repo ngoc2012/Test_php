@@ -3,7 +3,7 @@ require_once __DIR__ . '/../libs/autoload.php';
 
 use App\Controllers\CityWeatherController;
 use App\Controllers\ErrorController;
-
+use App\Models\City;
 
 // ================================
 // === Validate POST parameters ===
@@ -30,9 +30,9 @@ if ($cityId <= 0) {
     (new ErrorController())->error('Invalid City ID.');
     exit;
 }
-
 $cityName = trim($_POST['name']);
+$city = new City($cityId, $cityName);
 $api = trim($_POST['api']);
 
 $controller = new CityWeatherController('smarty');
-$controller->index($cityId, $cityName, $api);
+$controller->index($city, $api);

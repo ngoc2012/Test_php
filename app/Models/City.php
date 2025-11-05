@@ -16,29 +16,17 @@ class City {
     /* @var string city name */
     private $name;
 
-    /* @var string country name */
-    private $country;
-
-    /* @var float latitude */
-    private $latitude;
-
-    /* @var float longitude */
-    private $longitude;
+    /* @var History weather data */
+    private $weather;
     
     /**
      * Constructor
      * @param int $id
      * @param string $name
-     * @param string $country
-     * @param float $latitude
-     * @param float $longitude
      */
-    public function __construct($id, $name, $country, $latitude, $longitude) {
+    public function __construct($id, $name) {
         $this->id = $id;
         $this->name = $name;
-        $this->country = $country;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
     }
 
 
@@ -54,18 +42,20 @@ class City {
         return $this->name;
     }
 
-    public function getCountry() {
-        return $this->country;
+    public function getWeather() {
+        return $this->weather;
     }
 
-    public function getLatitude() {
-        return $this->latitude;
-    }
+    // ===============
+    // === SETTERS ===
+    // ===============
 
-    public function getLongitude() {
-        return $this->longitude;
+    public function setWeather($weather) {
+        $this->weather = $weather;
     }
-
+    public function getHistory() {
+        return History::findAllById($this->id);
+    }
 
     // ===========================
     // === DATA ACCESS METHODS ===
@@ -75,13 +65,20 @@ class City {
      * Retrieve all cities from the database.
      * 
      * @throws \Exception
-     * @return array{id:int, name:string, country:string, latitude:float, longitude:float} List of City objects
+     * @return City[]
      */
     public static function findAll() {
         try {
             $database = Database::getInstance()->connect();
             $PDOStatement = $database->query("SELECT * FROM cities");
-            $cities = $PDOStatement->fetchAll();
+            $citiesData = $PDOStatement->fetchAll();
+            $cities = [];
+            foreach ($citiesData as $key => $cityData) {
+                $cities[] = new City(
+                    $cityData['id'],
+                    $cityData['name']
+                );
+            }
             return $cities;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());

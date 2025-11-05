@@ -22,19 +22,23 @@ class History {
     /* @var float humidity */
     private $humidity;
 
+    /* @var string created at */
+    private $createdAt;
+
     /**
      * Constructor
      * @param int $cityId
      * @param string $api
      * @param float $temperature
      * @param float $humidity
+     * @param string $createdAt
      */
-    public function __construct($cityId, $api, $temperature, $humidity) {
-        $this->id = 0;
+    public function __construct($cityId, $api, $temperature, $humidity, $createdAt) {
         $this->cityId = $cityId;
         $this->api = $api;
         $this->temperature = $temperature;
         $this->humidity = $humidity;
+        $this->createdAt = $createdAt;
     }
 
 
@@ -55,13 +59,8 @@ class History {
         return $this->humidity;
     }
 
-    public function toArray() {
-        return [
-            'cityId'      => $this->cityId,
-            'api'         => $this->api,
-            'temperature' => $this->temperature,
-            'humidity'    => $this->humidity
-        ];
+    public function getCreatedAt() {
+        return $this->createdAt;
     }
 
 
@@ -72,14 +71,24 @@ class History {
     /**
      * Find all the histories of a city by its id
      * @param int $id
-     * @return array{id: int, cityId: int, api: string, temperature: float, humidity: float, createdAt: string} associative array of history records
+     * @return History[]
      */
     public static function findAllById($id) {
         try {
             $database = Database::getInstance()->connect();
             $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 10");
             $PDOStatement->execute([':cityId' => $id]);
-            $history = $PDOStatement->fetchAll();
+            $historyData = $PDOStatement->fetchAll();
+            $history = [];
+            foreach ($historyData as &$record) {
+                $history[] = new History(
+                    $record['cityId'],
+                    $record['api'],
+                    $record['temperature'],
+                    $record['humidity'],
+                    $record['created_at']
+                );
+            }
             return $history;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());
@@ -90,9 +99,8 @@ class History {
     /**
      * Create a new history record on the database
      * @param History $weatherData
-     * @return void
      */
-    public static function create($weatherData) {
+    public static function save($weatherData) {
         try {
             $database = Database::getInstance()->connect();
             $PDOStatement = $database->prepare("

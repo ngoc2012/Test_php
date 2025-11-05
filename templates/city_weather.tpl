@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Weather for {$city|escape}</title>
+    <title>Weather for {$city->getName()|escape}</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -10,13 +10,12 @@
 
 <div class="container py-5">
     <div class="card bg-transparent text-light shadow-sm p-4 mb-4 border-2">
-        <h1 class="text-center mb-4">🌤️ Weather for {$city|escape}</h1>
-        <p class="fs-5"><strong>API:</strong> {$weather.api|escape}</p>
-        <p class="fs-5"><strong>Temperature:</strong> {$weather.temperature} °C</p>
-        <p class="fs-5"><strong>Humidity:</strong> {$weather.humidity}%</p>
+        <h1 class="text-center mb-4">🌤️ Weather for {$city->getName()|escape}</h1>
+        <p class="fs-5"><strong>API:</strong> {$city->getWeather()->getApi()|escape}</p>
+        <p class="fs-5"><strong>Temperature:</strong> {$city->getWeather()->getTemperature()} °C</p>
+        <p class="fs-5"><strong>Humidity:</strong> {$city->getWeather()->getHumidity()}%</p>
     </div>
 
-    {if !empty($history)}
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">
         <h2 class="mb-4">Recent Weather Records</h2>
         <div class="table-responsive">
@@ -30,19 +29,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                {foreach from=$history item=record}
+                {foreach from=$city->getHistory() item=record}
                     <tr>
-                        <td class="text-info">{$record.created_at}</td>
-                        <td>{$record.api|escape}</td>
-                        <td>🌡️ {$record.temperature} °C</td>
-                        <td>💧 {$record.humidity}%</td>
+                        <td class="text-info">{$record->getCreatedAt()}</td>
+                        <td>{$record->getApi()|escape}</td>
+                        <td>🌡️ {$record->getTemperature()} °C</td>
+                        <td>💧 {$record->getHumidity()}%</td>
                     </tr>
                 {/foreach}
                 </tbody>
             </table>
         </div>
     </div>
-    {/if}
 
     <div class="text-center mt-4">
         <a href="index.php" class="btn btn-outline-light">← Return to Home</a>

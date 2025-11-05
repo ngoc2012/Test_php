@@ -1,11 +1,17 @@
 <?php
-namespace App\Models;
+namespace App\Services\API;
 
+use App\Models\City;
 /**
  * Interface for weather API implementations to abstract common method.
  */
 interface WeatherApiInterface {
-    public function fetchWeather($cityName);
+    /**
+     * Fetch weather data for a given city.
+     *
+     * @param City $city The City object.
+     */
+    public function fetchWeather($city);
 }
 
 /**
