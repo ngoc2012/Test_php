@@ -1,10 +1,8 @@
 <?php
 namespace App\Core;
 
-require_once __DIR__ . '/../../config/config.php';
-
 use App\Controllers\ErrorController;
-use AppConfig;
+use Config\AppConfig;
 use PDO;
 use PDOException;
 

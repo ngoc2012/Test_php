@@ -1,9 +1,8 @@
 <?php
 namespace App\Views;
 
-require_once __DIR__ . '/SmartyView.php';
-require_once __DIR__ . '/RainView.php';
-
+use App\Views\SmartyView;
+use App\Views\RainView;
 /**
  * Factory class for all types of renderer
  */

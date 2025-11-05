@@ -1,12 +1,6 @@
 <?php
 namespace App\Models;
 
-require_once __DIR__ . '/WeatherApi.php';
-require_once __DIR__ . '/FreeWeatherApi.php';
-require_once __DIR__ . '/OpenWeatherApi.php';
-require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Controllers/ErrorController.php';
-
 use App\Controllers\ErrorController;
 use App\Core\Database;
 use PDOException;
@@ -82,10 +76,10 @@ class History {
      */
     public static function findAllById($id) {
         try {
-            $db = Database::getInstance()->connect();
-            $stmt = $db->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 10");
-            $stmt->execute([':cityId' => $id]);
-            $history = $stmt->fetchAll();
+            $database = Database::getInstance()->connect();
+            $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 10");
+            $PDOStatement->execute([':cityId' => $id]);
+            $history = $PDOStatement->fetchAll();
             return $history;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());
@@ -100,12 +94,12 @@ class History {
      */
     public static function create($weatherData) {
         try {
-            $db = Database::getInstance()->connect();
-            $stmt = $db->prepare("
+            $database = Database::getInstance()->connect();
+            $PDOStatement = $database->prepare("
                 INSERT INTO history (cityId, api, temperature, humidity, created_at)
                 VALUES (:cityId, :api, :temperature, :humidity, NOW())
             ");
-            $stmt->execute([
+            $PDOStatement->execute([
                 ':cityId'      => $weatherData->getCityId(),
                 ':api'         => $weatherData->getApi(),
                 ':temperature' => $weatherData->getTemperature(),

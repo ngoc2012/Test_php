@@ -1,12 +1,8 @@
 <?php
 namespace App\Controllers;
 
-require_once __DIR__ . '/../Controllers/ViewController.php';
-require_once __DIR__ . '/../Models/History.php';
-require_once __DIR__ . '/../Models/Weather.php';
-
 use App\Controllers\ViewController;
-use App\Models\Weather;
+use App\Models\WeatherService;
 use App\Models\History;
 
 /**
@@ -22,7 +18,7 @@ class CityWeatherController extends ViewController {
      * @return void
      */
     public function index($cityId = 0, $cityName = null, $api = null) {
-        $weatherData = Weather::getData($cityId, $cityName, $api);
+        $weatherData = WeatherService::getData($cityId, $cityName, $api);
         History::create($weatherData);
         $history = History::findAllById($cityId);
         $this->render('city_weather.tpl', [

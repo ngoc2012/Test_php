@@ -1,21 +1,16 @@
 <?php
 namespace App\Models;
 
-require_once __DIR__ . '/History.php';
-require_once __DIR__ . '/WeatherApi.php';
-require_once __DIR__ . '/FreeWeatherApi.php';
-require_once __DIR__ . '/OpenWeatherApi.php';
-require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Controllers/ErrorController.php';
-
 use App\Models\History;
+use App\Models\FreeWeatherApi;
+use App\Models\OpenWeatherApi;
 use App\Controllers\ErrorController;
 use Exception;
 
 /**
- * Weather model class
+ * WeatherService class to fetch weather data
  */
-class Weather {
+class WeatherService {
 
     /**
      * Fetch weather metrics for a given city using the specified API.

@@ -1,11 +1,8 @@
 <?php
 namespace App\Controllers;
 
-require_once __DIR__ . '/../Controllers/ViewController.php';
-require_once __DIR__ . '/../Models/City.php';
-
 use App\Controllers\ViewController;
-use \App\Models\City;
+use App\Models\City;
 
 /**
  * Controller for the main page: Listing all the cities

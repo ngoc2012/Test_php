@@ -1,8 +1,6 @@
 <?php
 namespace App\Controllers;
 
-require_once __DIR__ . '/../Views/ViewFactory.php';
-
 use App\Views\ViewFactory;
 
 /**
@@ -10,7 +8,7 @@ use App\Views\ViewFactory;
  */
 class ViewController {
 
-    /* @var \App\Views\ViewInterface renderer instance */
+    /* @var App\Views\ViewInterface renderer instance */
     private $view;
 
     /**

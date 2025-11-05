@@ -1,11 +1,8 @@
 <?php
 namespace App\Models;
 
-require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/WeatherApi.php';
-
 use App\Models\WeatherApi;
-use AppConfig;
+use Config\AppConfig;
 
 /**
  * FreeWeatherApi class to interact with the FreeWeather API

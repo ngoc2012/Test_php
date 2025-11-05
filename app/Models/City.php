@@ -1,12 +1,6 @@
 <?php
 namespace App\Models;
 
-require_once __DIR__ . '/WeatherApi.php';
-require_once __DIR__ . '/FreeWeatherApi.php';
-require_once __DIR__ . '/OpenWeatherApi.php';
-require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Controllers/ErrorController.php';
-
 use App\Controllers\ErrorController;
 use App\Core\Database;
 use PDOException;
@@ -85,9 +79,9 @@ class City {
      */
     public static function findAll() {
         try {
-            $db = Database::getInstance()->connect();
-            $results = $db->query("SELECT * FROM cities");
-            $cities = $results->fetchAll();
+            $database = Database::getInstance()->connect();
+            $PDOStatement = $database->query("SELECT * FROM cities");
+            $cities = $PDOStatement->fetchAll();
             return $cities;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());

@@ -1,7 +1,5 @@
 <?php
-
-require_once __DIR__ . '/../app/Controllers/ErrorController.php';
-require_once __DIR__ . '/../app/Controllers/CityWeatherController.php';
+require_once __DIR__ . '/../libs/autoload.php';
 
 use App\Controllers\CityWeatherController;
 use App\Controllers\ErrorController;
