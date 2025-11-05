@@ -15,8 +15,6 @@ use PDOException;
  * History model class with history records of weather data
  */
 class History {
-    /* @var int history id */
-    private $id;
 
     /* @var int city id */
     private $cityId;
@@ -30,36 +28,26 @@ class History {
     /* @var float humidity */
     private $humidity;
 
-    /* @var string creation timestamp */
-    private $createdAt;
-
-    /* @var PDO instance */
-    private $pdo;
-
     /**
      * Constructor
-     * @param int $id
      * @param int $cityId
      * @param string $api
      * @param float $temperature
      * @param float $humidity
-     * @param string $createdAt
      */
-    public function __construct($id, $cityId, $api, $temperature, $humidity, $createdAt) {
-        $this->id = $id;
+    public function __construct($cityId, $api, $temperature, $humidity) {
+        $this->id = 0;
         $this->cityId = $cityId;
         $this->api = $api;
         $this->temperature = $temperature;
         $this->humidity = $humidity;
-        $this->createdAt = $createdAt;
     }
+
 
     // ===============
     // === GETTERS ===
     // ===============
-    public function getId() {
-        return $this->id;
-    }
+
     public function getCityId() {
         return $this->cityId;
     }
@@ -72,9 +60,16 @@ class History {
     public function getHumidity() {
         return $this->humidity;
     }
-    public function getCreatedAt() {
-        return $this->createdAt;
+
+    public function toArray() {
+        return [
+            'cityId'      => $this->cityId,
+            'api'         => $this->api,
+            'temperature' => $this->temperature,
+            'humidity'    => $this->humidity
+        ];
     }
+
 
     // ===========================
     // === DATA ACCESS METHODS ===
@@ -99,12 +94,11 @@ class History {
     }
 
     /**
-     * Create a new history record
-     * @param int $cityId
-     * @param array{api: string, temperature: float, humidity: float} $weather
+     * Create a new history record on the database
+     * @param History $weatherData
      * @return void
      */
-    public static function create($cityId, $weather) {
+    public static function create($weatherData) {
         try {
             $db = Database::getInstance()->connect();
             $stmt = $db->prepare("
@@ -112,10 +106,10 @@ class History {
                 VALUES (:cityId, :api, :temperature, :humidity, NOW())
             ");
             $stmt->execute([
-                ':cityId'      => $cityId,
-                ':api'         => $weather['api'],
-                ':temperature' => $weather['temperature'],
-                ':humidity'    => $weather['humidity']
+                ':cityId'      => $weatherData->getCityId(),
+                ':api'         => $weatherData->getApi(),
+                ':temperature' => $weatherData->getTemperature(),
+                ':humidity'    => $weatherData->getHumidity()
             ]);
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());

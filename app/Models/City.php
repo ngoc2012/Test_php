@@ -31,9 +31,6 @@ class City {
     /* @var float longitude */
     private $longitude;
     
-    /* @var PDO instance */
-    private $pdo;
-    
     /**
      * Constructor
      * @param int $id
@@ -89,47 +86,12 @@ class City {
     public static function findAll() {
         try {
             $db = Database::getInstance()->connect();
-            $stmt = $db->query("SELECT * FROM cities");
-            $cities = $stmt->fetchAll();
+            $results = $db->query("SELECT * FROM cities");
+            $cities = $results->fetchAll();
             return $cities;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->error($e->getMessage());
             exit;
         }
-    }
-
-
-    // ===============
-    // === WEATHER ===
-    // ===============
-
-    /**
-     * Fetch weather metrics for a given city using the specified API.
-     *
-     * @param string $city The name of the city.
-     * @param string|null $apiName The name of the API to use (optional).
-     * @return array An associative array containing 'api', 'temperature', and 'humidity'.
-     */
-    public static function getWeather($city, $apiName = null) {
-        switch ($apiName) {
-            case 'FreeWeatherApi':
-                $api = new FreeWeatherApi();
-                break;
-            default:
-                $api = new OpenWeatherApi();
-                break;
-        }
-        try {
-            $weatherData = $api->fetchWeather($city);
-            return [
-                'api' => $apiName,
-                'temperature' => $weatherData['temperature'],
-                'humidity' => $weatherData['humidity']
-            ];
-        } catch (\Exception $e) {
-            (new ErrorController('smarty'))->error($e->getMessage());
-            exit;
-        }
-        
     }
 }
