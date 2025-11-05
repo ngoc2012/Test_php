@@ -15,4 +15,3 @@ if (!isset($_POST['api'])) {
 
 $controller = new CityWeatherController('smarty', $_POST['cityName'], $_POST['api']);
 $controller->index();
-?>
