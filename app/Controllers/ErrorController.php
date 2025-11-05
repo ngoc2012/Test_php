@@ -5,10 +5,14 @@ require_once __DIR__ . '/../Controllers/ViewController.php';
 
 use App\Controllers\ViewController;
 
-class ErrorController extends ViewController
-{
-    public function __construct($viewType = 'smarty')
-    {
+class ErrorController extends ViewController {
+    
+    /**
+     * ErrorController constructor.
+     * @param string $viewType smarty|raintpl
+     * @return void
+     */
+    public function __construct($viewType = 'smarty') {
         parent::__construct($viewType);
     }
 
@@ -17,8 +21,7 @@ class ErrorController extends ViewController
      * @param string $message
      * @return void
      */
-    public function error($message)
-    {
+    public function error($message) {
         $this->render('error.tpl', ['errorMessage' => $message]);
     }
 }

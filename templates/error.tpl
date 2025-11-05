@@ -9,7 +9,7 @@
 <body class="bg-dark text-light d-flex align-items-center" style="height:100vh;">
 
 <div class="container text-center">
-    <div class="card bg-secondary text-light shadow-sm p-5 mx-auto border-0" style="max-width: 500px;">
+    <div class="card bg-transparent text-light shadow-sm p-5 mx-auto border-2" style="max-width: 500px;">
         <h1 class="text-danger mb-3">⚠️ Error</h1>
         <p class="lead">{$errorMessage|escape}</p>
         <a href="index.php" class="btn btn-outline-light mt-3">Return to Home</a>

@@ -1,6 +1,9 @@
 <?php
 namespace App\Views;
 
+/**
+ * Interface for abstract methods of renderers
+ */
 interface ViewInterface
 {
     /**

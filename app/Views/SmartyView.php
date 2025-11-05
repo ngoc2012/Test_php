@@ -6,10 +6,17 @@ require_once __DIR__ . '/ViewInterface.php';
 
 use Smarty;
 
+/**
+ * Renderer class using Smarty
+ */
 class SmartyView implements ViewInterface
 {
+    /* @var Smarty instance */
     protected $smarty;
 
+    /**
+     * Constructor and Smarty configuration
+     */
     public function __construct()
     {
         $this->smarty = new Smarty();

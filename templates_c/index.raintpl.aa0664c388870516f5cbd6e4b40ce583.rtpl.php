@@ -20,14 +20,16 @@
 
                 <div class="d-flex gap-2 ms-auto">
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="<?php echo $value1["name"];?>">
+                        <input type="hidden" name="name" value="<?php echo $value1["name"];?>">
                         <input type="hidden" name="api" value="OpenWeatherApi">
+                        <input type="hidden" name="id" value="<?php echo $value1["id"];?>">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="<?php echo $value1["name"];?>">
+                        <input type="hidden" name="name" value="<?php echo $value1["name"];?>">
                         <input type="hidden" name="api" value="FreeWeatherApi">
+                        <input type="hidden" name="id" value="<?php echo $value1["id"];?>">
                         <button type="submit" class="btn btn-outline-info btn-sm">Free Weather</button>
                     </form>
                 </div>

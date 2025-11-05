@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-04 14:34:57
+/* Smarty version 3.1.48, created on 2025-11-05 12:58:38
   from '/home/minh/Test/templates/error.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_690a0101a9e941_92313238',
+  'unifunc' => 'content_690b3bee8aee40_71408560',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '886a71df96242c3d8382ee8578b44077208e78a9' => 
     array (
       0 => '/home/minh/Test/templates/error.tpl',
-      1 => 1762254212,
+      1 => 1762341117,
       2 => 'file',
     ),
   ),
@@ -20,21 +20,29 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_690a0101a9e941_92313238 (Smarty_Internal_Template $_smarty_tpl) {
+function content_690b3bee8aee40_71408560 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Error</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="error-box">
-        <h1>Oops! Something went wrong.</h1>
-        <p><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['error_message']->value, ENT_QUOTES, 'UTF-8', true);?>
+<body class="bg-dark text-light d-flex align-items-center" style="height:100vh;">
+
+<div class="container text-center">
+    <div class="card bg-transparent text-light shadow-sm p-5 mx-auto border-2" style="max-width: 500px;">
+        <h1 class="text-danger mb-3">⚠️ Error</h1>
+        <p class="lead"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['errorMessage']->value, ENT_QUOTES, 'UTF-8', true);?>
 </p>
-        <a href="index.php">Return to Home</a>
+        <a href="index.php" class="btn btn-outline-light mt-3">Return to Home</a>
     </div>
+</div>
+
+<?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
+>
 </body>
 </html>
 <?php }

@@ -108,6 +108,17 @@ INSERT INTO cities (city_name, country, lat, lon) VALUES
 ('Panama City', 'Panama', 8.982379, -79.519870),
 ('San José', 'Costa Rica', 9.928069, -84.090725);
 
+CREATE TABLE IF NOT EXISTS history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cityId INT NOT NULL,
+    api VARCHAR(100) NOT NULL,
+    temperature FLOAT,
+    humidity FLOAT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cityId) REFERENCES cities(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 1️⃣ Add new column city_id (nullable for now)
 ALTER TABLE history ADD COLUMN city_id INT NULL AFTER id;

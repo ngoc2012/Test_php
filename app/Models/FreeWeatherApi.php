@@ -5,21 +5,19 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/WeatherApi.php';
 
 use App\Models\WeatherApi;
+use AppConfig;
 
-class FreeWeatherApi extends WeatherApi
-{
+class FreeWeatherApi extends WeatherApi {
 
     /**
      * Constructor allows overriding the API key and base URL.
-     * Useful for tests or different environments.
-     *
+     * 
      * @param string|null $apiKey
      * @param string|null $baseUrl
      */
-    public function __construct($apiKey = null, $baseUrl = null)
-    {
-        $this->apiKey  = $apiKey ?: FREEWEATHER_API_KEY;
-        $this->baseUrl = $baseUrl ?: FREEWEATHER_BASE_URL;
+    public function __construct($apiKey = null, $baseUrl = null) {
+        $this->apiKey  = $apiKey ?: AppConfig::FREEWEATHER_API_KEY;
+        $this->baseUrl = $baseUrl ?: AppConfig::FREEWEATHER_BASE_URL;
     }
 
     /**
@@ -28,26 +26,23 @@ class FreeWeatherApi extends WeatherApi
      * @param string $cityNameEscaped The URL-encoded city name.
      * @return string The complete API URL.
      */
-    private function getUrl($cityNameEscaped)
-    {
+    private function getUrl($cityNameEscaped) {
         return $this->baseUrl . "?key={$this->apiKey}&q={$cityNameEscaped}&aqi=no";
     }
 
     /**
      * Get weather data for a specified city.
-     * @param string $city
+     * @param string $cityName
      * @throws \Exception
      * @return array{humidity: float, temperature: float}
      */
-    public function fetchWeather($city)
-    {
-        $cityNameEscaped = $this->encodeCityName($city);
+    public function fetchWeather($cityName) {
+        $cityNameEscaped = $this->encodeCityName($cityName);
         $url = $this->getUrl($cityNameEscaped);
-        error_log("Fetching weather data from URL: " . $url);
         $response = file_get_contents($url);
 
         if (!$response) {
-            throw new \Exception("Failed to fetch weather data.");
+            throw new \Exception("Failed to fetch weather data from FreeWeather API.");
         }
         $data = json_decode($response, true);
         return [

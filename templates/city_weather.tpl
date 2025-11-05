@@ -32,7 +32,7 @@
                 <tbody>
                 {foreach from=$history item=record}
                     <tr>
-                        <td class="text-info">{$record.date} {$record.time}</td>
+                        <td class="text-info">{$record.created_at}</td>
                         <td>{$record.api|escape}</td>
                         <td>🌡️ {$record.temperature} °C</td>
                         <td>💧 {$record.humidity}%</td>

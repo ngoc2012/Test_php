@@ -3,42 +3,70 @@ namespace App\Core;
 
 require_once __DIR__ . '/../../config/config.php';
 
+use App\Controllers\ErrorController;
+use AppConfig;
 use PDO;
 use PDOException;
-use Exception;
 
 class Database {
+    /* @var string host name localhost ...*/
     private $host;
+    /* @var string database name */
     private $db;
+    /* @var string database user */
     private $user;
+    /* @var string database password */
     private $pass;
+    /* @var string database charset */
     private $charset;
+    /* @var PDO instance */
     private $pdo = null;
+    /* @var string Data Source Name */
     private $dsn;
+    /** @var array PDO options
+     * - ERRMODE_EXCEPTION => throw exceptions on errors
+     * - FETCH_ASSOC => results are associative arrays by default
+     */
     private $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ];
 
-    /** Singleton instance */
+    /** @var Database singleton instance */
     private static $instance = null;
 
+    /**
+     * Constructor
+     * @param string $host
+     * @param string $db
+     * @param string $user
+     * @param string $pass
+     * @param string $charset
+     */
     public function __construct($host = null, $db = null, $user = null, $pass = null, $charset = null) {
-        $this->host = $host ?: DB_HOST;
-        $this->db = $db ?: DB_NAME;
-        $this->user = $user ?: DB_USER;
-        $this->pass = $pass ?: DB_PASS;
+        $this->host = $host ?: AppConfig::DB_HOST;
+        $this->db = $db ?: AppConfig::DB_NAME;
+        $this->user = $user ?: AppConfig::DB_USER;
+        $this->pass = $pass ?: AppConfig::DB_PASS;
         $this->charset = $charset ?: 'utf8mb4';
         $this->dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
     }
 
-    /** Prevent cloning */
+    /**
+     * Prevent cloning
+     */
     private function __clone() {}
 
-    /** Prevent unserialization */
+    /**
+     * Prevent unserialization
+     */
     private function __wakeup() {}
 
-    /** Get the singleton instance */
+    /**
+     * Get the singleton instance of the Database class.
+     *
+     * @return Database The singleton instance.
+     */
     public static function getInstance() {
         if (self::$instance === null) {
             self::$instance = new Database();
@@ -50,23 +78,31 @@ class Database {
      * Connect to the database and return the PDO instance.
      *
      * @return PDO The PDO instance.
-     * @throws Exception If the connection fails.
      */
     public function connect() {
         if ($this->pdo === null) {
             try {
                 $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
             } catch (PDOException $e) {
-                throw new Exception("Database connection failed: " . $e->getMessage());
+                (new ErrorController('smarty'))->error($e->getMessage());
+                exit;
             }
         }
         return $this->pdo;
     }
 
+    /**
+     * Close the database connection.
+     *
+     * @return void
+     */
     private function closeConnection() {
         $this->pdo = null;
     }
 
+    /**
+     * Destructor to ensure the database connection is closed.
+     */
     public function __destruct() {
         $this->closeConnection();
     }

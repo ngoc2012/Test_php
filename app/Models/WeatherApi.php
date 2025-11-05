@@ -1,10 +1,16 @@
 <?php
 namespace App\Models;
 
+/**
+ * Interface for weather API implementations to abstract common method.
+ */
 interface WeatherApiInterface {
     public function fetchWeather($cityName);
 }
 
+/**
+ * Base class for all WeatherApi type
+ */
 abstract class WeatherApi implements WeatherApiInterface {
     protected $apiKey;
     protected $baseUrl;
@@ -20,4 +26,4 @@ abstract class WeatherApi implements WeatherApiInterface {
         return urlencode($cityName);
     }
 }
-?>
+

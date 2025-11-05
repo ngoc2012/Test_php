@@ -4,12 +4,18 @@ namespace App\Views;
 require_once __DIR__ . '/../../libs/rain.tpl.class.php';
 require_once __DIR__ . '/ViewInterface.php';
 
-class RainView implements ViewInterface
-{
+/**
+ * Renderer class using RainTPL
+ */
+class RainView implements ViewInterface {
+
+    /* @var \RainTPL instance */
     protected $tpl;
 
-    public function __construct()
-    {
+    /**
+     * Constructor and RainTPL configuration
+     */
+    public function __construct() {
         $baseDir = realpath(__DIR__ . '/../..');
 
         \RainTPL::configure("base_url", '/');
@@ -27,8 +33,7 @@ class RainView implements ViewInterface
      * @param array $data Associative array to assign
      * @return void
      */
-    public function render($template, array $data = [])
-    {
+    public function render($template, array $data = []) {
         $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
         foreach ($data as $key => $value) {
             $this->tpl->assign($key, $value);
