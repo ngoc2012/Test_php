@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('raintpl')){exit;}?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,25 +13,27 @@
 
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">
         <ul class="list-group list-group-flush">
-        {foreach from=$cities item=city}
+        <?php $counter1=-1; if( !is_null($cities) && is_array($cities) && sizeof($cities) ) foreach( $cities as $key1 => $value1 ){ $counter1++; ?>
+
             <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold">{$city.name}</span>
+                <span class="fw-semibold"><?php echo $value1["name"];?></span>
 
                 <div class="d-flex gap-2 ms-auto">
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="{$city.name}">
+                        <input type="hidden" name="cityName" value="<?php echo $value1["name"];?>">
                         <input type="hidden" name="api" value="OpenWeatherApi">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
                     <form method="post" action="city_weather.php" class="m-0">
-                        <input type="hidden" name="cityName" value="{$city.name}">
+                        <input type="hidden" name="cityName" value="<?php echo $value1["name"];?>">
                         <input type="hidden" name="api" value="FreeWeatherApi">
                         <button type="submit" class="btn btn-outline-info btn-sm">Free Weather</button>
                     </form>
                 </div>
             </li>
-        {/foreach}
+        <?php } ?>
+
         </ul>
     </div>
 
