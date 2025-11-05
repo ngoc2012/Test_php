@@ -5,16 +5,10 @@ require_once __DIR__ . '/../Controllers/ViewController.php';
 
 use App\Controllers\ViewController;
 
+/**
+ * Controller for handling errors pages
+ */
 class ErrorController extends ViewController {
-    
-    /**
-     * ErrorController constructor.
-     * @param string $viewType smarty|raintpl
-     * @return void
-     */
-    public function __construct($viewType = 'smarty') {
-        parent::__construct($viewType);
-    }
 
     /**
      * Display an error message.

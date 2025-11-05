@@ -7,6 +7,9 @@ require_once __DIR__ . '/WeatherApi.php';
 use App\Models\WeatherApi;
 use AppConfig;
 
+/**
+ * FreeWeatherApi class to interact with the FreeWeather API
+ */
 class FreeWeatherApi extends WeatherApi {
 
     /**
@@ -18,16 +21,6 @@ class FreeWeatherApi extends WeatherApi {
     public function __construct($apiKey = null, $baseUrl = null) {
         $this->apiKey  = $apiKey ?: AppConfig::FREEWEATHER_API_KEY;
         $this->baseUrl = $baseUrl ?: AppConfig::FREEWEATHER_BASE_URL;
-    }
-
-    /**
-     * Construct the full API URL for fetching weather data.
-     *
-     * @param string $cityNameEscaped The URL-encoded city name.
-     * @return string The complete API URL.
-     */
-    private function getUrl($cityNameEscaped) {
-        return $this->baseUrl . "?key={$this->apiKey}&q={$cityNameEscaped}&aqi=no";
     }
 
     /**
@@ -50,5 +43,14 @@ class FreeWeatherApi extends WeatherApi {
             'humidity' => $data['current']['humidity'],
         ];
     }
+
+    /**
+     * Construct the full API URL for fetching weather data.
+     *
+     * @param string $cityNameEscaped The URL-encoded city name.
+     * @return string The complete API URL.
+     */
+    private function getUrl($cityNameEscaped) {
+        return $this->baseUrl . "?key={$this->apiKey}&q={$cityNameEscaped}&aqi=no";
+    }
 }
-?>

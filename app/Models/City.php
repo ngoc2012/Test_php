@@ -11,6 +11,9 @@ use App\Controllers\ErrorController;
 use App\Core\Database;
 use PDOException;
 
+/**
+ * City model class
+ */
 class City {
 
     /* @var int city id */
@@ -77,6 +80,12 @@ class City {
     // === DATA ACCESS METHODS ===
     // ===========================
 
+    /**
+     * Retrieve all cities from the database.
+     * 
+     * @throws \Exception
+     * @return array{id:int, name:string, country:string, latitude:float, longitude:float} List of City objects
+     */
     public static function findAll() {
         try {
             $db = Database::getInstance()->connect();

@@ -7,16 +7,10 @@ require_once __DIR__ . '/../Models/City.php';
 use App\Controllers\ViewController;
 use \App\Models\City;
 
+/**
+ * Controller for the main page: Listing all the cities
+ */
 class CityListController extends ViewController {
-
-    /**
-     * CityListController constructor.
-     * @param string $viewType smarty|raintpl
-     * @return void
-     */
-    public function __construct($viewType = 'smarty') {
-        parent::__construct($viewType);
-    }
 
     /**
      * Display the list of cities.

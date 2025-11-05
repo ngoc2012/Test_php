@@ -12,7 +12,7 @@ use Smarty;
 class SmartyView implements ViewInterface
 {
     /* @var Smarty instance */
-    protected $smarty;
+    private $smarty;
 
     /**
      * Constructor and Smarty configuration

@@ -10,7 +10,7 @@ require_once __DIR__ . '/ViewInterface.php';
 class RainView implements ViewInterface {
 
     /* @var \RainTPL instance */
-    protected $tpl;
+    private $tpl;
 
     /**
      * Constructor and RainTPL configuration

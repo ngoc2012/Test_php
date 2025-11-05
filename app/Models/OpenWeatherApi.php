@@ -7,6 +7,9 @@ require_once __DIR__ . '/WeatherApi.php';
 use App\Models\WeatherApi;
 use AppConfig;
 
+/**
+ * OpenWeatherApi class to interact with the OpenWeather API
+ */
 class OpenWeatherApi extends WeatherApi {
 
     /**
@@ -18,15 +21,6 @@ class OpenWeatherApi extends WeatherApi {
     public function __construct($apiKey = null, $baseUrl = null) {
         $this->apiKey  = $apiKey ?: AppConfig::OPENWEATHER_API_KEY;
         $this->baseUrl = $baseUrl ?: AppConfig::OPENWEATHER_BASE_URL;
-    }
-
-    /**
-     * Get the API request URL for a specific city.
-     * @param string $cityNameEscaped
-     * @return string
-     */
-    private function getUrl($cityNameEscaped) {
-        return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";
     }
 
     /**
@@ -49,5 +43,13 @@ class OpenWeatherApi extends WeatherApi {
             'humidity' => $data['main']['humidity'],
         ];
     }
+
+    /**
+     * Get the API request URL for a specific city.
+     * @param string $cityNameEscaped
+     * @return string
+     */
+    private function getUrl($cityNameEscaped) {
+        return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";
+    }
 }
-?>

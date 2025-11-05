@@ -8,6 +8,9 @@ use AppConfig;
 use PDO;
 use PDOException;
 
+/**
+ * Database class (singleton instance) to connect to the database
+ */
 class Database {
     /* @var string host name localhost ...*/
     private $host;
@@ -53,14 +56,11 @@ class Database {
     }
 
     /**
-     * Prevent cloning
+     * Destructor to ensure the database connection is closed.
      */
-    private function __clone() {}
-
-    /**
-     * Prevent unserialization
-     */
-    private function __wakeup() {}
+    public function __destruct() {
+        $this->closeConnection();
+    }
 
     /**
      * Get the singleton instance of the Database class.
@@ -92,6 +92,16 @@ class Database {
     }
 
     /**
+     * Prevent cloning
+     */
+    private function __clone() {}
+
+    /**
+     * Prevent unserialization
+     */
+    private function __wakeup() {}
+
+    /**
      * Close the database connection.
      *
      * @return void
@@ -100,11 +110,6 @@ class Database {
         $this->pdo = null;
     }
 
-    /**
-     * Destructor to ensure the database connection is closed.
-     */
-    public function __destruct() {
-        $this->closeConnection();
-    }
+    
 }
 ?>

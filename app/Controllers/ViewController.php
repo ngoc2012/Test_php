@@ -5,10 +5,13 @@ require_once __DIR__ . '/../Views/ViewFactory.php';
 
 use App\Views\ViewFactory;
 
+/**
+ * Base controller class to handle view rendering
+ */
 class ViewController {
 
     /* @var \App\Views\ViewInterface renderer instance */
-    protected $view;
+    private $view;
 
     /**
      * Constructor:

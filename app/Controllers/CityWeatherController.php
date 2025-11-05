@@ -6,19 +6,13 @@ require_once __DIR__ . '/../Models/History.php';
 require_once __DIR__ . '/../Models/City.php';
 
 use App\Controllers\ViewController;
-use App\Controllers\ErrorController;
 use App\Models\City;
 use App\Models\History;
 
+/**
+ * Controller for the city weather page
+ */
 class CityWeatherController extends ViewController {
-    /**
-     * CityWeatherController constructor.
-     * @param string $viewType smarty|raintpl
-     * @return void
-     */
-    public function __construct($viewType = 'smarty') {
-        parent::__construct($viewType);
-    }
 
     /**
      * Main method to handle the city weather request.

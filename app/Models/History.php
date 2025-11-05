@@ -11,6 +11,9 @@ use App\Controllers\ErrorController;
 use App\Core\Database;
 use PDOException;
 
+/**
+ * History model class with history records of weather data
+ */
 class History {
     /* @var int history id */
     private $id;

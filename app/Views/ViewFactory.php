@@ -9,6 +9,12 @@ require_once __DIR__ . '/RainView.php';
  */
 class ViewFactory
 {
+    /**
+     * Create a view renderer based on the specified type.
+     *
+     * @param string $type The type of renderer ('smarty' or 'raintpl')
+     * @return ViewInterface The corresponding view renderer instance
+     */
     public static function create($type = 'smarty')
     {
         switch (strtolower($type)) {
