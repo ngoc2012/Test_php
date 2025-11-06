@@ -5,16 +5,9 @@ use App\Views\ViewFactory;
 use App\Views\ViewInterface;
 
 /**
- * Interface for all view controllers.
- */
-interface ViewControllerInterface {
-    public function index();
-}
-
-/**
  * Base controller class to handle view rendering
  */
-abstract class ViewController implements ViewControllerInterface {
+abstract class ViewController {
 
     /* @var ViewInterface renderer instance */
     private $view;
@@ -26,6 +19,11 @@ abstract class ViewController implements ViewControllerInterface {
     public function getView() {
         return $this->view;
     }
+
+    /**
+     * Abstract index method to be implemented by subclasses
+     */
+    abstract public function index();
 
     /**
      * Constructor:

@@ -119,28 +119,3 @@ CREATE TABLE IF NOT EXISTS history (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- 1️⃣ Add new column city_id (nullable for now)
-ALTER TABLE history ADD COLUMN city_id INT NULL AFTER id;
-
--- 2️⃣ Update city_id based on city name
--- (Assuming city names in both tables match exactly)
-UPDATE history h
-JOIN cities c ON h.cityName = c.name
-SET h.city_id = c.id;
-
--- 3️⃣ Check if all records got matched (optional)
-SELECT COUNT(*) AS unmatched
-FROM history
-WHERE city_id IS NULL;
-
--- 4️⃣ If all are matched, make city_id NOT NULL and add foreign key
-ALTER TABLE history
-MODIFY city_id INT NOT NULL,
-ADD CONSTRAINT fk_history_city
-    FOREIGN KEY (city_id) REFERENCES cities(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE;
-
--- 5️⃣ Remove old cityName column
-ALTER TABLE history DROP COLUMN cityName;
