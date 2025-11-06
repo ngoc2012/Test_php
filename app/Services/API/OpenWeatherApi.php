@@ -46,8 +46,8 @@ class OpenWeatherApi extends AbstractWeatherApi {
         $new_history = new History(
             $city->getId(),
             "OpenWeatherApi",
-            $data['main']['temp'],
-            $data['main']['humidity'],
+            $temperature,
+            $humidity,
             date('Y-m-d H:i:s')
 
         );

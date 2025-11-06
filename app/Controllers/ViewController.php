@@ -13,7 +13,7 @@ interface ViewControllerInterface {
 /**
  * Base controller class to handle view rendering
  */
-abstract class ViewController {
+abstract class ViewController implements ViewControllerInterface {
 
     /* @var App\Views\ViewInterface renderer instance */
     private $view;

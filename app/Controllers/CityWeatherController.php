@@ -11,7 +11,7 @@ use App\Models\City;
 class CityWeatherController extends ViewController {
 
     /**
-     * Main method to handle the city weather request.
+     * Get the weather data for a specific city and display it.
      * @param City|null $city
      * @param string|null $api
      * @return void

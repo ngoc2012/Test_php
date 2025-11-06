@@ -19,7 +19,19 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
         return urlencode($cityName);
     }
 
+    /**
+     * Validate the API response data.
+     * @param float $temperature
+     * @param float $humidity
+     * @throws \Exception
+     */
     protected function dataCheck($temperature, $humidity) {
+        if (!is_numeric($temperature)) {
+            throw new \Exception("Temperature value is not numeric.");
+        }
+        if (!is_numeric($humidity)) {
+            throw new \Exception("Humidity value is not numeric.");
+        }
         if ($temperature < 0) {
             throw new \Exception("Temperature value is invalid.");
         }

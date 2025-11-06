@@ -90,16 +90,6 @@ class Database {
     }
 
     /**
-     * Prevent cloning
-     */
-    private function __clone() {}
-
-    /**
-     * Prevent unserialization
-     */
-    private function __wakeup() {}
-
-    /**
      * Close the database connection.
      *
      * @return void
