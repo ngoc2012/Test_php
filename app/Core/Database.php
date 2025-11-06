@@ -10,6 +10,11 @@ use PDOException;
  * Database class (singleton instance) to connect to the database
  */
 class Database {
+
+    // =================
+    // === Variables ===
+    // =================
+
     /* @var string host name localhost ...*/
     private $host;
     /* @var string database name */
@@ -35,6 +40,11 @@ class Database {
 
     /** @var Database singleton instance */
     private static $instance = null;
+
+    
+    // =========================
+    // === Public Methods ======
+    // =========================
 
     /**
      * Constructor
@@ -79,13 +89,9 @@ class Database {
      */
     public function connect() {
         if ($this->pdo === null) {
-            try {
-                $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
-            } catch (PDOException $e) {
-                (new ErrorController('smarty'))->index($e->getMessage());
-                exit;
-            }
+            $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
         }
+        PDOException
         return $this->pdo;
     }
 

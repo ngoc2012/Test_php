@@ -8,6 +8,11 @@ use App\Controllers\AbstractViewController;
  */
 class ErrorController extends AbstractViewController {
 
+
+    // =========================
+    // === Public Methods ======
+    // =========================
+    
     /**
      * Display an error message.
      * @param string $message

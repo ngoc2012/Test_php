@@ -9,11 +9,22 @@ use App\Models\City;
  */
 class CityListController extends AbstractViewController {
 
+    
+    // =========================
+    // === Public Methods ======
+    // =========================
+    
     /**
      * Display the list of cities.
      * @return void
      */
     public function init() {
-        $this->getView()->render('index.tpl', ['cities' => City::findAll()]);
+        try {
+            $cities = City::findAll();
+        } catch (\DBException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        }
+        $this->getView()->render('index.tpl', ['cities' => $cities]);
     }
 }

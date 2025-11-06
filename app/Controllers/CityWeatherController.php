@@ -10,11 +10,21 @@ use App\Models\City;
  */
 class CityWeatherController extends AbstractViewController {
 
+
+    // =================
+    // === Variables ===
+    // =================
+
     /* @var City */
     private $city;
     /* @var string */
     private $apiName;
 
+
+    // =========================
+    // === Public Methods ======
+    // =========================
+    
     /**
      * Constructor for the CityWeatherController.
      * @param string $viewType

@@ -73,17 +73,17 @@ class City {
     public static function findAll() {
         try {
             $database = Database::getInstance()->connect();
-            $PDOStatement = $database->query("SELECT * FROM cities");
-            $citiesData = $PDOStatement->fetchAll();
-            $cities = [];
-            foreach ($citiesData as $key => $cityData) {
-                $cities[] = City::transformDataToCity($cityData);
-            }
-            return $cities;
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->index($e->getMessage());
-            exit;
+            throw new DBException("Database connection error: " . $e->getMessage());
         }
+        
+        $PDOStatement = $database->query("SELECT * FROM cities");
+        $citiesData = $PDOStatement->fetchAll();
+        $cities = [];
+        foreach ($citiesData as $key => $cityData) {
+            $cities[] = City::transformDataToCity($cityData);
+        }
+        return $cities;
     }
 
     public static function transformDataToCity($data) {

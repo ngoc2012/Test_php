@@ -7,6 +7,11 @@ use App\Controllers\CityListController;
 
 class MainController {
     
+
+    // =========================
+    // === Public Methods ======
+    // =========================
+    
     /**
      * Main entry point of the application.
      */
@@ -39,8 +44,13 @@ class MainController {
                 (new ErrorController())->init('Invalid City ID.');
                 exit;
             }
-            $city = City::transformDataToCity($_POST);
 
+
+            // ===============================
+            // === Send data to controller ===
+            // ===============================
+
+            $city = City::transformDataToCity($_POST);
             $controller = new CityWeatherController('smarty', $city, trim($_POST['api']));
             $controller->init();
         } else {
