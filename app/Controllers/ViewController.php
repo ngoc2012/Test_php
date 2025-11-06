@@ -21,9 +21,9 @@ abstract class ViewController {
     }
 
     /**
-     * Abstract index method to be implemented by subclasses
+     * Abstract init method to be implemented by subclasses
      */
-    abstract public function index();
+    abstract public function init();
 
     /**
      * Constructor:

@@ -4,48 +4,36 @@ namespace App\Controllers;
 use App\Controllers\ViewController;
 use App\Services\WeatherService;
 use App\Models\City;
-use App\Models\History;
 
 /**
  * Controller for the city weather page
  */
 class CityWeatherController extends ViewController {
 
+    /* @var City */
+    private $city;
+    /* @var string */
+    private $apiName;
+
+    /**
+     * Constructor for the CityWeatherController.
+     * @param string $viewType
+     * @param City $city
+     * @param string $apiName
+     */
+    public function __construct($viewType, City $city, $apiName) {
+        parent::__construct($viewType);
+        $this->city = $city;
+        $this->apiName = $apiName;
+    }
+
     /**
      * Get the weather data for a specific city and display it.
      * 
      * @return void
      */
-    public function index() {
-
-
-        // ================================
-        // === Validate POST parameters ===
-        // ================================
-
-        if (!isset($_POST['id'])) {
-            (new ErrorController())->index('Missing city ID.');
-            exit;
-        }
-
-        if (!isset($_POST['name'])) {
-            (new ErrorController())->index('Missing city data.');
-            exit;
-        }
-
-        if (!isset($_POST['api'])) {
-            (new ErrorController())->index('Missing API data.');
-            exit;
-        }
-
-        // Convert ID to integer
-        $_POST['id'] = (int) $_POST['id'];
-        if ($_POST['id'] <= 0) {
-            (new ErrorController())->index('Invalid City ID.');
-            exit;
-        }
-        $city = City::transformDataToCity($_POST);
-        WeatherService::getData($city, trim($_POST['api']));
-        $this->getView()->render('city_weather.tpl', ['city' => $city, 'lastHistory' => $city->getLastHistory()]);
+    public function init() {
+        WeatherService::getData($this->city, $this->apiName);
+        $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'lastHistory' => $this->city->getLastHistory()]);
     }
 }

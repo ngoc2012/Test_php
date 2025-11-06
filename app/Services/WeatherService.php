@@ -33,7 +33,7 @@ class WeatherService {
             list($temperature, $humidity) = $api->fetchWeather($city);
             self::dataCheck($temperature, $humidity);
         } catch (Exception $e) {
-            (new ErrorController('smarty'))->index($e->getMessage());
+            (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
         $history = new History(

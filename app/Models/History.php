@@ -85,7 +85,7 @@ class History {
             }
             return $history;
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->index($e->getMessage());
+            (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
     }
@@ -104,10 +104,10 @@ class History {
             if ($historyData) {
                 return History::transformDataToHistory($historyData);
             }
-            (new ErrorController('smarty'))->index("No history found");
+            (new ErrorController('smarty'))->init("No history found");
             exit;
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->index($e->getMessage());
+            (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
     }
@@ -130,7 +130,7 @@ class History {
                 ':humidity'    => $weatherData->getHumidity()
             ]);
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->index($e->getMessage());
+            (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
     }

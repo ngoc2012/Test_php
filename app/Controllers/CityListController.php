@@ -13,7 +13,7 @@ class CityListController extends ViewController {
      * Display the list of cities.
      * @return void
      */
-    public function index() {
+    public function init() {
         $this->getView()->render('index.tpl', ['cities' => City::findAll()]);
     }
 }
