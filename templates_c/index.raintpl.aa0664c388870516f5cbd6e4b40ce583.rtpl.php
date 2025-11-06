@@ -19,14 +19,14 @@
                 <span class="fw-semibold"><?php echo $value1->getName();?></span>
 
                 <div class="d-flex gap-2 ms-auto">
-                    <form method="post" action="city_weather.php" class="m-0">
+                    <form method="post" action="index.php" class="m-0">
                         <input type="hidden" name="name" value="<?php echo $value1->getName();?>">
                         <input type="hidden" name="api" value="OpenWeatherApi">
                         <input type="hidden" name="id" value="<?php echo $value1->getId();?>">
                         <button type="submit" class="btn btn-outline-info btn-sm">Open Weather</button>
                     </form>
 
-                    <form method="post" action="city_weather.php" class="m-0">
+                    <form method="post" action="index.php" class="m-0">
                         <input type="hidden" name="name" value="<?php echo $value1->getName();?>">
                         <input type="hidden" name="api" value="FreeWeatherApi">
                         <input type="hidden" name="id" value="<?php echo $value1->getId();?>">

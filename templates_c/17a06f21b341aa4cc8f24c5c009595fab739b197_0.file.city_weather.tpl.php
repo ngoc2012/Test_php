@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-06 10:11:41
+/* Smarty version 3.1.48, created on 2025-11-06 12:40:01
   from '/home/minh/Test/templates/city_weather.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_690c664dc4eca1_57857226',
+  'unifunc' => 'content_690c89118f2762_42273259',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '17a06f21b341aa4cc8f24c5c009595fab739b197' => 
     array (
       0 => '/home/minh/Test/templates/city_weather.tpl',
-      1 => 1762420298,
+      1 => 1762429193,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_690c664dc4eca1_57857226 (Smarty_Internal_Template $_smarty_tpl) {
+function content_690c89118f2762_42273259 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +36,11 @@ function content_690c664dc4eca1_57857226 (Smarty_Internal_Template $_smarty_tpl)
     <div class="card bg-transparent text-light shadow-sm p-4 mb-4 border-2">
         <h1 class="text-center mb-4">🌤️ Weather for <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value->getName(), ENT_QUOTES, 'UTF-8', true);?>
 </h1>
-        <p class="fs-5"><strong>API:</strong> <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['city']->value->getLastHistory()->getApi(), ENT_QUOTES, 'UTF-8', true);?>
+        <p class="fs-5"><strong>API:</strong> <?php echo htmlspecialchars($_smarty_tpl->tpl_vars['lastHistory']->value->getApi(), ENT_QUOTES, 'UTF-8', true);?>
 </p>
-        <p class="fs-5"><strong>Temperature:</strong> <?php echo $_smarty_tpl->tpl_vars['city']->value->getLastHistory()->getTemperature();?>
+        <p class="fs-5"><strong>Temperature:</strong> <?php echo $_smarty_tpl->tpl_vars['lastHistory']->value->getTemperature();?>
  °C</p>
-        <p class="fs-5"><strong>Humidity:</strong> <?php echo $_smarty_tpl->tpl_vars['city']->value->getLastHistory()->getHumidity();?>
+        <p class="fs-5"><strong>Humidity:</strong> <?php echo $_smarty_tpl->tpl_vars['lastHistory']->value->getHumidity();?>
 %</p>
     </div>
 
