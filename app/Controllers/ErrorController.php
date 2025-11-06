@@ -1,12 +1,12 @@
 <?php
 namespace App\Controllers;
 
-use App\Controllers\ViewController;
+use App\Controllers\AbstractViewController;
 
 /**
  * Controller for handling errors pages
  */
-class ErrorController extends ViewController {
+class ErrorController extends AbstractViewController {
 
     /**
      * Display an error message.

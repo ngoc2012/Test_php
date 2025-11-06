@@ -1,14 +1,14 @@
 <?php
 namespace App\Controllers;
 
-use App\Controllers\ViewController;
+use App\Controllers\AbstractViewController;
 use App\Services\WeatherService;
 use App\Models\City;
 
 /**
  * Controller for the city weather page
  */
-class CityWeatherController extends ViewController {
+class CityWeatherController extends AbstractViewController {
 
     /* @var City */
     private $city;

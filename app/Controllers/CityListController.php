@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers;
 
-use App\Controllers\ViewController;
+use App\Controllers\AbstractViewController;
 use App\Models\City;
 
 /**
  * Controller for the main page: Listing all the cities
  */
-class CityListController extends ViewController {
+class CityListController extends AbstractViewController {
 
     /**
      * Display the list of cities.

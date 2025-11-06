@@ -7,7 +7,7 @@ use App\Views\ViewInterface;
 /**
  * Base controller class to handle view rendering
  */
-abstract class ViewController {
+abstract class AbstractViewController {
 
     /* @var ViewInterface renderer instance */
     private $view;
