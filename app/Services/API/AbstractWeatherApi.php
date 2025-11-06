@@ -22,27 +22,6 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
     }
 
     /**
-     * Validate the API response data.
-     * @param float $temperature
-     * @param float $humidity
-     * @throws Exception
-     */
-    protected function dataCheck($temperature, $humidity) {
-        if (!is_numeric($temperature)) {
-            throw new Exception("Temperature value is not numeric.");
-        }
-        if (!is_numeric($humidity)) {
-            throw new Exception("Humidity value is not numeric.");
-        }
-        if ($temperature < 0) {
-            throw new Exception("Temperature value is invalid.");
-        }
-        if ($humidity < 0 || $humidity > 100) {
-            throw new Exception("Humidity value is invalid.");
-        }
-    }
-
-    /**
      * Fetch weather data for a given city.
      *
      * @param City $city The City object.

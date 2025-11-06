@@ -81,13 +81,7 @@ class History {
             $historyData = $PDOStatement->fetchAll();
             $history = [];
             foreach ($historyData as &$record) {
-                $history[] = new History(
-                    $record['cityId'],
-                    $record['api'],
-                    $record['temperature'],
-                    $record['humidity'],
-                    $record['created_at']
-                );
+                $history[] = History::transformDataToHistory($record);
             }
             return $history;
         } catch (PDOException $e) {
@@ -108,13 +102,7 @@ class History {
             $PDOStatement->execute([':cityId' => $id]);
             $historyData = $PDOStatement->fetch();
             if ($historyData) {
-                return new History(
-                    $historyData['cityId'],
-                    $historyData['api'],
-                    $historyData['temperature'],
-                    $historyData['humidity'],
-                    $historyData['created_at']
-                );
+                return History::transformDataToHistory($historyData);
             }
             (new ErrorController('smarty'))->index("No history found");
             exit;
@@ -145,5 +133,20 @@ class History {
             (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
+    }
+
+    /**
+     * Transform data array to History object
+     * @param array $data
+     * @return History
+     */
+    public static function transformDataToHistory($data) {
+        return new History(
+            $data['cityId'],
+            $data['api'],
+            $data['temperature'],
+            $data['humidity'],
+            $data['created_at']
+        );
     }
 }

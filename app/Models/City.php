@@ -58,7 +58,6 @@ class City {
     /**
      * Retrieve the last history record for this city.
      * 
-     * @throws Exception
      * @return History|null
      */
     public function getLastHistory() {
@@ -69,7 +68,6 @@ class City {
     /**
      * Retrieve all cities from the database.
      * 
-     * @throws Exception
      * @return City[]
      */
     public static function findAll() {
@@ -79,15 +77,19 @@ class City {
             $citiesData = $PDOStatement->fetchAll();
             $cities = [];
             foreach ($citiesData as $key => $cityData) {
-                $cities[] = new City(
-                    $cityData['id'],
-                    $cityData['name']
-                );
+                $cities[] = City::transformDataToCity($cityData);
             }
             return $cities;
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
+    }
+
+    public static function transformDataToCity($data) {
+        return new City(
+            $data['id'],
+            $data['name']
+        );
     }
 }

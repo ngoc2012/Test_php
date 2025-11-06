@@ -5,7 +5,7 @@ use App\Models\City;
 use App\Models\History;
 use App\Services\API\AbstractWeatherApi;
 use Config\AppConfig;
-use Exception;
+use RuntimeException;
 
 /**
  * OpenWeatherApi class to interact with the OpenWeather API
@@ -27,8 +27,8 @@ class OpenWeatherApi extends AbstractWeatherApi {
     /**
      * Get weather data for a specified city.
      * @param City $city
-     * @return History
-     * @throws Exception
+     * @return [float, float]
+     * @throws RuntimeException
      */
     public function fetchWeather($city) {
         $cityNameEscaped = $this->encodeCityName($city->getName());
@@ -36,23 +36,12 @@ class OpenWeatherApi extends AbstractWeatherApi {
         $response = file_get_contents($url);
 
         if (!$response) {
-            throw new Exception("Failed to fetch weather data from OpenWeather API.");
+            throw new RuntimeException("Failed to fetch weather data from OpenWeather API.");
         }
         $data = json_decode($response, true);
         $temperature = $data['main']['temp'];
         $humidity = $data['main']['humidity'];
-        try {
-            $this->dataCheck($temperature, $humidity);
-        } catch (Exception $e) {
-            throw new Exception("Weather data validation failed: " . $e->getMessage());
-        }
-        return new History(
-            $city->getId(),
-            $this->apiName,
-            $temperature,
-            $humidity,
-            date('Y-m-d H:i:s')
-        );
+        return [$temperature, $humidity];
     }
 
     /**

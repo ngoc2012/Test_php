@@ -16,7 +16,7 @@ interface ViewControllerInterface {
  */
 abstract class ViewController implements ViewControllerInterface {
 
-    /* @var App\Views\ViewInterface renderer instance */
+    /* @var ViewInterface renderer instance */
     private $view;
 
     /**
