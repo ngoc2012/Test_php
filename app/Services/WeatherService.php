@@ -30,7 +30,7 @@ class WeatherService {
         try {
             $api->fetchWeather($city);
         } catch (Exception $e) {
-            (new ErrorController('smarty'))->error($e->getMessage());
+            (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
         

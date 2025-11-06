@@ -4,9 +4,16 @@ namespace App\Controllers;
 use App\Views\ViewFactory;
 
 /**
+ * Interface for all view controllers.
+ */
+interface ViewControllerInterface {
+    public function index();
+}
+
+/**
  * Base controller class to handle view rendering
  */
-class ViewController {
+abstract class ViewController {
 
     /* @var App\Views\ViewInterface renderer instance */
     private $view;

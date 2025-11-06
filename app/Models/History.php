@@ -91,13 +91,41 @@ class History {
             }
             return $history;
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->error($e->getMessage());
+            (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
     }
 
     /**
-     * Create a new history record on the database
+     * Find last the histories of a city by its id
+     * @param int $id
+     * @return History|null
+     */
+    public static function findLastById($id) {
+        try {
+            $database = Database::getInstance()->connect();
+            $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 1");
+            $PDOStatement->execute([':cityId' => $id]);
+            $historyData = $PDOStatement->fetch();
+            if ($historyData) {
+                return new History(
+                    $historyData['cityId'],
+                    $historyData['api'],
+                    $historyData['temperature'],
+                    $historyData['humidity'],
+                    $historyData['created_at']
+                );
+            }
+            (new ErrorController('smarty'))->index("No history found");
+            exit;
+        } catch (PDOException $e) {
+            (new ErrorController('smarty'))->index($e->getMessage());
+            exit;
+        }
+    }
+
+    /**
+     * Save the history record on the database
      * @param History $weatherData
      */
     public static function save($weatherData) {
@@ -114,7 +142,7 @@ class History {
                 ':humidity'    => $weatherData->getHumidity()
             ]);
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->error($e->getMessage());
+            (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
     }

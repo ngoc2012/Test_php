@@ -13,7 +13,7 @@ class ErrorController extends ViewController {
      * @param string $message
      * @return void
      */
-    public function error($message) {
+    public function index($message) {
         $this->render('error.tpl', ['errorMessage' => $message]);
     }
 }

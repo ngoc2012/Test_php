@@ -82,7 +82,7 @@ class Database {
             try {
                 $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
             } catch (PDOException $e) {
-                (new ErrorController('smarty'))->error($e->getMessage());
+                (new ErrorController('smarty'))->index($e->getMessage());
                 exit;
             }
         }

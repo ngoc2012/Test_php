@@ -10,24 +10,24 @@ use App\Models\City;
 // ================================
 
 if (!isset($_POST['id'])) {
-    (new ErrorController())->error('Missing city ID.');
+    (new ErrorController())->index('Missing city ID.');
     exit;
 }
 
 if (!isset($_POST['name'])) {
-    (new ErrorController())->error('Missing city data.');
+    (new ErrorController())->index('Missing city data.');
     exit;
 }
 
 if (!isset($_POST['api'])) {
-    (new ErrorController())->error('Missing API data.');
+    (new ErrorController())->index('Missing API data.');
     exit;
 }
 
 // Convert ID to integer
 $cityId = (int) $_POST['id'];
 if ($cityId <= 0) {
-    (new ErrorController())->error('Invalid City ID.');
+    (new ErrorController())->index('Invalid City ID.');
     exit;
 }
 $cityName = trim($_POST['name']);

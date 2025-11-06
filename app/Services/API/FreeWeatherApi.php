@@ -3,13 +3,13 @@ namespace App\Services\API;
 
 use App\Models\City;
 use App\Models\History;
-use App\Services\API\WeatherApi;
+use App\Services\API\AbstractWeatherApi;
 use Config\AppConfig;
 
 /**
  * FreeWeatherApi class to interact with the FreeWeather API
  */
-class FreeWeatherApi extends WeatherApi {
+class FreeWeatherApi extends AbstractWeatherApi {
 
     /**
      * Constructor allows overriding the API key and base URL.
@@ -36,14 +36,20 @@ class FreeWeatherApi extends WeatherApi {
             throw new \Exception("Failed to fetch weather data from FreeWeather API.");
         }
         $data = json_decode($response, true);
+        $temperature = $data['current']['temp_c'];
+        $humidity = $data['current']['humidity'];
+        try {
+            $this->dataCheck($temperature, $humidity);
+        } catch (\Exception $e) {
+            throw new \Exception("Invalid data received from FreeWeather API: " . $e->getMessage());
+        }
         $new_history = new History(
             $city->getId(),
             "FreeWeatherApi",
-            $data['current']['temp_c'],
-            $data['current']['humidity'],
-            ""
+            $temperature,
+            $humidity,
+            date('Y-m-d H:i:s')
         );
-        $city->setWeather($new_history);
         History::save($new_history);
     }
 

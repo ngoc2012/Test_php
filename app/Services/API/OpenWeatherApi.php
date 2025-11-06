@@ -3,13 +3,13 @@ namespace App\Services\API;
 
 use App\Models\City;
 use App\Models\History;
-use App\Services\API\WeatherApi;
+use App\Services\API\AbstractWeatherApi;
 use Config\AppConfig;
 
 /**
  * OpenWeatherApi class to interact with the OpenWeather API
  */
-class OpenWeatherApi extends WeatherApi {
+class OpenWeatherApi extends AbstractWeatherApi {
 
     /**
      * Constructor allows overriding the API key and base URL.
@@ -36,14 +36,21 @@ class OpenWeatherApi extends WeatherApi {
             throw new \Exception("Failed to fetch weather data from OpenWeather API.");
         }
         $data = json_decode($response, true);
+        $temperature = $data['main']['temp'];
+        $humidity = $data['main']['humidity'];
+        try {
+            $this->dataCheck($temperature, $humidity);
+        } catch (\Exception $e) {
+            throw new \Exception("Invalid data received from OpenWeather API: " . $e->getMessage());
+        }
         $new_history = new History(
             $city->getId(),
             "OpenWeatherApi",
             $data['main']['temp'],
             $data['main']['humidity'],
-            ""
+            date('Y-m-d H:i:s')
+
         );
-        $city->setWeather($new_history);
         History::save($new_history);
     }
 

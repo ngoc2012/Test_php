@@ -16,9 +16,6 @@ class City {
     /* @var string city name */
     private $name;
 
-    /* @var History weather data */
-    private $weather;
-    
     /**
      * Constructor
      * @param int $id
@@ -41,25 +38,32 @@ class City {
     public function getName() {
         return $this->name;
     }
-
-    public function getWeather() {
-        return $this->weather;
-    }
-
-    // ===============
-    // === SETTERS ===
-    // ===============
-
-    public function setWeather($weather) {
-        $this->weather = $weather;
-    }
-    public function getHistory() {
-        return History::findAllById($this->id);
-    }
+    
 
     // ===========================
     // === DATA ACCESS METHODS ===
     // ===========================
+
+    /**
+     * Retrieve all history records for this city.
+     * 
+     * @throws \Exception
+     * @return History[]
+     */
+    public function getHistory() {
+        return History::findAllById($this->id);
+    }
+
+    /**
+     * Retrieve the last history record for this city.
+     * 
+     * @throws \Exception
+     * @return History|null
+     */
+    public function getLastHistory() {
+        return History::findLastById($this->id);
+    }
+
 
     /**
      * Retrieve all cities from the database.
@@ -81,7 +85,7 @@ class City {
             }
             return $cities;
         } catch (PDOException $e) {
-            (new ErrorController('smarty'))->error($e->getMessage());
+            (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
     }
