@@ -2,12 +2,14 @@
 namespace App\Services\API;
 
 use App\Models\City;
+use Exception;
 /**
  * Base class for all WeatherApi type
  */
 abstract class AbstractWeatherApi { // implements WeatherApiInterface {
     protected $apiKey;
     protected $baseUrl;
+    protected $apiName;
 
     /**
      * Encode the city name for URL usage.
@@ -23,20 +25,20 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
      * Validate the API response data.
      * @param float $temperature
      * @param float $humidity
-     * @throws \Exception
+     * @throws Exception
      */
     protected function dataCheck($temperature, $humidity) {
         if (!is_numeric($temperature)) {
-            throw new \Exception("Temperature value is not numeric.");
+            throw new Exception("Temperature value is not numeric.");
         }
         if (!is_numeric($humidity)) {
-            throw new \Exception("Humidity value is not numeric.");
+            throw new Exception("Humidity value is not numeric.");
         }
         if ($temperature < 0) {
-            throw new \Exception("Temperature value is invalid.");
+            throw new Exception("Temperature value is invalid.");
         }
         if ($humidity < 0 || $humidity > 100) {
-            throw new \Exception("Humidity value is invalid.");
+            throw new Exception("Humidity value is invalid.");
         }
     }
 

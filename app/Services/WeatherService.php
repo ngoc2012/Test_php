@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\City;
+use App\Models\History;
 use App\Services\API\FreeWeatherApi;
 use App\Services\API\OpenWeatherApi;
 use App\Controllers\ErrorController;
@@ -28,11 +29,19 @@ class WeatherService {
                 break;
         }
         try {
-            $api->fetchWeather($city);
+            try {
+                $history = $api->fetchWeather($city);
+            } catch (Exception $e) {
+                (new ErrorController('smarty'))->index($e->getMessage());
+                exit;
+            }
+            History::save($history);
         } catch (Exception $e) {
             (new ErrorController('smarty'))->index($e->getMessage());
             exit;
         }
         
     }
+
+    
 }
