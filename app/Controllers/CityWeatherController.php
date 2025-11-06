@@ -12,11 +12,11 @@ class CityWeatherController extends ViewController {
 
     /**
      * Get the weather data for a specific city and display it.
-     * @param City|null $city
-     * @param string|null $api
+     * 
      * @return void
      */
-    public function index($city = null, $api = null) {
+    public function index() {
+
 
         // ================================
         // === Validate POST parameters ===
@@ -38,16 +38,13 @@ class CityWeatherController extends ViewController {
         }
 
         // Convert ID to integer
-        $cityId = (int) $_POST['id'];
-        if ($cityId <= 0) {
+        $_POST['id'] = (int) $_POST['id'];
+        if ($_POST['id'] <= 0) {
             (new ErrorController())->index('Invalid City ID.');
             exit;
         }
-        $cityName = trim($_POST['name']);
-        $city = new City($cityId, $cityName);
-        $api = trim($_POST['api']);
-
-        WeatherService::getData($city, $api);
+        $city = City::transformDataToCity($_POST);
+        WeatherService::getData($city, trim($_POST['api']));
         $this->getView()->render('city_weather.tpl', ['city' => $city]);
     }
 }

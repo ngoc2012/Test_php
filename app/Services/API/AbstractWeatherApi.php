@@ -7,8 +7,12 @@ use Exception;
  * Base class for all WeatherApi type
  */
 abstract class AbstractWeatherApi { // implements WeatherApiInterface {
+
+    /* @var string */
     protected $apiKey;
+    /* @var string */
     protected $baseUrl;
+    /* @var string */
     protected $apiName;
 
     /**
