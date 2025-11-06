@@ -14,6 +14,6 @@ class ErrorController extends ViewController {
      * @return void
      */
     public function index($message = "Something went wrong.") {
-        $this->render('error.tpl', ['errorMessage' => $message]);
+        $this->getView()->render('error.tpl', ['errorMessage' => $message]);
     }
 }

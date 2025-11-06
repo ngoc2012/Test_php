@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Controllers\ErrorController;
 use App\Core\Database;
 use PDOException;
+use Exception;
 
 /**
  * City model class
@@ -47,7 +48,7 @@ class City {
     /**
      * Retrieve all history records for this city.
      * 
-     * @throws \Exception
+     * @throws Exception
      * @return History[]
      */
     public function getHistory() {
@@ -57,7 +58,7 @@ class City {
     /**
      * Retrieve the last history record for this city.
      * 
-     * @throws \Exception
+     * @throws Exception
      * @return History|null
      */
     public function getLastHistory() {
@@ -68,7 +69,7 @@ class City {
     /**
      * Retrieve all cities from the database.
      * 
-     * @throws \Exception
+     * @throws Exception
      * @return City[]
      */
     public static function findAll() {

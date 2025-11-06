@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Views\ViewFactory;
+use App\Views\ViewInterface;
 
 /**
  * Interface for all view controllers.
@@ -19,6 +20,14 @@ abstract class ViewController implements ViewControllerInterface {
     private $view;
 
     /**
+     * View getter
+     * @return ViewInterface
+     */
+    public function getView() {
+        return $this->view;
+    }
+
+    /**
      * Constructor:
      * - Get the renderer instance from ViewFactory
      * @param string $viewType
@@ -26,15 +35,5 @@ abstract class ViewController implements ViewControllerInterface {
      */
     public function __construct($viewType = 'smarty') {
         $this->view = ViewFactory::create($viewType);
-    }
-
-    /**
-     * Render the specified template with data.
-     * @param string $template
-     * @param array $data Associative array of data to pass to the template
-     * @return void
-     */
-    protected function render($template, $data = []) {
-        $this->view->render($template, $data);
     }
 }

@@ -14,6 +14,6 @@ class CityListController extends ViewController {
      * @return void
      */
     public function index() {
-        $this->render('index.tpl', ['cities' => City::findAll()]);
+        $this->getView()->render('index.tpl', ['cities' => City::findAll()]);
     }
 }

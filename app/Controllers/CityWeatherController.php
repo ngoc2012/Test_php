@@ -18,6 +18,6 @@ class CityWeatherController extends ViewController {
      */
     public function index($city = null, $api = null) {
         WeatherService::getData($city, $api);
-        $this->render('city_weather.tpl', ['city' => $city]);
+        $this->getView()->render('city_weather.tpl', ['city' => $city]);
     }
 }
