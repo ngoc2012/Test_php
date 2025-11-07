@@ -82,7 +82,7 @@ class City extends BaseModel {
         }
         $citiesData = $PDOStatement->fetchAll();
         $cities = [];
-        foreach ($citiesData as $key => $cityData) {
+        foreach ($citiesData as &$cityData) {
             $cities[] = City::transformDataToCity($cityData);
         }
         return $cities;
