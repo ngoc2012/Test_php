@@ -5,14 +5,26 @@ require_once __DIR__ . '/../../libs/rain.tpl.class.php';
 
 use App\Views\ViewInterface;
 use RainTPL;
+use Exception;
+use RuntimeException;
 
 /**
  * Renderer class using RainTPL
  */
 class RainView implements ViewInterface {
 
+
+    // =================
+    // === Variables ===
+    // =================
+
     /* @var RainTPL instance */
     private $tpl;
+
+
+    // ====================
+    // === Constructors ===
+    // ====================
 
     /**
      * Constructor and RainTPL configuration
@@ -28,6 +40,11 @@ class RainView implements ViewInterface {
         $this->tpl = new RainTPL;
     }
 
+
+    // ======================
+    // === Public methods ===
+    // ======================
+    
     /**
      * Render a template directly to output.
      *
@@ -41,8 +58,10 @@ class RainView implements ViewInterface {
             $this->tpl->assign($key, $value);
         }
 
-        // return string from draw()
-        $this->tpl->draw($fileNameRaintpl, false);
-
+        try {
+            $this->tpl->draw($fileNameRaintpl, false);
+        } catch (Exception $e) {
+            throw new RuntimeException("Failed to render template: " . $e->getMessage());
+        }
     }
 }

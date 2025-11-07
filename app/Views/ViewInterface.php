@@ -6,6 +6,10 @@ namespace App\Views;
  */
 interface ViewInterface
 {
+    // ======================
+    // === Public Methods ===
+    // ======================
+    
     /**
      * Render a template directly to output.
      *

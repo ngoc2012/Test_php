@@ -12,6 +12,11 @@ use RuntimeException;
  */
 class OpenWeatherApi extends AbstractWeatherApi {
 
+
+    // ===================
+    // === Constructor ===
+    // ===================
+
     /**
      * Constructor allows overriding the API key and base URL.
      *
@@ -24,6 +29,11 @@ class OpenWeatherApi extends AbstractWeatherApi {
         $this->baseUrl = $baseUrl ?: AppConfig::OPENWEATHER_BASE_URL;
     }
 
+
+    // ======================
+    // === Public methods ===
+    // ======================
+    
     /**
      * Get weather data for a specified city.
      * @param City $city
@@ -43,10 +53,15 @@ class OpenWeatherApi extends AbstractWeatherApi {
         return [$temperature, $humidity];
     }
 
+
+    // =======================
+    // === Private methods ===
+    // =======================
+
     /**
      * Get the API request URL for a specific city.
      * @param string $cityNameEscaped
-     * @return string
+     * @return string The complete API request URL.
      */
     private function getUrl($cityNameEscaped) {
         return $this->baseUrl . "?q={$cityNameEscaped}&units=metric&lang=en&appid={$this->apiKey}";

@@ -2,8 +2,6 @@
 namespace App\Services\API;
 
 use App\Models\City;
-use App\Models\History;
-
 use App\Services\API\AbstractWeatherApi;
 use Config\AppConfig;
 use RuntimeException;
@@ -12,6 +10,11 @@ use RuntimeException;
  * FreeWeatherApi class to interact with the FreeWeather API
  */
 class FreeWeatherApi extends AbstractWeatherApi {
+
+
+    // ===================
+    // === Constructor ===
+    // ===================
 
     /**
      * Constructor allows overriding the API key and base URL.
@@ -24,6 +27,11 @@ class FreeWeatherApi extends AbstractWeatherApi {
         $this->apiKey  = $apiKey ?: AppConfig::FREEWEATHER_API_KEY;
         $this->baseUrl = $baseUrl ?: AppConfig::FREEWEATHER_BASE_URL;
     }
+
+    
+    // ======================
+    // === Public methods ===
+    // ======================
 
     /**
      * Get weather data for a specified city.
@@ -43,6 +51,11 @@ class FreeWeatherApi extends AbstractWeatherApi {
         $humidity = $data['current']['humidity'];
         return [$temperature, $humidity];
     }
+
+
+    // =======================
+    // === Private methods ===
+    // =======================
 
     /**
      * Construct the full API URL for fetching weather data.

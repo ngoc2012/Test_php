@@ -4,6 +4,10 @@ namespace App\Controllers;
 use App\Controllers\AbstractViewController;
 use App\Services\WeatherService;
 use App\Models\City;
+use PDOException;
+use RuntimeException;
+use InvalidArgumentException;
+use Exception;
 
 /**
  * Controller for the city weather page
@@ -21,9 +25,9 @@ class CityWeatherController extends AbstractViewController {
     private $apiName;
 
 
-    // =========================
-    // === Public Methods ======
-    // =========================
+    // ===================
+    // === Constructor ===
+    // ===================
     
     /**
      * Constructor for the CityWeatherController.
@@ -37,13 +41,34 @@ class CityWeatherController extends AbstractViewController {
         $this->apiName = $apiName;
     }
 
+    
+    // ======================
+    // === Public Methods ===
+    // ======================
+
     /**
      * Get the weather data for a specific city and display it.
      * 
      * @return void
      */
     public function init() {
-        WeatherService::getData($this->city, $this->apiName);
-        $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'lastHistory' => $this->city->getLastHistory()]);
+        try {
+            WeatherService::getData($this->city, $this->apiName);
+            $lastHistory = $this->city->getLastHistory();
+        } catch (RuntimeException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        } catch (InvalidArgumentException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        } catch (PDOException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        } catch (Exception $e) { // catch anything else
+            (new ErrorController('smarty'))->init('Unexpected error: ' . $e->getMessage());
+            exit;
+        }
+        
+        $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'lastHistory' => $lastHistory]);
     }
 }

@@ -1,21 +1,29 @@
 <?php
 namespace App\Models;
 
-use App\Controllers\ErrorController;
+use App\Models\BaseModel;
 use App\Core\Database;
 use PDOException;
 use Exception;
+use InvalidArgumentException;
 
 /**
  * City model class
  */
-class City {
+class City extends BaseModel {
 
-    /* @var int city id */
-    private $id;
+
+    // =================
+    // === Variables ===
+    // =================
 
     /* @var string city name */
     private $name;
+
+
+    // ===================
+    // === Constructor ===
+    // ===================
 
     /**
      * Constructor
@@ -23,18 +31,14 @@ class City {
      * @param string $name
      */
     public function __construct($id, $name) {
-        $this->id = $id;
+        parent::__construct($id);
         $this->name = $name;
     }
 
 
     // ===============
-    // === GETTERS ===
+    // === Getters ===
     // ===============
-
-    public function getId() {
-        return $this->id;
-    }
 
     public function getName() {
         return $this->name;
@@ -42,7 +46,7 @@ class City {
     
 
     // ===========================
-    // === DATA ACCESS METHODS ===
+    // === Data access methods ===
     // ===========================
 
     /**
@@ -52,7 +56,7 @@ class City {
      * @return History[]
      */
     public function getHistory() {
-        return History::findAllById($this->id);
+        return History::findAllById($this->getId());
     }
 
     /**
@@ -61,23 +65,21 @@ class City {
      * @return History|null
      */
     public function getLastHistory() {
-        return History::findLastById($this->id);
+        return History::findLastById($this->getId());
     }
 
 
     /**
      * Retrieve all cities from the database.
-     * 
+     * @throws PDOException
      * @return City[]
      */
     public static function findAll() {
-        try {
-            $database = Database::getInstance()->connect();
-        } catch (PDOException $e) {
-            throw new DBException("Database connection error: " . $e->getMessage());
-        }
-        
+        $database = Database::getInstance()->connect();
         $PDOStatement = $database->query("SELECT * FROM cities");
+        if ($PDOStatement === false) {
+            throw new PDOException("Failed to retrieve cities from database.");
+        }
         $citiesData = $PDOStatement->fetchAll();
         $cities = [];
         foreach ($citiesData as $key => $cityData) {
@@ -86,7 +88,24 @@ class City {
         return $cities;
     }
 
+
+    // ===========
+    // === DTO ===
+    // ===========
+
+    /**
+     * Transform data array to City object
+     * @param array $data
+     * @throws \InvalidArgumentException
+     * @return City
+     */
     public static function transformDataToCity($data) {
+        if (!is_array($data)) {
+            throw new InvalidArgumentException("Data must be an array to transform to City object.");
+        }
+        if (!isset($data['id'], $data['name'])) {
+            throw new InvalidArgumentException("Missing required data fields to transform to City object.");
+        }
         return new City(
             $data['id'],
             $data['name']

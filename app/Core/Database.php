@@ -1,10 +1,8 @@
 <?php
 namespace App\Core;
 
-use App\Controllers\ErrorController;
 use Config\AppConfig;
 use PDO;
-use PDOException;
 
 /**
  * Database class (singleton instance) to connect to the database
@@ -41,10 +39,10 @@ class Database {
     /** @var Database singleton instance */
     private static $instance = null;
 
-    
-    // =========================
-    // === Public Methods ======
-    // =========================
+
+    // ====================
+    // === Constructors ===
+    // ====================
 
     /**
      * Constructor
@@ -70,6 +68,11 @@ class Database {
         $this->closeConnection();
     }
 
+    
+    // =========================
+    // === Public Methods ======
+    // =========================
+
     /**
      * Get the singleton instance of the Database class.
      *
@@ -84,17 +87,21 @@ class Database {
 
     /**
      * Connect to the database and return the PDO instance.
-     *
+     * 
      * @return PDO The PDO instance.
      */
     public function connect() {
         if ($this->pdo === null) {
             $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
         }
-        PDOException
         return $this->pdo;
     }
 
+
+    // =========================
+    // === Private Methods =====
+    // =========================
+    
     /**
      * Close the database connection.
      *
@@ -103,7 +110,4 @@ class Database {
     private function closeConnection() {
         $this->pdo = null;
     }
-
-    
 }
-?>

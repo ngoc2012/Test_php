@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Controllers\AbstractViewController;
 use App\Models\City;
+use PDOException;
 
 /**
  * Controller for the main page: Listing all the cities
@@ -21,7 +22,7 @@ class CityListController extends AbstractViewController {
     public function init() {
         try {
             $cities = City::findAll();
-        } catch (\DBException $e) {
+        } catch (PDOException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }

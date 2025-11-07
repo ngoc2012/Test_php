@@ -2,11 +2,16 @@
 namespace App\Services\API;
 
 use App\Models\City;
-use Exception;
+
 /**
  * Base class for all WeatherApi type
  */
 abstract class AbstractWeatherApi { // implements WeatherApiInterface {
+
+
+    // =================
+    // === Variables ===
+    // =================
 
     /* @var string */
     protected $apiKey;
@@ -15,6 +20,22 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
     /* @var string */
     protected $apiName;
 
+    
+    // ======================
+    // === Public Methods ===
+    // ======================
+
+    /**
+     * Fetch weather data for a given city.
+     *
+     * @param City $city The City object.
+     */
+    abstract public function fetchWeather($city);
+
+
+    // =========================
+    // === Protected Methods ===
+    // =========================
     /**
      * Encode the city name for URL usage.
      *
@@ -25,11 +46,6 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
         return urlencode($cityName);
     }
 
-    /**
-     * Fetch weather data for a given city.
-     *
-     * @param City $city The City object.
-     */
-    abstract public function fetchWeather($city);
+
 }
 
