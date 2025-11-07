@@ -100,7 +100,7 @@ class History extends BaseModel {
      */
     public static function findAllById($id) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 10");
+        $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY createdAt DESC LIMIT 10");
         if (!$PDOStatement) {
             throw new PDOException("Failed to prepare statement for finding history records.");
         }
@@ -124,7 +124,7 @@ class History extends BaseModel {
      */
     public static function findLastById($id) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY created_at DESC LIMIT 1");
+        $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY createdAt DESC LIMIT 1");
         if (!$PDOStatement) {
             throw new PDOException("Failed to prepare statement for finding last history record.");
         }
@@ -147,7 +147,7 @@ class History extends BaseModel {
     public static function save($weatherData) {
         $database = Database::getInstance()->connect();
         $PDOStatement = $database->prepare("
-            INSERT INTO history (cityId, api, temperature, humidity, created_at)
+            INSERT INTO history (cityId, api, temperature, humidity, createdAt)
             VALUES (:cityId, :api, :temperature, :humidity, NOW())
         ");
         if (!$PDOStatement) {

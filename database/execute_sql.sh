@@ -1,1 +1,1 @@
-mysql -u root -p test < /home/minh/Test/cities.sql
+mysql -u root -p test < /home/minh/Test/install.sql
