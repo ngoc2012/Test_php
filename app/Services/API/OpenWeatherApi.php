@@ -2,7 +2,6 @@
 namespace App\Services\API;
 
 use App\Models\City;
-use App\Models\History;
 use App\Services\API\AbstractWeatherApi;
 use Config\AppConfig;
 use RuntimeException;

@@ -30,11 +30,10 @@ class RainView implements ViewInterface {
      * Constructor and RainTPL configuration
      */
     public function __construct() {
-        $baseDir = realpath(__DIR__ . '/../..');
 
         RainTPL::configure("base_url", '/');
-        RainTPL::configure("tpl_dir", $baseDir . "/templates/");
-        RainTPL::configure("cache_dir", $baseDir . "/templates_c/");
+        RainTPL::configure("tpl_dir", __DIR__ . "/../../templates/");
+        RainTPL::configure("cache_dir", __DIR__ . "/../../templates_c/");
         RainTPL::configure("tpl_ext", "tpl");
 
         $this->tpl = new RainTPL;
