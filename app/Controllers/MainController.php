@@ -4,7 +4,8 @@ namespace App\Controllers;
 use App\Core\PostParameterException;
 use App\Models\City;
 use App\Controllers\CityWeatherController;
-use App\Controllers\CityListController; 
+use App\Controllers\CityListController;
+use RuntimeException; 
 
 /**
  * Main page: entry point for all pages
@@ -29,10 +30,14 @@ class MainController {
             }
             $city = City::transformDataToCity($_POST);
             $controller = new CityWeatherController('smarty', $city, trim($_POST['api']));
-            $controller->init();
         } else {
             $controller = new CityListController('raintpl');
+        }
+        try {
             $controller->init();
+        } catch (RuntimeException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
         }
     }
 
