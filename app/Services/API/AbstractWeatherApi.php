@@ -19,6 +19,23 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
     protected $baseUrl;
     /* @var string */
     protected $apiName;
+    /** @var resource */
+    protected $context;
+
+
+    // ===================
+    // === Constructor ===
+    // ===================
+
+    public function __construct()
+    {
+        $this->context = stream_context_create([
+            'http' => [
+                'ignore_errors' => true, // KEEP BODY even if HTTP 400/500
+                'timeout' => 5,
+            ],
+        ]);
+    }
 
     
     // ======================
@@ -31,21 +48,6 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
      * @param City $city The City object.
      */
     abstract public function fetchWeather($city);
-
-
-    // =========================
-    // === Protected Methods ===
-    // =========================
-    /**
-     * Encode the city name for URL usage.
-     *
-     * @param string $cityName The name of the city.
-     * @return string The URL-encoded city name.
-     */
-    protected function encodeCityName($cityName) {
-        return urlencode($cityName);
-    }
-
 
 }
 

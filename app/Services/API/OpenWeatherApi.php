@@ -23,6 +23,7 @@ class OpenWeatherApi extends AbstractWeatherApi {
      * @param string|null $baseUrl
      */
     public function __construct($apiKey = null, $baseUrl = null) {
+        parent::__construct();
         $this->apiName = "OpenWeatherApi";
         $this->apiKey  = $apiKey ?: AppConfig::OPENWEATHER_API_KEY;
         $this->baseUrl = $baseUrl ?: AppConfig::OPENWEATHER_BASE_URL;
@@ -40,13 +41,20 @@ class OpenWeatherApi extends AbstractWeatherApi {
      * @throws RuntimeException
      */
     public function fetchWeather($city) {
-        $cityNameEscaped = $this->encodeCityName($city->getName());
+        $cityNameEscaped = $city->encodeCityName();
         $url = $this->getUrl($cityNameEscaped);
-        $response = file_get_contents($url);
+        error_log("". $url);
+        // @ before a PHP expression suppresses any warnings or notices
+        $response = @file_get_contents($url, false, $this->context);
         if (!$response) {
             throw new RuntimeException("Failed to fetch weather data from OpenWeather API.");
         }
+        // {"cod":401, "message": "Invalid API key. Please see https://openweathermap.org/faq#error401 for more info."}
+        // {"cod":"404","message":"city not found"}
         $data = json_decode($response, true);
+        if (isset($data["cod"]) && $data["cod"] !== 200) {
+            throw new RuntimeException("OpenWeather API error: " . $data["cod"] . " - " . $data["message"]);
+        }
         $temperature = $data['main']['temp'];
         $humidity = $data['main']['humidity'];
         return [$temperature, $humidity];

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if(!class_exists('raintpl')){exit;}?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,23 +13,25 @@
 
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">
         <ul class="list-group list-group-flush">
-        {loop="cities"}
+        <?php $counter1=-1; if( !is_null($cities) && is_array($cities) && sizeof($cities) ) foreach( $cities as $key1 => $value1 ){ $counter1++; ?>
+
             <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold">{$value->getName()}</span>
+                <span class="fw-semibold"><?php echo $value1->getName();?></span>
 
                 <div class="d-flex gap-2 ms-auto">
-                    <a href="index.php?name={$value->encodeCityName()}&id={$value->getId()}&api=OpenWeatherApi" 
+                    <a href="/index.php?name=<?php echo $value1->encodeCityName();?>&id=<?php echo $value1->getId();?>&api=OpenWeatherApi" 
                        class="btn btn-outline-info btn-sm">
                         Open Weather
                     </a>
 
-                    <a href="index.php?name={$value->encodeCityName()}&id={$value->getId()}&api=FreeWeatherApi" 
+                    <a href="/index.php?name=<?php echo $value1->encodeCityName();?>&id=<?php echo $value1->getId();?>&api=FreeWeatherApi" 
                        class="btn btn-outline-info btn-sm">
                         Free Weather
                     </a>
                 </div>
             </li>
-        {/loop}
+        <?php } ?>
+
         </ul>
     </div>
 

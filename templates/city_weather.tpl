@@ -11,9 +11,9 @@
 <div class="container py-5">
     <div class="card bg-transparent text-light shadow-sm p-4 mb-4 border-2">
         <h1 class="text-center mb-4">🌤️ Weather for {$city->getName()|escape}</h1>
-        <p class="fs-5"><strong>API:</strong> {$lastHistory->getApi()|escape}</p>
-        <p class="fs-5"><strong>Temperature:</strong> {$lastHistory->getTemperature()} °C</p>
-        <p class="fs-5"><strong>Humidity:</strong> {$lastHistory->getHumidity()}%</p>
+        <p class="fs-5"><strong>API:</strong> {$history[0]->getApi()|escape}</p>
+        <p class="fs-5"><strong>Temperature:</strong> {$history[0]->getTemperature()} °C</p>
+        <p class="fs-5"><strong>Humidity:</strong> {$history[0]->getHumidity()}%</p>
     </div>
 
     <div class="card bg-transparent text-light shadow-sm p-4 border-2">

@@ -54,7 +54,6 @@ class CityWeatherController extends AbstractViewController {
     public function init() {
         try {
             WeatherService::getData($this->city, $this->apiName);
-            $lastHistory = $this->city->getLastHistory();
         } catch (RuntimeException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
@@ -68,7 +67,17 @@ class CityWeatherController extends AbstractViewController {
             (new ErrorController('smarty'))->init('Unexpected error: ' . $e->getMessage());
             exit;
         }
-        
-        $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'lastHistory' => $lastHistory]);
+        $history = $this->city->getHistory();
+        if (count($history) == 0) {
+            $city = City::findById($this->city->getId());
+            if ($city->getName() != $this->city->getName()) {
+                (new ErrorController('smarty'))->init('City name and ID mismatch.');
+                exit;
+            } else {
+                (new ErrorController('smarty'))->init('No weather history found for this city.');
+                exit;
+            }
+        }
+        $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'history' => $history]);
     }
 }

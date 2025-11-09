@@ -3,6 +3,7 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use App\Core\Database;
+use App\Services\API\OpenWeatherApi;
 use PDOException;
 use Exception;
 use InvalidArgumentException;
@@ -19,6 +20,8 @@ class City extends BaseModel {
 
     /* @var string city name */
     private $name;
+    /* @var string */
+    private $visitedAt;
 
 
     // ===================
@@ -30,20 +33,29 @@ class City extends BaseModel {
      * @param int $id
      * @param string $name
      */
-    public function __construct($id, $name) {
+    public function __construct($id = null, $name) {
         parent::__construct($id);
         $this->name = $name;
     }
 
 
-    // ===============
-    // === Getters ===
-    // ===============
+    // ======================
+    // === Public methods ===
+    // ======================
 
     public function getName() {
         return $this->name;
     }
-    
+
+    /**
+     * Encode the city name for URL usage.
+     *
+     * @return string The URL-encoded city name.
+     */
+    public function encodeCityName() {
+        return urlencode($this->name);
+    }
+
 
     // ===========================
     // === Data access methods ===
@@ -60,14 +72,43 @@ class City extends BaseModel {
     }
 
     /**
-     * Retrieve the last history record for this city.
-     * 
-     * @return History|null
+     * Retrieve a city by its ID.
+     * @param int $id
+     * @throws PDOException
+     * @return City|null
      */
-    public function getLastHistory() {
-        return History::findLastById($this->getId());
+    public static function findById($id) {
+        $database = Database::getInstance()->connect();
+        $PDOStatement = $database->query("SELECT * FROM cities WHERE id = " . $id );
+        if (!$PDOStatement) {
+            throw new PDOException("Failed to retrieve city from database.");
+        }
+        $cityData = $PDOStatement->fetch();
+        if (!$cityData) {
+            return null;
+        }
+        return City::transformDataToCity($cityData);
     }
 
+    /**
+     * Retrieve a city by its name.
+     * @param string $name
+     * @throws PDOException
+     * @return City|null
+     */
+    public static function findByName($name) {
+        $database = Database::getInstance()->connect();
+        $PDOStatement = $database->prepare("SELECT * FROM cities WHERE name = :name");
+        $PDOStatement->bindParam(':name', $name, \PDO::PARAM_STR);
+        if (!$PDOStatement->execute()) {
+            throw new PDOException("Failed to retrieve city from database.");
+        }
+        $cityData = $PDOStatement->fetch();
+        if (!$cityData) {
+            return null;
+        }
+        return City::transformDataToCity($cityData);
+    }
 
     /**
      * Retrieve all cities from the database.
@@ -77,7 +118,7 @@ class City extends BaseModel {
     public static function findAll() {
         $database = Database::getInstance()->connect();
         $PDOStatement = $database->query("SELECT * FROM cities");
-        if ($PDOStatement === false) {
+        if (!$PDOStatement) {
             throw new PDOException("Failed to retrieve cities from database.");
         }
         $citiesData = $PDOStatement->fetchAll();
@@ -88,6 +129,21 @@ class City extends BaseModel {
         return $cities;
     }
 
+    /**
+     * Save the city to the database.
+     * @param City $city
+     * @throws PDOException
+     * @return void
+     */
+    public static function save($city) {
+        $database = Database::getInstance()->connect();
+        $PDOStatement = $database->query("INSERT INTO cities (name, visitedAt) VALUES (" . $database->quote($city->getName()) . ", NOW())");
+        if (!$PDOStatement) {
+            throw new PDOException("Failed to save city to database.");
+        }
+        $cityId = $database->lastInsertId();
+        $city->setId((int) $cityId);
+    }
 
     // ===========
     // === DTO ===
@@ -103,11 +159,14 @@ class City extends BaseModel {
         if (!is_array($data)) {
             throw new InvalidArgumentException("Data must be an array to transform to City object.");
         }
-        if (!isset($data['id'], $data['name'])) {
-            throw new InvalidArgumentException("Missing required data fields to transform to City object.");
+        if (!isset($data['name'])) {
+            throw new InvalidArgumentException("Missing city name to transform to City object.");
+        }
+        if (isset($data['id']) && !is_numeric($data['id'])) {
+            throw new InvalidArgumentException("City ID must be numeric.");
         }
         return new City(
-            $data['id'],
+            isset($data['id']) ? (int) $data['id'] : null,
             $data['name']
         );
     }

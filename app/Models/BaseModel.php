@@ -24,6 +24,15 @@ class BaseModel {
     }
 
 
+    // ===============
+    // === Setters ===
+    // ===============
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+
     // ===================
     // === Constructor ===
     // ===================
