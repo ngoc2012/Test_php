@@ -117,7 +117,7 @@ class City extends BaseModel {
      */
     public static function findAll() {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("SELECT * FROM cities");
+        $PDOStatement = $database->query("SELECT * FROM cities ORDER BY visitedAt DESC");
         if (!$PDOStatement) {
             throw new PDOException("Failed to retrieve cities from database.");
         }
@@ -143,6 +143,20 @@ class City extends BaseModel {
         }
         $cityId = $database->lastInsertId();
         $city->setId((int) $cityId);
+    }
+
+    /**
+     * Update the city's visitedAt timestamp to the current time.
+     * @param int $id
+     * @throws PDOException
+     * @return void
+     */
+    public static function updateVisitedAt($id) {
+        $database = Database::getInstance()->connect();
+        $PDOStatement = $database->query("UPDATE cities SET visitedAt = NOW() WHERE id = " . $id);
+        if (!$PDOStatement) {
+            throw new PDOException("Failed to update city's visitedAt in database.");
+        }
     }
 
     // ===========

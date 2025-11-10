@@ -78,6 +78,7 @@ class CityWeatherController extends AbstractViewController {
                 exit;
             }
         }
+        City::updateVisitedAt($this->city->getId());
         $this->getView()->render('city_weather.tpl', ['city' => $this->city, 'history' => $history]);
     }
 }
