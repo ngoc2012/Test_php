@@ -51,7 +51,7 @@ class RainView implements ViewInterface {
      * @param string $container container content
      * @return void
      */
-    public function render_main($template, $container) {
+    public function renderMain($template, $container) {
         $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
         try {
             $this->tpl->assign("container", $container);

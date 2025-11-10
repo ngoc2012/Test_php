@@ -43,7 +43,6 @@ class OpenWeatherApi extends AbstractWeatherApi {
     public function fetchWeather($city) {
         $cityNameEscaped = $city->encodeCityName();
         $url = $this->getUrl($cityNameEscaped);
-        error_log("". $url);
         // @ before a PHP expression suppresses any warnings or notices
         $response = @file_get_contents($url, false, $this->context);
         if (!$response) {

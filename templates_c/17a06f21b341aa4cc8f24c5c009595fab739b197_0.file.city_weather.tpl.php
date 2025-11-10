@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-10 14:53:45
+/* Smarty version 3.1.48, created on 2025-11-10 16:09:32
   from '/home/minh/Test/templates/city_weather.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6911ee69defed1_20568442',
+  'unifunc' => 'content_6912002ca03167_47560068',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '17a06f21b341aa4cc8f24c5c009595fab739b197' => 
     array (
       0 => '/home/minh/Test/templates/city_weather.tpl',
-      1 => 1762782823,
+      1 => 1762787367,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6911ee69defed1_20568442 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6912002ca03167_47560068 (Smarty_Internal_Template $_smarty_tpl) {
 echo $_smarty_tpl->tpl_vars['weather_panel']->value;?>
 
 
@@ -41,7 +41,7 @@ echo $_smarty_tpl->tpl_vars['weather_panel']->value;?>
                 </thead>
                 <tbody>
                 <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['history']->value, 'record');
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['histories']->value, 'record');
 $_smarty_tpl->tpl_vars['record']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['record']->value) {
 $_smarty_tpl->tpl_vars['record']->do_else = false;

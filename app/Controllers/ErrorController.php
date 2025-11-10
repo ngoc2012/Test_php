@@ -20,6 +20,6 @@ class ErrorController extends AbstractViewController {
      */
     public function init($message = null) {
         $container = $this->getView()->fetch('error.tpl', ['errorMessage' => $message]);
-        $this->getView()->render_main('index.tpl', $container);
+        $this->getView()->renderMain('index.tpl', $container);
     }
 }

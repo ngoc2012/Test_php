@@ -17,7 +17,7 @@ interface ViewInterface
      * @param string $container container content
      * @return void
      */
-    public function render_main($template, $container);
+    public function renderMain($template, $container);
 
     /**
      * Render a template to string.

@@ -5,11 +5,12 @@ use App\Controllers\AbstractViewController;
 use App\Models\City;
 use App\Models\History;
 use PDOException;
+use InvalidArgumentException;
 
 /**
  * Controller for the main page: Listing all the cities
  */
-class CityListController extends AbstractViewController {
+class CitiesListController extends AbstractViewController {
 
     
     // =========================
@@ -23,21 +24,24 @@ class CityListController extends AbstractViewController {
     public function init() {
         try {
             $cities = City::findAll();
+            $lastHistory = History::findLast();
+            $lastCity = City::findById($lastHistory->getCityId());
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
+        } catch (InvalidArgumentException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
         }
-        $last_city = $cities[0];
-        $last_history = History::findLastById($last_city->getId());
-        $history = $this->getData($last_city, $last_history->getApi());
-        $weather_panel = $this->getView()->fetch('weather_panel.tpl', [
-            'city' => $last_city,
+        $history = $this->getData($lastCity, $lastHistory->getApi());
+        $weatherPanel = $this->getView()->fetch('weatherPanel.tpl', [
+            'city' => $lastCity,
             'history' => $history
         ]);
-        $container = $this->getView()->fetch('list.tpl', [
+        $container = $this->getView()->fetch('citiesList.tpl', [
             'cities' => $cities,
-            'weather_panel' => $weather_panel
+            'weatherPanel' => $weatherPanel
         ]);
-        $this->getView()->render_main('index.tpl', $container);
+        $this->getView()->renderMain('index.tpl', $container);
     }
 }

@@ -1,5 +1,5 @@
 
-{$weather_panel}
+{$weatherPanel}
 
 <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc;">
     <div class="panel-heading" style="background-color: transparent; color: #343a40;">
@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {foreach from=$history item=record}
+                {foreach from=$histories item=record}
                     <tr>
                         <td class="text-info">{$record->getCreatedAt()}</td>
                         <td>{$record->getApi()|escape}</td>

@@ -75,8 +75,8 @@ abstract class AbstractViewController {
      */
     protected function getData($city, $apiName) {
         try {
-            $last_history = WeatherService::getData($city, $apiName);
-            return $last_history;
+            $lastHistory = WeatherService::getData($city, $apiName);
+            return $lastHistory;
         } catch (RuntimeException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;

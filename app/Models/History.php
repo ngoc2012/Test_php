@@ -98,22 +98,22 @@ class History extends BaseModel {
      * @throws PDOException
      * @return History[]
      */
-    public static function findAllById($id) {
+    public static function findAllByCityId($cityId) {
         $database = Database::getInstance()->connect();
         $PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY createdAt DESC LIMIT 10");
         if (!$PDOStatement) {
             throw new PDOException("Failed to prepare statement for finding history records.");
         }
-        $result = $PDOStatement->execute([':cityId' => $id]);
+        $result = $PDOStatement->execute([':cityId' => $cityId]);
         if (!$result) {
             throw new PDOException("Failed to execute statement for finding history records.");
         }
-        $historyData = $PDOStatement->fetchAll();
-        $history = [];
-        foreach ($historyData as &$record) {
-            $history[] = History::transformDataToHistory($record);
+        $historiesData = $PDOStatement->fetchAll();
+        $histories = [];
+        foreach ($historiesData as &$record) {
+            $histories[] = History::transformDataToHistory($record);
         }
-        return $history;
+        return $histories;
     }
 
     /**
@@ -133,9 +133,29 @@ class History extends BaseModel {
             throw new PDOException("Failed to execute statement for finding last history record.");
         }
         $historyData = $PDOStatement->fetch();
-        if ($historyData) {
-            return History::transformDataToHistory($historyData);
+        if (!$historyData) {
+            throw new InvalidArgumentException("No history record found for city with id '$id'.");
         }
+        return History::transformDataToHistory($historyData);
+    }
+
+    /**
+     * Find the last history record
+     * @param int $id
+     * @throws PDOException
+     * @return History|null
+     */
+    public static function findLast() {
+        $database = Database::getInstance()->connect();
+        $PDOStatement = $database->query("SELECT * FROM history ORDER BY createdAt DESC LIMIT 1");
+        if (!$PDOStatement) {
+            throw new PDOException("Failed to execute statement for finding last history record.");
+        }
+        $lastHistory = $PDOStatement->fetch();
+        if (!$lastHistory) {
+            throw new InvalidArgumentException("No history record found.");
+        }
+        return History::transformDataToHistory($lastHistory);
     }
 
     /**

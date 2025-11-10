@@ -47,7 +47,7 @@ class SmartyView implements ViewInterface {
      * @param string $container container content
      * @return void
      */
-    public function render_main($template, $container) {
+    public function renderMain($template, $container) {
         try {
             $this->smarty->assign("container", $container);
             $this->smarty->display($template);

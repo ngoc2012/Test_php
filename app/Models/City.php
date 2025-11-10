@@ -3,7 +3,6 @@ namespace App\Models;
 
 use App\Models\BaseModel;
 use App\Core\Database;
-use App\Services\API\OpenWeatherApi;
 use PDOException;
 use Exception;
 use InvalidArgumentException;
@@ -67,8 +66,8 @@ class City extends BaseModel {
      * @throws Exception
      * @return History[]
      */
-    public function getHistory() {
-        return History::findAllById($this->getId());
+    public function getHistories() {
+        return History::findAllByCityId($this->getId());
     }
 
     /**
@@ -105,7 +104,7 @@ class City extends BaseModel {
         }
         $cityData = $PDOStatement->fetch();
         if (!$cityData) {
-            return null;
+            throw new InvalidArgumentException("City with name '$name' not found.");
         }
         return City::transformDataToCity($cityData);
     }

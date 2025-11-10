@@ -5,7 +5,7 @@ use App\Models\City;
 use App\Models\History;
 use App\Services\API\FreeWeatherApi;
 use App\Services\API\OpenWeatherApi;
-
+use InvalidArgumentException;
 /**
  * WeatherService class to fetch weather data
  */
@@ -34,12 +34,12 @@ class WeatherService {
         }
         list($temperature, $humidity) = $api->fetchWeather($city);
         if (!$city->getId()) {
-            $city_found = City::findByName($city->getName());
-            if ($city_found) {
-                $city->setId($city_found->getId());
-            } else {
-                $new_city = City::save($city->getName());
-                $city->setId($new_city->getId());
+            try {
+                $cityFound = City::findByName($city->getName());
+                $city->setId($cityFound->getId());
+            } catch (InvalidArgumentException $e) {
+                $newCity = City::save($city->getName());
+                $city->setId($newCity->getId());
             }
         }
         $history = History::transformDataToHistory([

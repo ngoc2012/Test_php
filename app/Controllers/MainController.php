@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Models\City;
 use App\Controllers\CityWeatherController;
-use App\Controllers\CityListController;
+use App\Controllers\CitiesListController;
 use RuntimeException; 
 
 /**
@@ -31,7 +31,7 @@ class MainController {
             }
             $controller = new CityWeatherController('smarty', $city, trim($_GET['api']));
         } else {
-            $controller = new CityListController('raintpl');
+            $controller = new CitiesListController('raintpl');
         }
         try {
             $controller->init();
