@@ -6,7 +6,7 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body style="background-color: #343a40; color: #f8f9fa;">
+<body style="background-color: #f8f9fa; color: #343a40;">
 
 <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
 {$container}

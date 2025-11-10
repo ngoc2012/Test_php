@@ -50,14 +50,8 @@ class CityWeatherController extends AbstractViewController {
         $this->getData($this->city, $this->apiName);
         $history = $this->city->getHistory();
         if (count($history) == 0) {
-            $city = City::findById($this->city->getId());
-            if ($city->getName() != $this->city->getName()) {
-                (new ErrorController('smarty'))->init('City name and ID mismatch.');
-                exit;
-            } else {
-                (new ErrorController('smarty'))->init('No weather history found for this city.');
-                exit;
-            }
+            (new ErrorController('smarty'))->init('No weather history found for this city.');
+            exit;
         }
         City::updateVisitedAt($this->city->getId());
         $weather_panel = $this->getView()->fetch('weather_panel.tpl', ['city' => $this->city, 'history' => $history[0]]);

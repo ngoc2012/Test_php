@@ -2,7 +2,7 @@
 {$weather_panel}
 
 <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc;">
-    <div class="panel-heading" style="background-color: transparent; color: #ccc;">
+    <div class="panel-heading" style="background-color: transparent; color: #343a40;">
         <h2>Recent Weather Records</h2>
     </div>
     <div class="panel-body">

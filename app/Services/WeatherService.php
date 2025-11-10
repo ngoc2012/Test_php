@@ -33,6 +33,15 @@ class WeatherService {
                 break;
         }
         list($temperature, $humidity) = $api->fetchWeather($city);
+        if (!$city->getId()) {
+            $city_found = City::findByName($city->getName());
+            if ($city_found) {
+                $city->setId($city_found->getId());
+            } else {
+                $new_city = City::save($city->getName());
+                $city->setId($new_city->getId());
+            }
+        }
         $history = History::transformDataToHistory([
             "cityId" => $city->getId(),
             "api" => $api->getApiName(),

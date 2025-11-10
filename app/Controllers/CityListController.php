@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Controllers\AbstractViewController;
 use App\Models\City;
+use App\Models\History;
 use PDOException;
 
 /**
@@ -27,8 +28,8 @@ class CityListController extends AbstractViewController {
             exit;
         }
         $last_city = $cities[0];
-        // error_log("Last city: " . $last_city->getName() . ", " . $last_city->getId());
-        $history = $this->getData($last_city, null);
+        $last_history = History::findLastById($last_city->getId());
+        $history = $this->getData($last_city, $last_history->getApi());
         $weather_panel = $this->getView()->fetch('weather_panel.tpl', [
             'city' => $last_city,
             'history' => $history

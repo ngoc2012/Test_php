@@ -117,7 +117,7 @@ class City extends BaseModel {
      */
     public static function findAll() {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("SELECT * FROM cities ORDER BY visitedAt DESC");
+        $PDOStatement = $database->query("SELECT * FROM cities ORDER BY visitedAt DESC LIMIT 10");
         if (!$PDOStatement) {
             throw new PDOException("Failed to retrieve cities from database.");
         }
@@ -131,18 +131,21 @@ class City extends BaseModel {
 
     /**
      * Save the city to the database.
-     * @param City $city
+     * @param string $cityName
      * @throws PDOException
-     * @return void
+     * @return City
      */
-    public static function save($city) {
+    public static function save($cityName) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("INSERT INTO cities (name, visitedAt) VALUES (" . $database->quote($city->getName()) . ", NOW())");
+        $PDOStatement = $database->query("INSERT INTO cities (name, visitedAt) VALUES (" . $database->quote($cityName) . ", NOW())");
         if (!$PDOStatement) {
             throw new PDOException("Failed to save city to database.");
         }
         $cityId = $database->lastInsertId();
-        $city->setId((int) $cityId);
+        return self::transformDataToCity([
+            "id"=> $cityId,
+            "name"=> $cityName,
+        ]);
     }
 
     /**

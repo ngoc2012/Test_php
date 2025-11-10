@@ -1,12 +1,28 @@
 {$weather_panel}
 
-<h1 class="text-center" style="margin-bottom: 30px;">🌍 All Cities</h1>
+<h1 class="text-center" style="margin-bottom: 30px;">🌍 Check Weather</h1>
+
+<form method="get" action="index.php" class="text-center" style="margin-bottom: 30px;">
+    <div class="form-group" style="display: inline-block; margin-right: 10px;">
+        <input type="text" name="name" class="form-control" placeholder="Enter city name..." 
+               style="width: 250px; display: inline-block;" required>
+    </div>
+
+    <input type="hidden" name="controller" value="city" />
+
+    <button type="submit" name="api" value="OpenWeatherApi" class="btn btn-info btn-sm">
+        Get from OpenWeather 🌤️
+    </button>
+    <button type="submit" name="api" value="FreeWeatherApi" class="btn btn-success btn-sm">
+        Get from FreeWeather 🌦️
+    </button>
+</form>
 
 <div class="panel panel-default" style="background-color: transparent;border: none;">
     <div class="panel-body" style="padding: 0;">
         <ul class="list-group">
         {loop="cities"}
-            <li class="list-group-item" style="background-color: #343a40; color: #f8f9fa; border: 1px solid #6c757d;">
+            <li class="list-group-item" style="background-color: #f8f9fa; color : #343a40;border: 1px solid #6c757d;">
                 <div style="display: table; width: 100%;">
                     <!-- Name on the left -->
                     <span style="display: table-cell; font-weight: bold;">{$value->getName()}</span>

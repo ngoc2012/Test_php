@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-10 12:07:07
+/* Smarty version 3.1.48, created on 2025-11-10 14:53:45
   from '/home/minh/Test/templates/city_weather.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_6911c75b894474_94139362',
+  'unifunc' => 'content_6911ee69defed1_20568442',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '17a06f21b341aa4cc8f24c5c009595fab739b197' => 
     array (
       0 => '/home/minh/Test/templates/city_weather.tpl',
-      1 => 1762772801,
+      1 => 1762782823,
       2 => 'file',
     ),
   ),
@@ -20,12 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6911c75b894474_94139362 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6911ee69defed1_20568442 (Smarty_Internal_Template $_smarty_tpl) {
 echo $_smarty_tpl->tpl_vars['weather_panel']->value;?>
 
 
 <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc;">
-    <div class="panel-heading" style="background-color: transparent; color: #ccc;">
+    <div class="panel-heading" style="background-color: transparent; color: #343a40;">
         <h2>Recent Weather Records</h2>
     </div>
     <div class="panel-body">
