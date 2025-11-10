@@ -1,7 +1,5 @@
 {$weather_panel}
 
-<h1 class="text-center" style="margin-bottom: 30px;">🌍 Check Weather</h1>
-
 <form method="get" action="index.php" class="text-center" style="margin-bottom: 30px;">
     <div class="form-group" style="display: inline-block; margin-right: 10px;">
         <input type="text" name="name" class="form-control" placeholder="Enter city name..." 
@@ -33,7 +31,7 @@
                             Open Weather
                         </a>
                         <a href="index.php?name={$value->encodeCityName()}&id={$value->getId()}&api=FreeWeatherApi" 
-                           class="btn btn-info btn-xs" style="margin-left: 5px;">
+                           class="btn btn-success btn-xs" style="margin-left: 5px;">
                             Free Weather
                         </a>
                     </div>
