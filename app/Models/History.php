@@ -109,6 +109,9 @@ class History extends BaseModel {
             throw new PDOException("Failed to execute statement for finding history records.");
         }
         $historiesData = $PDOStatement->fetchAll();
+        if (!$historiesData) {
+            return [];
+        }
         $histories = [];
         foreach ($historiesData as &$record) {
             $histories[] = History::transformDataToHistory($record);
@@ -120,7 +123,8 @@ class History extends BaseModel {
      * Find last the histories of a city by its id
      * @param int $id
      * @throws PDOException
-     * @return History|null
+     * @throws InvalidArgumentException
+     * @return History
      */
     public static function findLastById($id) {
         $database = Database::getInstance()->connect();
@@ -143,7 +147,8 @@ class History extends BaseModel {
      * Find the last history record
      * @param int $id
      * @throws PDOException
-     * @return History|null
+     * @throws InvalidArgumentException
+     * @return History
      */
     public static function findLast() {
         $database = Database::getInstance()->connect();

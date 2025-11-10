@@ -74,7 +74,8 @@ class City extends BaseModel {
      * Retrieve a city by its ID.
      * @param int $id
      * @throws PDOException
-     * @return City|null
+     * @throws InvalidArgumentException
+     * @return City
      */
     public static function findById($id) {
         $database = Database::getInstance()->connect();
@@ -84,7 +85,7 @@ class City extends BaseModel {
         }
         $cityData = $PDOStatement->fetch();
         if (!$cityData) {
-            return null;
+            throw new InvalidArgumentException("City with ID '$id' not found.");
         }
         return City::transformDataToCity($cityData);
     }
@@ -93,7 +94,8 @@ class City extends BaseModel {
      * Retrieve a city by its name.
      * @param string $name
      * @throws PDOException
-     * @return City|null
+     * @throws InvalidArgumentException
+     * @return City
      */
     public static function findByName($name) {
         $database = Database::getInstance()->connect();
@@ -121,6 +123,9 @@ class City extends BaseModel {
             throw new PDOException("Failed to retrieve cities from database.");
         }
         $citiesData = $PDOStatement->fetchAll();
+        if (!$citiesData) {
+            return [];
+        }
         $cities = [];
         foreach ($citiesData as &$cityData) {
             $cities[] = City::transformDataToCity($cityData);
