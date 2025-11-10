@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.48, created on 2025-11-05 12:58:38
+/* Smarty version 3.1.48, created on 2025-11-10 12:01:31
   from '/home/minh/Test/templates/error.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.48',
-  'unifunc' => 'content_690b3bee8aee40_71408560',
+  'unifunc' => 'content_6911c60b6c1e53_83707113',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '886a71df96242c3d8382ee8578b44077208e78a9' => 
     array (
       0 => '/home/minh/Test/templates/error.tpl',
-      1 => 1762341117,
+      1 => 1762772488,
       2 => 'file',
     ),
   ),
@@ -20,30 +20,16 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_690b3bee8aee40_71408560 (Smarty_Internal_Template $_smarty_tpl) {
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Error</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light d-flex align-items-center" style="height:100vh;">
-
-<div class="container text-center">
-    <div class="card bg-transparent text-light shadow-sm p-5 mx-auto border-2" style="max-width: 500px;">
-        <h1 class="text-danger mb-3">⚠️ Error</h1>
-        <p class="lead"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['errorMessage']->value, ENT_QUOTES, 'UTF-8', true);?>
+function content_6911c60b6c1e53_83707113 (Smarty_Internal_Template $_smarty_tpl) {
+?><div class="container text-center" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc; max-width: 500px; margin: 0 auto; padding: 40px;">
+        <div class="panel-body">
+            <h1 class="text-danger" style="margin-bottom: 20px;">⚠️ Error</h1>
+            <p class="lead"><?php echo htmlspecialchars($_smarty_tpl->tpl_vars['errorMessage']->value, ENT_QUOTES, 'UTF-8', true);?>
 </p>
-        <a href="index.php" class="btn btn-outline-light mt-3">Return to Home</a>
+            <a href="index.php" class="btn btn-default" style="margin-top: 20px;">Return to Home</a>
+        </div>
     </div>
 </div>
-
-<?php echo '<script'; ?>
- src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
-</body>
-</html>
 <?php }
 }

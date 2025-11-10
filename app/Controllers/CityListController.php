@@ -26,6 +26,7 @@ class CityListController extends AbstractViewController {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
-        $this->getView()->render('index.tpl', ['cities' => $cities]);
+        $container = $this->getView()->fetch('list.tpl', ['cities' => $cities]);
+        $this->getView()->render_main('index.tpl', $container);
     }
 }

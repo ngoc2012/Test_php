@@ -45,20 +45,38 @@ class RainView implements ViewInterface {
     // ======================
     
     /**
-     * Render a template directly to output.
+     * Render a container to default template directly to output.
+     *
+     * @param string $template Template file name
+     * @param string $container container content
+     * @return void
+     */
+    public function render_main($template, $container) {
+        $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
+        try {
+            $this->tpl->assign("container", $container);
+            $this->tpl->draw($fileNameRaintpl, false);
+        } catch (Exception $e) {
+            throw new RuntimeException("Failed to render template: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch a template directly to output.
      *
      * @param string $template Template file name
      * @param array $data Associative array to assign
-     * @return void
+     * @return string
      */
-    public function render($template, array $data = []) {
+    public function fetch($template, array $data = []) {
         $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
         foreach ($data as $key => $value) {
             $this->tpl->assign($key, $value);
         }
-
         try {
-            $this->tpl->draw($fileNameRaintpl, false);
+            $content = $this->tpl->draw($fileNameRaintpl, true);
+            return $content;
+
         } catch (Exception $e) {
             throw new RuntimeException("Failed to render template: " . $e->getMessage());
         }

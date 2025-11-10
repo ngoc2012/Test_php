@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Error</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-dark text-light d-flex align-items-center" style="height:100vh;">
-
-<div class="container text-center">
-    <div class="card bg-transparent text-light shadow-sm p-5 mx-auto border-2" style="max-width: 500px;">
-        <h1 class="text-danger mb-3">⚠️ Error</h1>
-        <p class="lead">{$errorMessage|escape}</p>
-        <a href="index.php" class="btn btn-outline-light mt-3">Return to Home</a>
+<div class="container text-center" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc; max-width: 500px; margin: 0 auto; padding: 40px;">
+        <div class="panel-body">
+            <h1 class="text-danger" style="margin-bottom: 20px;">⚠️ Error</h1>
+            <p class="lead">{$errorMessage|escape}</p>
+            <a href="index.php" class="btn btn-default" style="margin-top: 20px;">Return to Home</a>
+        </div>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

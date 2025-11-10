@@ -41,18 +41,34 @@ class SmartyView implements ViewInterface {
     // ======================
 
     /**
-     * Render a template directly to output.
+     * Render a container to default template directly to output.
+     *
+     * @param string $template Template file name
+     * @param string $container container content
+     * @return void
+     */
+    public function render_main($template, $container) {
+        try {
+            $this->smarty->assign("container", $container);
+            $this->smarty->display($template);
+        } catch (Exception $e) {
+            throw new RuntimeException("Failed to render template: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Fetch a template directly to string.
      *
      * @param string $template Template file name
      * @param array $data Associative array to assign
-     * @return void
+     * @return string
      */
-    public function render($template, array $data = []) {
+    public function fetch($template, array $data = []) {
         foreach ($data as $key => $value) {
             $this->smarty->assign($key, $value);
         }
         try {
-            $this->smarty->display($template);
+            return $this->smarty->fetch($template);
         } catch (Exception $e) {
             throw new RuntimeException("Failed to render template: " . $e->getMessage());
         }

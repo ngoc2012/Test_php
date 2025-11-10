@@ -21,7 +21,7 @@ class WeatherService {
      *
      * @param City $city The City object.
      * @param string|null $apiName The name of the API to use (optional).
-     * @return void
+     * @return History
      */
     public static function getData($city, $apiName = null) {
         switch ($apiName) {
@@ -40,5 +40,6 @@ class WeatherService {
             "humidity" => $humidity
         ]);
         History::save($history);
+        return $history;
     }
 }

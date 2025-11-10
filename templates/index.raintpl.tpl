@@ -4,40 +4,15 @@
     <meta charset="UTF-8">
     <title>Weather</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-dark text-light">
+<body style="background-color: #343a40; color: #f8f9fa;">
 
-<div class="container py-5">
-    <h1 class="text-center mb-4">🌍 All Cities</h1>
-
-    <div class="card bg-transparent text-light shadow-sm p-4 border-2">
-        <ul class="list-group list-group-flush">
-        {loop="cities"}
-            <li class="list-group-item bg-dark text-light border-0 border-bottom border-secondary d-flex justify-content-between align-items-center">
-                <span class="fw-semibold">{$value->getName()}</span>
-
-                <div class="d-flex gap-2 ms-auto">
-                    <a href="index.php?name={$value->encodeCityName()}&id={$value->getId()}&api=OpenWeatherApi" 
-                       class="btn btn-outline-info btn-sm">
-                        Open Weather
-                    </a>
-
-                    <a href="index.php?name={$value->encodeCityName()}&id={$value->getId()}&api=FreeWeatherApi" 
-                       class="btn btn-outline-info btn-sm">
-                        Free Weather
-                    </a>
-                </div>
-            </li>
-        {/loop}
-        </ul>
-    </div>
-
-    <div class="text-center mt-4">
-        <p class="text-muted">Select a city to view the latest weather 🌦️</p>
-    </div>
+<div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+{$container}
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

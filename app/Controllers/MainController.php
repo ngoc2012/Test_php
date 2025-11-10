@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\PostParameterException;
 use App\Models\City;
 use App\Controllers\CityWeatherController;
 use App\Controllers\CityListController;
