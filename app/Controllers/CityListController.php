@@ -26,7 +26,17 @@ class CityListController extends AbstractViewController {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
-        $container = $this->getView()->fetch('list.tpl', ['cities' => $cities]);
+        $last_city = $cities[0];
+        // error_log("Last city: " . $last_city->getName() . ", " . $last_city->getId());
+        $history = $this->getData($last_city, null);
+        $weather_panel = $this->getView()->fetch('weather_panel.tpl', [
+            'city' => $last_city,
+            'history' => $history
+        ]);
+        $container = $this->getView()->fetch('list.tpl', [
+            'cities' => $cities,
+            'weather_panel' => $weather_panel
+        ]);
         $this->getView()->render_main('index.tpl', $container);
     }
 }

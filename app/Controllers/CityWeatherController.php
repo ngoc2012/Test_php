@@ -2,12 +2,7 @@
 namespace App\Controllers;
 
 use App\Controllers\AbstractViewController;
-use App\Services\WeatherService;
 use App\Models\City;
-use PDOException;
-use RuntimeException;
-use InvalidArgumentException;
-use Exception;
 
 /**
  * Controller for the city weather page
@@ -52,21 +47,7 @@ class CityWeatherController extends AbstractViewController {
      * @return void
      */
     public function init() {
-        try {
-            WeatherService::getData($this->city, $this->apiName);
-        } catch (RuntimeException $e) {
-            (new ErrorController('smarty'))->init($e->getMessage());
-            exit;
-        } catch (InvalidArgumentException $e) {
-            (new ErrorController('smarty'))->init($e->getMessage());
-            exit;
-        } catch (PDOException $e) {
-            (new ErrorController('smarty'))->init($e->getMessage());
-            exit;
-        } catch (Exception $e) { // catch anything else
-            (new ErrorController('smarty'))->init('Unexpected error: ' . $e->getMessage());
-            exit;
-        }
+        $this->getData($this->city, $this->apiName);
         $history = $this->city->getHistory();
         if (count($history) == 0) {
             $city = City::findById($this->city->getId());

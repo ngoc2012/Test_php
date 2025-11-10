@@ -1,4 +1,7 @@
-<?php if(!class_exists('raintpl')){exit;}?><h1 class="text-center" style="margin-bottom: 30px;">🌍 All Cities</h1>
+<?php if(!class_exists('raintpl')){exit;}?><?php echo $weather_panel;?>
+
+
+<h1 class="text-center" style="margin-bottom: 30px;">🌍 All Cities</h1>
 
 <div class="panel panel-default" style="background-color: transparent;border: none;">
     <div class="panel-body" style="padding: 0;">

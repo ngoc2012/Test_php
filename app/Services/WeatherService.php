@@ -35,7 +35,7 @@ class WeatherService {
         list($temperature, $humidity) = $api->fetchWeather($city);
         $history = History::transformDataToHistory([
             "cityId" => $city->getId(),
-            "api" => $apiName,
+            "api" => $api->getApiName(),
             "temperature" => $temperature,
             "humidity" => $humidity
         ]);

@@ -32,5 +32,5 @@ class MainController {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
-    }
+    }   
 }

@@ -42,6 +42,10 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
     // === Public Methods ===
     // ======================
 
+    public function getApiName() {
+        return $this->apiName;
+    }
+
     /**
      * Fetch weather data for a given city.
      *

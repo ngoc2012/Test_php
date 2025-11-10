@@ -9,7 +9,7 @@
 <body style="background-color: #343a40; color: #f8f9fa;">
 
 <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
-    {$container}
+{$container}
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
