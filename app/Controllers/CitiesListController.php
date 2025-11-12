@@ -26,15 +26,19 @@ class CitiesListController extends AbstractViewController {
         
         try {
             $cities = City::findLastVisitedCities(10);
-            try {
-                $lastHistory = History::findLast();
-                $apiName = $lastHistory->getApi();
-                $lastCityId = $lastHistory->getCityId();
-            } catch (InvalidArgumentException $e) {
-                $apiName = 'OpenWeatherMap';
-                $lastCityId = $cities[0]->getId();
+            $apiName = 'OpenWeatherMap';
+            if (count($cities) === 0) {
+                $lastCity = City::save('Paris');
+            } else {
+                try {
+                    $lastHistory = History::findLast();
+                    $apiName = $lastHistory->getApi();
+                    $lastCityId = $lastHistory->getCityId();
+                } catch (InvalidArgumentException $e) {
+                    $lastCityId = $cities[0]->getId();
+                }
+                $lastCity = City::findById($lastCityId);
             }
-            $lastCity = City::findById($lastCityId);
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;

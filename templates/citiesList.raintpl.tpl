@@ -5,9 +5,6 @@
         <input type="text" name="name" class="form-control" placeholder="Enter city name..." 
                style="width: 250px; display: inline-block;" required>
     </div>
-
-    <input type="hidden" name="controller" value="city" />
-
     <button type="submit" name="api" value="OpenWeatherApi" class="btn btn-info btn-sm">
         Get from OpenWeather 🌤️
     </button>

@@ -129,17 +129,6 @@ class City extends BaseModel {
             ORDER BY h.lastVisit DESC
             LIMIT $limit
         ";
-        // $sql = "
-        //     SELECT *
-        //     FROM city
-        //     ORDER BY (
-        //         SELECT MAX(createdAt)
-        //         FROM history
-        //         WHERE cityId = city.id
-        //     ) DESC,
-        //     id ASC
-        //     LIMIT $limit;
-        // ";
         $PDOStatement = $database->query($sql);
         if (!$PDOStatement) {
             throw new PDOException('Failed to retrieve city from database.');
