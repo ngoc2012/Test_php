@@ -19,8 +19,7 @@ class ErrorController extends AbstractViewController {
      * @return void
      */
     public function init($message = null) {
-        $this->getView()->render('theme.tpl', [
-            'container' => 'error.tpl',
+        $this->getView()->render('theme.tpl', 'error', [
             'errorMessage' => $message
         ]);
     }

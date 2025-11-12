@@ -55,8 +55,7 @@ class CityWeatherController extends AbstractViewController {
             exit;
         }
         try {
-            $this->getView()->render('theme.tpl', [
-                'container' => 'cityWeather',
+            $this->getView()->render('theme.tpl', 'cityWeather', [
                 'histories' => $histories,
                 'city' => $this->city,
                 'history' => $histories[0]

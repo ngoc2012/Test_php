@@ -44,8 +44,7 @@ class CitiesListController extends AbstractViewController {
         }
         $history = $this->getData($lastCity, $apiName);
         try {
-            $this->getView()->render('theme.tpl', [
-                'container' => "citiesList",
+            $this->getView()->render('theme.tpl', "citiesList", [
                 'cities' => $cities,
                 'city' => $lastCity,
                 'history' => $history
