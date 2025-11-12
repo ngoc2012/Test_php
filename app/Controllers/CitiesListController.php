@@ -22,10 +22,18 @@ class CitiesListController extends AbstractViewController {
      * @return void
      */
     public function init() {
+        
         try {
-            $cities = City::findAll();
-            $lastHistory = History::findLast();
-            $lastCity = City::findById($lastHistory->getCityId());
+            $cities = City::findLastVisitedCities(10);
+            try {
+                $lastHistory = History::findLast();
+                $apiName = $lastHistory->getApi();
+                $lastCityId = $lastHistory->getCityId();
+            } catch (InvalidArgumentException $e) {
+                $apiName = 'OpenWeatherMap';
+                $lastCityId = $cities[0]->getId();
+            }
+            $lastCity = City::findById($lastCityId);
         } catch (PDOException $e) {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
@@ -33,7 +41,7 @@ class CitiesListController extends AbstractViewController {
             (new ErrorController('smarty'))->init($e->getMessage());
             exit;
         }
-        $history = $this->getData($lastCity, $lastHistory->getApi());
+        $history = $this->getData($lastCity, $apiName);
         $weatherPanel = $this->getView()->fetch('weatherPanel.tpl', [
             'city' => $lastCity,
             'history' => $history

@@ -19,8 +19,6 @@ class City extends BaseModel {
 
     /* @var string city name */
     private $name;
-    /* @var string */
-    private $visitedAt;
 
 
     // ===================
@@ -79,7 +77,7 @@ class City extends BaseModel {
      */
     public static function findById($id) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("SELECT * FROM cities WHERE id = " . $id );
+        $PDOStatement = $database->query("SELECT * FROM city WHERE id = " . $id );
         if (!$PDOStatement) {
             throw new PDOException("Failed to retrieve city from database.");
         }
@@ -99,7 +97,7 @@ class City extends BaseModel {
      */
     public static function findByName($name) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->prepare("SELECT * FROM cities WHERE name = :name");
+        $PDOStatement = $database->prepare("SELECT * FROM city WHERE name = :name");
         $PDOStatement->bindParam(':name', $name, \PDO::PARAM_STR);
         if (!$PDOStatement->execute()) {
             throw new PDOException("Failed to retrieve city from database.");
@@ -112,24 +110,41 @@ class City extends BaseModel {
     }
 
     /**
-     * Retrieve all cities from the database.
+     * Retrieve the most recently visited cities.
+     * @param int $limit
      * @throws PDOException
      * @return City[]
      */
-    public static function findAll() {
+    public static function findLastVisitedCities($limit = 10) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("SELECT * FROM cities ORDER BY visitedAt DESC LIMIT 10");
+        $limit = (int)$limit;
+        $sql = "
+            SELECT c.*
+            FROM city c
+            LEFT JOIN (
+                SELECT cityId, MAX(createdAt) AS lastVisit
+                FROM history
+                GROUP BY cityId
+            ) h ON c.id = h.cityId
+            ORDER BY h.lastVisit DESC, c.id ASC
+            LIMIT $limit
+        ";
+
+        $PDOStatement = $database->query($sql);
         if (!$PDOStatement) {
-            throw new PDOException("Failed to retrieve cities from database.");
+            throw new PDOException('Failed to retrieve city from database.');
         }
-        $citiesData = $PDOStatement->fetchAll();
-        if (!$citiesData) {
+
+        $cityData = $PDOStatement->fetchAll();
+        if (!$cityData) {
             return [];
         }
+
         $cities = [];
-        foreach ($citiesData as &$cityData) {
-            $cities[] = City::transformDataToCity($cityData);
+        foreach ($cityData as $row) {
+            $cities[] = City::transformDataToCity($row);
         }
+
         return $cities;
     }
 
@@ -141,7 +156,7 @@ class City extends BaseModel {
      */
     public static function save($cityName) {
         $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("INSERT INTO cities (name, visitedAt) VALUES (" . $database->quote($cityName) . ", NOW())");
+        $PDOStatement = $database->query("INSERT INTO city (name) VALUES (" . $database->quote($cityName) . ")");
         if (!$PDOStatement) {
             throw new PDOException("Failed to save city to database.");
         }
@@ -150,20 +165,6 @@ class City extends BaseModel {
             "id"=> $cityId,
             "name"=> $cityName,
         ]);
-    }
-
-    /**
-     * Update the city's visitedAt timestamp to the current time.
-     * @param int $id
-     * @throws PDOException
-     * @return void
-     */
-    public static function updateVisitedAt($id) {
-        $database = Database::getInstance()->connect();
-        $PDOStatement = $database->query("UPDATE cities SET visitedAt = NOW() WHERE id = " . $id);
-        if (!$PDOStatement) {
-            throw new PDOException("Failed to update city's visitedAt in database.");
-        }
     }
 
     // ===========

@@ -4,10 +4,9 @@ CREATE DATABASE IF NOT EXISTS test
 
 USE test;
 
-CREATE TABLE IF NOT EXISTS cities (
+CREATE TABLE IF NOT EXISTS city (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE,
-    visitedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    name VARCHAR(100) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS history (
@@ -18,12 +17,12 @@ CREATE TABLE IF NOT EXISTS history (
     humidity FLOAT,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_city (cityId),
-    FOREIGN KEY (cityId) REFERENCES cities(id)
+    FOREIGN KEY (cityId) REFERENCES city(id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO cities (name) VALUES
+INSERT INTO city (name) VALUES
 ('New York'),
 ('Los Angeles'),
 ('Chicago'),
