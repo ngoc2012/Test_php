@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\History;
 use PDOException;
 use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Controller for the main page: Listing all the cities
@@ -42,11 +43,16 @@ class CitiesListController extends AbstractViewController {
             exit;
         }
         $history = $this->getData($lastCity, $apiName);
-        $container = $this->getView()->fetch('citiesList.tpl', [
-            'cities' => $cities,
-            'city' => $lastCity,
-            'history' => $history
-        ]);
-        $this->getView()->renderMain('index.tpl', $container);
+        try {
+            $this->getView()->render('theme.tpl', [
+                'container' => "citiesList",
+                'cities' => $cities,
+                'city' => $lastCity,
+                'history' => $history
+            ]);
+        } catch (RuntimeException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        }
     }
 }

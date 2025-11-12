@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Controllers\AbstractViewController;
 use App\Models\City;
+use RuntimeException;
 
 /**
  * Controller for the city weather page
@@ -53,11 +54,16 @@ class CityWeatherController extends AbstractViewController {
             (new ErrorController('smarty'))->init('No weather history found for this city.');
             exit;
         }
-        $container = $this->getView()->fetch('cityWeather.tpl', [
-            'histories' => $histories,
-            'city' => $this->city,
-            'history' => $histories[0]
-        ]);
-        $this->getView()->renderMain('index.tpl', $container);
+        try {
+            $this->getView()->render('theme.tpl', [
+                'container' => 'cityWeather',
+                'histories' => $histories,
+                'city' => $this->city,
+                'history' => $histories[0]
+            ]);
+        } catch (RuntimeException $e) {
+            (new ErrorController('smarty'))->init($e->getMessage());
+            exit;
+        }
     }
 }

@@ -11,20 +11,11 @@ interface ViewInterface
     // ======================
     
     /**
-     * Render a container to default template directly to output.
+     * Render a template with a theme.
      *
-     * @param string $template Template file name
-     * @param string $container container content
+     * @param string $theme Theme template file name
+     * @param array $data Variables to assign
      * @return void
      */
-    public function renderMain($template, $container);
-
-    /**
-     * Render a template to string.
-     *
-     * @param string $template Template file name
-     * @param array $data Variables to assign
-     * @return string
-     */
-    public function fetch($template, array $data = []);
+    public function render($theme, array $data = []);
 }

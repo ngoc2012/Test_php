@@ -9,7 +9,7 @@
 <body style="background-color: #f8f9fa; color: #343a40;">
 
 <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
-{$container}
+{include file=$container|cat:".tpl"}
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

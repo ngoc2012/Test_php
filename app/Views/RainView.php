@@ -43,40 +43,24 @@ class RainView implements ViewInterface {
     // ======================
     // === Public methods ===
     // ======================
-    
-    /**
-     * Render a container to default template directly to output.
-     *
-     * @param string $template Template file name
-     * @param string $container container content
-     * @return void
-     */
-    public function renderMain($template, $container) {
-        $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
-        try {
-            $this->tpl->assign("container", $container);
-            $this->tpl->draw($fileNameRaintpl, false);
-        } catch (Exception $e) {
-            throw new RuntimeException("Failed to render template: " . $e->getMessage());
-        }
-    }
 
     /**
-     * Fetch a template directly to output.
+     * Render a template with a theme.
      *
-     * @param string $template Template file name
-     * @param array $data Associative array to assign
-     * @return string
+     * @param string $theme Theme template file name
+     * @param array $data Variables to assign
+     * @return void
      */
-    public function fetch($template, array $data = []) {
-        $fileNameRaintpl = pathinfo($template, PATHINFO_FILENAME) . '.raintpl';
+    public function render($theme, array $data = []) {
+        $fileNameRaintpl = pathinfo($theme, PATHINFO_FILENAME) . '.raintpl';
         foreach ($data as $key => $value) {
+            if ($key === "container") {
+                $value .= '.raintpl';
+            }
             $this->tpl->assign($key, $value);
         }
         try {
-            $content = $this->tpl->draw($fileNameRaintpl, true);
-            return $content;
-
+            $this->tpl->draw($fileNameRaintpl, false);
         } catch (Exception $e) {
             throw new RuntimeException("Failed to render template: " . $e->getMessage());
         }
