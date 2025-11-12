@@ -42,13 +42,10 @@ class CitiesListController extends AbstractViewController {
             exit;
         }
         $history = $this->getData($lastCity, $apiName);
-        $weatherPanel = $this->getView()->fetch('weatherPanel.tpl', [
-            'city' => $lastCity,
-            'history' => $history
-        ]);
         $container = $this->getView()->fetch('citiesList.tpl', [
             'cities' => $cities,
-            'weatherPanel' => $weatherPanel
+            'city' => $lastCity,
+            'history' => $history
         ]);
         $this->getView()->renderMain('index.tpl', $container);
     }

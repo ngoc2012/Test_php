@@ -129,22 +129,18 @@ class City extends BaseModel {
             ORDER BY h.lastVisit DESC, c.id ASC
             LIMIT $limit
         ";
-
         $PDOStatement = $database->query($sql);
         if (!$PDOStatement) {
             throw new PDOException('Failed to retrieve city from database.');
         }
-
         $cityData = $PDOStatement->fetchAll();
         if (!$cityData) {
             return [];
         }
-
         $cities = [];
         foreach ($cityData as $row) {
             $cities[] = City::transformDataToCity($row);
         }
-
         return $cities;
     }
 

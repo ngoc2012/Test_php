@@ -1,5 +1,5 @@
 
-{$weatherPanel}
+{include file="weatherPanel.tpl"}
 
 <div class="panel panel-default" style="background-color: transparent; border: 2px solid #ccc;">
     <div class="panel-heading" style="background-color: transparent; color: #343a40;">

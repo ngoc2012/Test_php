@@ -9,6 +9,8 @@
 <body style="background-color: #f8f9fa; color: #343a40;">
 
 <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
+<?php $tpl = new RainTPL;$tpl->assign( $this->var );$tpl->draw( "weatherPanel.raintpl" );?>
+
 <?php echo $container;?>
 
 </div>

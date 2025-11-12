@@ -31,7 +31,7 @@ class MainController {
             }
             $controller = new CityWeatherController('smarty', $city, trim($_GET['api']));
         } else {
-            $controller = new CitiesListController('raintpl');
+            $controller = new CitiesListController('smarty');
         }
         try {
             $controller->init();
