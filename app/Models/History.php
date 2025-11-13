@@ -172,8 +172,8 @@ class History extends BaseModel {
 	public static function save($weatherData) {
 		$database = Database::getInstance()->connect();
 		$PDOStatement = $database->prepare("
-            INSERT INTO history (cityId, api, temperature, humidity, createdAt)
-            VALUES (:cityId, :api, :temperature, :humidity, NOW())
+			INSERT INTO history (cityId, api, temperature, humidity, createdAt)
+			VALUES (:cityId, :api, :temperature, :humidity, NOW())
         ");
 		if (!$PDOStatement) {
 			throw new PDOException("Failed to prepare statement for saving history record.");

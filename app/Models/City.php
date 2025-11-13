@@ -119,13 +119,13 @@ class City extends BaseModel {
 		$database = Database::getInstance()->connect();
 		$limit = (int)$limit;
 		$sql = "
-            SELECT c.*
-            FROM city c
-            LEFT JOIN history h ON h.cityId = c.id
-            GROUP BY c.id
-            ORDER BY MAX(h.createdAt) DESC, c.id ASC
-            LIMIT $limit;
-        ";
+			SELECT c.*
+			FROM city c
+			LEFT JOIN history h ON h.cityId = c.id
+			GROUP BY c.id
+			ORDER BY MAX(h.createdAt) DESC, c.id ASC
+			LIMIT $limit;
+		";
 		$PDOStatement = $database->query($sql);
 		if (!$PDOStatement) {
 			throw new PDOException('Failed to retrieve city from database.');
