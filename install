@@ -1,0 +1,12 @@
+wget https://github.com/squizlabs/PHP_CodeSniffer/archive/refs/tags/3.6.0.zip -O phpcs.zip
+unzip phpcs.zip
+mv PHP_CodeSniffer-3.6.0 phpcs
+
+
+chmod +x phpcs/bin/phpcs
+chmod +x phpcs/bin/phpcbf
+
+phpcs -i
+phpcs --version
+
+PHP_CodeSniffer version 3.6.0

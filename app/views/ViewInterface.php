@@ -1,5 +1,5 @@
 <?php
-namespace App\Views;
+namespace App\views;
 
 /**
 * Interface for abstract methods of renderers

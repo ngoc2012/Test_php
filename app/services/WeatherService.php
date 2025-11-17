@@ -1,10 +1,10 @@
 <?php
-namespace App\Services;
+namespace App\services;
 
-use App\Models\City;
-use App\Models\History;
-use App\Services\API\FreeWeatherApi;
-use App\Services\API\OpenWeatherApi;
+use App\models\City;
+use App\models\History;
+use App\services\api\FreeWeatherApi;
+use App\services\api\OpenWeatherApi;
 use InvalidArgumentException;
 /**
 * WeatherService class to fetch weather data

@@ -1,8 +1,8 @@
 <?php
-namespace App\Views;
+namespace App\views;
 
-use App\Views\SmartyView;
-use App\Views\RainView;
+use App\views\SmartyView;
+use App\views\RainView;
 
 /**
 * Factory class for all types of renderer

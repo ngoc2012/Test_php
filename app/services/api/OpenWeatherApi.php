@@ -1,8 +1,8 @@
 <?php
-namespace App\Services\API;
+namespace App\services\api;
 
-use App\Models\City;
-use App\Services\API\AbstractWeatherApi;
+use App\models\City;
+use App\services\api\AbstractWeatherApi;
 use Config\AppConfig;
 use RuntimeException;
 

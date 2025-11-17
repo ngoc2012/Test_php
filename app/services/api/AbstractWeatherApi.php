@@ -1,7 +1,7 @@
 <?php
-namespace App\Services\API;
+namespace App\services\api;
 
-use App\Models\City;
+use App\models\City;
 
 /**
 * Base class for all WeatherApi type

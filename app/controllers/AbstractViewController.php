@@ -1,11 +1,11 @@
 <?php
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Views\ViewFactory;
-use App\Views\ViewInterface;
-use App\Services\WeatherService;
-use App\Models\City;
-use App\Models\History;
+use App\views\ViewFactory;
+use App\views\ViewInterface;
+use App\services\WeatherService;
+use App\models\City;
+use App\models\History;
 use PDOException;
 use RuntimeException;
 use InvalidArgumentException;

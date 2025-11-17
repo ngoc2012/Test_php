@@ -1,25 +1,25 @@
 <?php
-namespace App\Views;
+namespace App\views;
 
-require_once __DIR__ . '/../../libs/smarty/Smarty.class.php';
+require_once __DIR__ . '/../../libs/rain.tpl.class.php';
 
-use App\Views\ViewInterface;
-use Smarty;
+use App\views\ViewInterface;
+use RainTPL;
 use Exception;
 use RuntimeException;
 
 /**
-* Renderer class using Smarty
+* Renderer class using RainTPL
 */
-class SmartyView implements ViewInterface {
+class RainView implements ViewInterface {
 	
 	
 	// =================
 	// === Variables ===
 	// =================
 	
-	/* @var Smarty instance */
-	private $smarty;
+	/* @var RainTPL instance */
+	private $tpl;
 	
 	
 	// ====================
@@ -27,12 +27,16 @@ class SmartyView implements ViewInterface {
 	// ====================
 	
 	/**
-	* Constructor and Smarty configuration
+	* Constructor and RainTPL configuration
 	*/
 	public function __construct() {
-		$this->smarty = new Smarty();
-		$this->smarty->setTemplateDir(__DIR__ . '/../../templates/');
-		$this->smarty->setCompileDir(__DIR__ . '/../../templates_c/');
+		
+		RainTPL::configure("base_url", '/');
+		RainTPL::configure("tpl_dir", __DIR__ . "/../../templates/");
+		RainTPL::configure("cache_dir", __DIR__ . "/../../templates_c/");
+		RainTPL::configure("tpl_ext", "tpl");
+		
+		$this->tpl = new RainTPL;
 	}
 	
 	
@@ -49,12 +53,13 @@ class SmartyView implements ViewInterface {
 	* @return void
 	*/
 	public function render($theme, $container, array $data = []) {
-		$this->smarty->assign("container", $container);
+		$fileNameRaintpl = pathinfo($theme, PATHINFO_FILENAME) . '.raintpl';
+		$this->tpl->assign("container", $container . '.raintpl');
 		foreach ($data as $key => $value) {
-			$this->smarty->assign($key, $value);
+			$this->tpl->assign($key, $value);
 		}
 		try {
-			$this->smarty->display($theme);
+			$this->tpl->draw($fileNameRaintpl, false);
 		} catch (Exception $e) {
 			throw new RuntimeException("Failed to render template: " . $e->getMessage());
 		}

@@ -1,9 +1,9 @@
 <?php
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Models\City;
-use App\Controllers\CityWeatherController;
-use App\Controllers\CitiesListController;
+use App\models\City;
+use App\controllers\CityWeatherController;
+use App\controllers\CitiesListController;
 use RuntimeException; 
 
 /**

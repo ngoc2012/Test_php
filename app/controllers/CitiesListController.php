@@ -1,9 +1,9 @@
 <?php
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Controllers\AbstractViewController;
-use App\Models\City;
-use App\Models\History;
+use App\controllers\AbstractViewController;
+use App\models\City;
+use App\models\History;
 use PDOException;
 use InvalidArgumentException;
 use RuntimeException;

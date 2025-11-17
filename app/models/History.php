@@ -1,8 +1,8 @@
 <?php
-namespace App\Models;
+namespace App\models;
 
-use App\Models\BaseModel;
-use App\Core\Database;
+use App\models\BaseModel;
+use App\core\Database;
 use PDOException;
 use InvalidArgumentException;
 

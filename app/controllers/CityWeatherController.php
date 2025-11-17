@@ -1,8 +1,8 @@
 <?php
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Controllers\AbstractViewController;
-use App\Models\City;
+use App\controllers\AbstractViewController;
+use App\models\City;
 use RuntimeException;
 
 /**

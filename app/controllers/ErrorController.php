@@ -1,18 +1,18 @@
 <?php
-namespace App\Controllers;
+namespace App\controllers;
 
-use App\Controllers\AbstractViewController;
+use App\controllers\AbstractViewController;
 
 /**
 * Controller for handling errors pages
 */
 class ErrorController extends AbstractViewController {
-	
-	
+
+
 	// =========================
 	// === Public Methods ======
 	// =========================
-	
+
 	/**
 	* Display an error message.
 	* @param string $message
@@ -23,4 +23,5 @@ class ErrorController extends AbstractViewController {
 			'errorMessage' => $message
 		]);
 	}
+
 }
