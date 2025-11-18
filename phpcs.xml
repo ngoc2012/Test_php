@@ -33,9 +33,13 @@
         </properties>
     </rule>
 
-    <exclude name="PSR2.Classes.PropertyDeclaration.Underscore" />
-    <exclude name="PSR2.Classes.MethodDeclaration.Underscore" />
-    <exclude name="PSR2.Methods.MethodDeclaration.Underscore" />
+    <rule ref="Squiz.Functions.FunctionDeclaration">
+        <properties>
+            <property name="openingBraceNewLine" value="false"/>
+            <property name="allowClassMethod" value="true"/>
+        </properties>
+    </rule>
+
 
     <!-- Maximum nesting depth -->
     <rule ref="Generic.Metrics.NestingLevel">

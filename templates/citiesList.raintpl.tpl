@@ -1,6 +1,6 @@
 {include="weatherPanel.raintpl"}
 
-<form method="get" action="index.php" class="text-center" style="margin-bottom: 30px;">
+<form method="{$method}" action="index.php" class="text-center" style="margin-bottom: 30px;">
 	<div class="form-group" style="display: inline-block; margin-right: 10px;">
 		<input type="text" name="name" class="form-control" placeholder="Enter city name..." 
 		style="width: 250px; display: inline-block;" required>
@@ -23,7 +23,7 @@
 					<span style="display: table-cell; font-weight: bold;">{$value->getName()}</span>
 					<!-- Buttons on the right -->
 					<div style="display: table-cell; text-align: right; white-space: nowrap;">
-						{if="$method=='POST'"}
+						{if="$method=='post'"}
 
 						<form method="post" action="index.php" class="form-inline" style="display:inline-block; margin-right:5px;">
 							<input type="hidden" name="name" value="{$value->getName()}">

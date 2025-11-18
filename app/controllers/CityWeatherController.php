@@ -29,9 +29,8 @@ class CityWeatherController extends AbstractViewController {
 	* @param string $viewType
 	* @param City $city
 	* @param string $apiName
-	* @param string $method
 	*/
-	public function __construct($viewType, City $city, $apiName, $method = 'POST') {
+	public function __construct($viewType, City $city, $apiName) {
 		parent::__construct($viewType);
 		$this->city = $city;
 		$this->apiName = $apiName;

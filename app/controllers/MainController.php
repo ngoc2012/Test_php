@@ -18,8 +18,14 @@ class MainController {
 
 	/**
 	* Main entry point of the application.
+	* @param string $methodName The HTTP method name ('get' or 'post').
 	*/
-	public static function index($method) {
+	public static function index($methodName) {
+		if ($methodName == "get") {
+			$method = $_GET;
+		} else {
+			$method = $_POST;
+		}
 		if (isset($method["name"])) {
 			$city = City::transformDataToCity($method);
 			if (isset($method['id'])) {
@@ -34,7 +40,7 @@ class MainController {
 				$city, trim($method['api'])
 			);
 		} else {
-			$controller = new CitiesListController('raintpl',$method === $_POST ? 'POST' : 'GET');
+			$controller = new CitiesListController('raintpl',$methodName);
 		}
 		try {
 			$controller->init();

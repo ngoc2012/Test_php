@@ -30,7 +30,7 @@ class CitiesListController extends AbstractViewController {
 	* Constructor.
 	* @param string $method
 	*/
-	public function __construct($viewType, $method = 'POST') {
+	public function __construct($viewType, $method = 'post') {
 		parent::__construct($viewType);
 		$this->method = $method;
 	}
