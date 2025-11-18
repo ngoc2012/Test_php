@@ -11,20 +11,20 @@ use InvalidArgumentException;
 * City model class
 */
 class City extends BaseModel {
-	
-	
+
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var string city name */
 	private $name;
-	
-	
+
+
 	// ===================
 	// === Constructor ===
 	// ===================
-	
+
 	/**
 	* Constructor
 	* @param int $id
@@ -34,16 +34,16 @@ class City extends BaseModel {
 		parent::__construct($id);
 		$this->name = $name;
 	}
-	
-	
+
+
 	// ======================
 	// === Public methods ===
 	// ======================
-	
+
 	public function getName() {
 		return $this->name;
 	}
-	
+
 	/**
 	* Encode the city name for URL usage.
 	*
@@ -52,22 +52,22 @@ class City extends BaseModel {
 	public function encodeCityName() {
 		return urlencode($this->name);
 	}
-	
-	
+
+
 	// ===========================
 	// === Data access methods ===
 	// ===========================
-	
+
 	/**
 	* Retrieve all history records for this city.
-	* 
+	*
 	* @throws Exception
 	* @return History[]
 	*/
 	public function getHistories() {
 		return History::findAllByCityId($this->getId());
 	}
-	
+
 	/**
 	* Retrieve a city by its ID.
 	* @param int $id
@@ -87,7 +87,7 @@ class City extends BaseModel {
 		}
 		return City::transformDataToCity($cityData);
 	}
-	
+
 	/**
 	* Retrieve a city by its name.
 	* @param string $name
@@ -108,7 +108,7 @@ class City extends BaseModel {
 		}
 		return City::transformDataToCity($cityData);
 	}
-	
+
 	/**
 	* Retrieve the most recently visited cities.
 	* @param int $limit
@@ -140,7 +140,7 @@ class City extends BaseModel {
 		}
 		return $cities;
 	}
-	
+
 	/**
 	* Save the city to the database.
 	* @param string $cityName
@@ -159,11 +159,11 @@ class City extends BaseModel {
 			"name"=> $cityName,
 		]);
 	}
-	
+
 	// ===========
 	// === DTO ===
 	// ===========
-	
+
 	/**
 	* Transform data array to City object
 	* @param array $data

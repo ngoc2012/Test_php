@@ -12,18 +12,39 @@ use RuntimeException;
 * Controller for the main page: Listing all the cities
 */
 class CitiesListController extends AbstractViewController {
-	
-	
+
+
+	// =================
+	// === Variables ===
+	// =================
+
+	/* @var string */
+	private $method;
+
+
+	// ===================
+	// === Constructor ===
+	// ===================
+
+	/**
+	* Constructor.
+	* @param string $method
+	*/
+	public function __construct($viewType, $method = 'POST') {
+		parent::__construct($viewType);
+		$this->method = $method;
+	}
+
 	// =========================
 	// === Public Methods ======
 	// =========================
-	
+
 	/**
 	* Display the list of cities.
 	* @return void
 	*/
 	public function init() {
-		
+
 		try {
 			$cities = City::findLastVisitedCities(10);
 			$apiName = 'OpenWeatherMap';
@@ -49,6 +70,7 @@ class CitiesListController extends AbstractViewController {
 		$history = $this->getData($lastCity, $apiName);
 		try {
 			$this->getView()->render('theme.tpl', "citiesList", [
+				'method' => $this->method,
 				'cities' => $cities,
 				'city' => $lastCity,
 				'history' => $history

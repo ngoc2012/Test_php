@@ -10,31 +10,31 @@ use InvalidArgumentException;
 * History model class with history records of weather data
 */
 class History extends BaseModel {
-	
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var int city id */
 	private $cityId;
-	
+
 	/* @var string API used */
 	private $api;
-	
+
 	/* @var float temperature */
 	private $temperature;
-	
+
 	/* @var float humidity */
 	private $humidity;
-	
+
 	/* @var string created at */
 	private $createdAt;
-	
-	
+
+
 	// ===================
 	// === Constructor ===
 	// ===================
-	
+
 	/**
 	* Constructor
 	* @param int $cityId
@@ -64,12 +64,12 @@ class History extends BaseModel {
 		$this->humidity = $humidity;
 		$this->createdAt = $createdAt;
 	}
-	
-	
+
+
 	// ===============
 	// === Getters ===
 	// ===============
-	
+
 	public function getCityId() {
 		return $this->cityId;
 	}
@@ -82,16 +82,16 @@ class History extends BaseModel {
 	public function getHumidity() {
 		return $this->humidity;
 	}
-	
+
 	public function getCreatedAt() {
 		return $this->createdAt;
 	}
-	
-	
+
+
 	// ===========================
 	// === Data access methods ===
 	// ===========================
-	
+
 	/**
 	* Find all the histories of a city by its id
 	* @param int $id
@@ -118,7 +118,7 @@ class History extends BaseModel {
 		}
 		return $histories;
 	}
-	
+
 	/**
 	* Find last the histories of a city by its id
 	* @param int $id
@@ -142,7 +142,7 @@ class History extends BaseModel {
 		}
 		return History::transformDataToHistory($historyData);
 	}
-	
+
 	/**
 	* Find the last history record
 	* @param int $id
@@ -162,7 +162,7 @@ class History extends BaseModel {
 		}
 		return History::transformDataToHistory($lastHistory);
 	}
-	
+
 	/**
 	* Save the history record on the database
 	* @param History $weatherData
@@ -188,11 +188,11 @@ class History extends BaseModel {
 			throw new PDOException("Failed to save history record.");
 		}
 	}
-	
+
 	// ===========
 	// === DTO ===
 	// ===========
-	
+
 	/**
 	* Transform data array to History object
 	* @param array $data

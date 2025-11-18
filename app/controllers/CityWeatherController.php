@@ -9,42 +9,42 @@ use RuntimeException;
 * Controller for the city weather page
 */
 class CityWeatherController extends AbstractViewController {
-	
-	
+
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var City */
 	private $city;
 	/* @var string */
 	private $apiName;
-	
-	
+
 	// ===================
 	// === Constructor ===
 	// ===================
-	
+
 	/**
 	* Constructor for the CityWeatherController.
 	* @param string $viewType
 	* @param City $city
 	* @param string $apiName
+	* @param string $method
 	*/
-	public function __construct($viewType, City $city, $apiName) {
+	public function __construct($viewType, City $city, $apiName, $method = 'POST') {
 		parent::__construct($viewType);
 		$this->city = $city;
 		$this->apiName = $apiName;
 	}
-	
-	
+
+
 	// ======================
 	// === Public Methods ===
 	// ======================
-	
+
 	/**
 	* Get the weather data for a specific city and display it.
-	* 
+	*
 	* @return void
 	*/
 	public function init() {

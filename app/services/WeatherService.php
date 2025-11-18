@@ -10,12 +10,12 @@ use InvalidArgumentException;
 * WeatherService class to fetch weather data
 */
 class WeatherService {
-	
-	
+
+
 	// ======================
 	// === Public methods ===
 	// ======================
-	
+
 	/**
 	* Fetch weather metrics for a given city using the specified API.
 	*
@@ -52,4 +52,3 @@ class WeatherService {
 			return $history;
 		}
 	}
-	

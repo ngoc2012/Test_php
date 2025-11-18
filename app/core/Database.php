@@ -8,11 +8,11 @@ use PDO;
 * Database class (singleton instance) to connect to the database
 */
 class Database {
-	
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var string host name localhost ...*/
 	private $host;
 	/* @var string database name */
@@ -35,15 +35,15 @@ class Database {
 		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 	];
-	
+
 	/** @var Database singleton instance */
 	private static $instance = null;
-	
-	
+
+
 	// ====================
 	// === Constructors ===
 	// ====================
-	
+
 	/**
 	* Constructor
 	* @param string $host
@@ -60,19 +60,19 @@ class Database {
 		$this->charset = $charset ?: 'utf8mb4';
 		$this->dsn = "mysql:host={$this->host};dbname={$this->db};charset={$this->charset}";
 	}
-	
+
 	/**
 	* Destructor to ensure the database connection is closed.
 	*/
 	public function __destruct() {
 		$this->closeConnection();
 	}
-	
-	
+
+
 	// =========================
 	// === Public Methods ======
 	// =========================
-	
+
 	/**
 	* Get the singleton instance of the Database class.
 	*
@@ -84,10 +84,10 @@ class Database {
 		}
 		return self::$instance;
 	}
-	
+
 	/**
 	* Connect to the database and return the PDO instance.
-	* 
+	*
 	* @return PDO The PDO instance.
 	*/
 	public function connect() {
@@ -96,12 +96,12 @@ class Database {
 		}
 		return $this->pdo;
 	}
-	
-	
+
+
 	// =========================
 	// === Private Methods =====
 	// =========================
-	
+
 	/**
 	* Close the database connection.
 	*

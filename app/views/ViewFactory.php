@@ -8,12 +8,12 @@ use App\views\RainView;
 * Factory class for all types of renderer
 */
 class ViewFactory {
-	
-	
+
+
 	// ======================
 	// === Public Methods ===
 	// ======================
-	
+
 	/**
 	* Create a view renderer based on the specified type.
 	*
@@ -32,4 +32,3 @@ class ViewFactory {
 				}
 			}
 		}
-		

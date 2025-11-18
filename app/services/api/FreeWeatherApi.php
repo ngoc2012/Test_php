@@ -10,15 +10,15 @@ use RuntimeException;
 * FreeWeatherApi class to interact with the FreeWeather API
 */
 class FreeWeatherApi extends AbstractWeatherApi {
-	
-	
+
+
 	// ===================
 	// === Constructor ===
 	// ===================
-	
+
 	/**
 	* Constructor allows overriding the API key and base URL.
-	* 
+	*
 	* @param string|null $apiKey
 	* @param string|null $baseUrl
 	*/
@@ -28,12 +28,12 @@ class FreeWeatherApi extends AbstractWeatherApi {
 		$this->apiKey  = $apiKey ?: AppConfig::FREEWEATHER_API_KEY;
 		$this->baseUrl = $baseUrl ?: AppConfig::FREEWEATHER_BASE_URL;
 	}
-	
-	
+
+
 	// ======================
 	// === Public methods ===
 	// ======================
-	
+
 	/**
 	* Get weather data for a specified city.
 	* @param City $city
@@ -51,18 +51,19 @@ class FreeWeatherApi extends AbstractWeatherApi {
 		// {"error":{"code":2006,"message":"API key is invalid."}}
 		$data = json_decode($response, true);
 		if (isset($data["error"])) {
-			throw new RuntimeException("FreeWeather API error: " . $data["error"]["code"] . " - " . $data["error"]["message"]);
+			throw new RuntimeException("FreeWeather API error: "
+			. $data["error"] ["code"] . " - " . $data["error"]["message"]);
 		}
 		$temperature = $data['current']['temp_c'];
 		$humidity = $data['current']['humidity'];
 		return [$temperature, $humidity];
 	}
-	
-	
+
+
 	// =======================
 	// === Private methods ===
 	// =======================
-	
+
 	/**
 	* Construct the full API URL for fetching weather data.
 	*

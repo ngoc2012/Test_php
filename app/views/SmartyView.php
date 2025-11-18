@@ -12,20 +12,20 @@ use RuntimeException;
 * Renderer class using Smarty
 */
 class SmartyView implements ViewInterface {
-	
-	
+
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var Smarty instance */
 	private $smarty;
-	
-	
+
+
 	// ====================
 	// === Constructors ===
 	// ====================
-	
+
 	/**
 	* Constructor and Smarty configuration
 	*/
@@ -34,12 +34,12 @@ class SmartyView implements ViewInterface {
 		$this->smarty->setTemplateDir(__DIR__ . '/../../templates/');
 		$this->smarty->setCompileDir(__DIR__ . '/../../templates_c/');
 	}
-	
-	
+
+
 	// ======================
 	// === Public methods ===
 	// ======================
-	
+
 	/**
 	* Render a template with a theme.
 	*

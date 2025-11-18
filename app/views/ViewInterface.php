@@ -9,7 +9,7 @@ interface ViewInterface
 	// ======================
 	// === Public Methods ===
 	// ======================
-	
+
 	/**
 	* Render a template with a theme.
 	*

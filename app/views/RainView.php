@@ -12,38 +12,38 @@ use RuntimeException;
 * Renderer class using RainTPL
 */
 class RainView implements ViewInterface {
-	
-	
+
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var RainTPL instance */
 	private $tpl;
-	
-	
+
+
 	// ====================
 	// === Constructors ===
 	// ====================
-	
+
 	/**
 	* Constructor and RainTPL configuration
 	*/
 	public function __construct() {
-		
+
 		RainTPL::configure("base_url", '/');
 		RainTPL::configure("tpl_dir", __DIR__ . "/../../templates/");
 		RainTPL::configure("cache_dir", __DIR__ . "/../../templates_c/");
 		RainTPL::configure("tpl_ext", "tpl");
-		
+
 		$this->tpl = new RainTPL;
 	}
-	
-	
+
+
 	// ======================
 	// === Public methods ===
 	// ======================
-	
+
 	/**
 	* Render a template with a theme.
 	*

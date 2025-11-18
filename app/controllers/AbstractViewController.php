@@ -15,20 +15,20 @@ use Exception;
 * Base controller class to handle view rendering
 */
 abstract class AbstractViewController {
-	
-	
+
+
 	// =================
 	// === Variables ===
 	// =================
-	
+
 	/* @var ViewInterface renderer instance */
 	private $view;
-	
-	
+
+
 	// ===================
 	// === Constructor ===
 	// ===================
-	
+
 	/**
 	* Constructor:
 	* - Get the renderer instance from ViewFactory
@@ -38,22 +38,22 @@ abstract class AbstractViewController {
 	public function __construct($viewType = 'smarty') {
 		$this->view = ViewFactory::create($viewType);
 	}
-	
-	
+
+
 	// ========================
 	// === Abstract Methods ===
 	// ========================
-	
+
 	/**
 	* Abstract init method to be implemented by subclasses
 	*/
 	abstract public function init();
-	
-	
+
+
 	// =========================
 	// === Public Methods ======
 	// =========================
-	
+
 	/**
 	* View getter
 	* @return ViewInterface
@@ -61,12 +61,12 @@ abstract class AbstractViewController {
 	public function getView() {
 		return $this->view;
 	}
-	
-	
+
+
 	// =========================
 	// === Protected Methods ===
 	// =========================
-	
+
 	/**
 	* Get weather data for a city using specified API.
 	* @param City $city
@@ -91,5 +91,5 @@ abstract class AbstractViewController {
 			exit;
 		}
 	}
-	
+
 }
