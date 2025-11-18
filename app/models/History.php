@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
 * History model class with history records of weather data
 */
-class History extends BaseModel {
+class History extends BaseModel{
 
 	// =================
 	// === Variables ===
@@ -100,7 +100,8 @@ class History extends BaseModel {
 	*/
 	public static function findAllByCityId($cityId) {
 		$database = Database::getInstance()->connect();
-		$PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY createdAt DESC LIMIT 10");
+		$PDOStatement = $database->prepare("SELECT * FROM history WHERE "
+			. "cityId = :cityId ORDER BY createdAt DESC LIMIT 10");
 		if (!$PDOStatement) {
 			throw new PDOException("Failed to prepare statement for finding history records.");
 		}
@@ -128,7 +129,8 @@ class History extends BaseModel {
 	*/
 	public static function findLastById($id) {
 		$database = Database::getInstance()->connect();
-		$PDOStatement = $database->prepare("SELECT * FROM history WHERE cityId = :cityId ORDER BY createdAt DESC LIMIT 1");
+		$PDOStatement = $database->prepare("SELECT * FROM history WHERE "
+			. "cityId = :cityId ORDER BY createdAt DESC LIMIT 1");
 		if (!$PDOStatement) {
 			throw new PDOException("Failed to prepare statement for finding last history record.");
 		}
@@ -204,7 +206,7 @@ class History extends BaseModel {
 			throw new InvalidArgumentException("Data must be an array to transform to History object.");
 		}
 		if (!isset($data['cityId'], $data['api'], $data['temperature'], $data['humidity'])) {
-			throw new InvalidArgumentException("Missing required data fields to transform to History object.");
+			throw new InvalidArgumentException("Missing data fields to transform to History object.");
 		}
 		return new History(
 			isset($data['id']) ? (int)$data['id'] : 0,

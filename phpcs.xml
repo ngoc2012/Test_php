@@ -3,6 +3,7 @@
     <description>PHP 5.6 standard with tabs and camelCase, without PSR2 spaces.</description>
 
     <file>.</file>
+    <exclude-pattern>*/phpcs-rules/*</exclude-pattern>
     <exclude-pattern>*/libs/*</exclude-pattern>
     <exclude-pattern>*/templates*/**</exclude-pattern>
 
@@ -25,8 +26,12 @@
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
 
     <!-- camelCase -->
-    <rule ref="Squiz.NamingConventions.ValidFunctionName"/>
-    <rule ref="Squiz.NamingConventions.ValidVariableName"/>
+    <rule ref="Squiz.NamingConventions.ValidFunctionName">
+        <exclude name="Squiz.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+    </rule>
+    <rule ref="Squiz.NamingConventions.ValidVariableName">
+        <exclude name="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+    </rule>
     <rule ref="PSR2.Classes.PropertyDeclaration">    
         <properties>
             <property name="camelCaps" value="true"/>
@@ -40,6 +45,9 @@
         </properties>
     </rule>
 
+    <rule ref="./phpcs-rules/PHP56TabsStandard/Sniffs/Methods/SameLineBraceSniff.php"/>
+    <rule ref="./phpcs-rules/PHP56TabsStandard/Sniffs/Commenting/EnsureCommentSpacingSniff.php"/>
+    <rule ref="./phpcs-rules/PHP56TabsStandard/Sniffs/ClassStructure/ClassOrderSniff.php"/>
 
     <!-- Maximum nesting depth -->
     <rule ref="Generic.Metrics.NestingLevel">

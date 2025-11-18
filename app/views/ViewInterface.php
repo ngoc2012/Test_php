@@ -4,8 +4,9 @@ namespace App\views;
 /**
 * Interface for abstract methods of renderers
 */
-interface ViewInterface
-{
+interface ViewInterface {
+
+
 	// ======================
 	// === Public Methods ===
 	// ======================

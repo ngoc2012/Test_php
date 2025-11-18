@@ -52,7 +52,13 @@ class Database {
 	* @param string $pass
 	* @param string $charset
 	*/
-	public function __construct($host = null, $db = null, $user = null, $pass = null, $charset = null) {
+	public function __construct(
+		$host = null,
+		$db = null,
+		$user = null,
+		$pass = null,
+		$charset = null
+	) {
 		$this->host = $host ?: AppConfig::DB_HOST;
 		$this->db = $db ?: AppConfig::DB_NAME;
 		$this->user = $user ?: AppConfig::DB_USER;

@@ -149,7 +149,8 @@ class City extends BaseModel {
 	*/
 	public static function save($cityName) {
 		$database = Database::getInstance()->connect();
-		$PDOStatement = $database->query("INSERT INTO city (name) VALUES (" . $database->quote($cityName) . ")");
+		$PDOStatement = $database->query("INSERT INTO city (name) VALUES ("
+			. $database->quote($cityName) . ")");
 		if (!$PDOStatement) {
 			throw new PDOException("Failed to save city to database.");
 		}

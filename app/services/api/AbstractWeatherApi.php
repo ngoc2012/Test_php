@@ -27,8 +27,7 @@ abstract class AbstractWeatherApi { // implements WeatherApiInterface {
 	// === Constructor ===
 	// ===================
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->context = stream_context_create([
 			'http' => [
 				'ignore_errors' => true, // KEEP BODY even if HTTP 400/500
