@@ -1,6 +1,7 @@
 <?php
 namespace App\controllers;
 
+use App\services\WeatherService;
 use App\controllers\AbstractViewController;
 use App\models\City;
 use App\models\History;
@@ -67,8 +68,8 @@ class CitiesListController extends AbstractViewController {
 			(new ErrorController('smarty'))->init($e->getMessage());
 			exit;
 		}
-		$history = $this->getData($lastCity, $apiName);
 		try {
+			$history = WeatherService::getData($lastCity, $apiName);
 			$this->getView()->render('theme.tpl', "citiesList", [
 				'method' => $this->method,
 				'cities' => $cities,

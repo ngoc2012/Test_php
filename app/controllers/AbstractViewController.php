@@ -3,13 +3,6 @@ namespace App\controllers;
 
 use App\views\ViewFactory;
 use App\views\ViewInterface;
-use App\services\WeatherService;
-use App\models\City;
-use App\models\History;
-use PDOException;
-use RuntimeException;
-use InvalidArgumentException;
-use Exception;
 
 /**
 * Base controller class to handle view rendering
@@ -60,36 +53,6 @@ abstract class AbstractViewController {
 	*/
 	public function getView() {
 		return $this->view;
-	}
-
-
-	// =========================
-	// === Protected Methods ===
-	// =========================
-
-	/**
-	* Get weather data for a city using specified API.
-	* @param City $city
-	* @param string $apiName
-	* @return History
-	*/
-	protected function getData($city, $apiName) {
-		try {
-			$lastHistory = WeatherService::getData($city, $apiName);
-			return $lastHistory;
-		} catch (RuntimeException $e) {
-			(new ErrorController('smarty'))->init($e->getMessage());
-			exit;
-		} catch (InvalidArgumentException $e) {
-			(new ErrorController('smarty'))->init($e->getMessage());
-			exit;
-		} catch (PDOException $e) {
-			(new ErrorController('smarty'))->init($e->getMessage());
-			exit;
-		} catch (Exception $e) { // catch anything else
-			(new ErrorController('smarty'))->init('Unexpected error: ' . $e->getMessage());
-			exit;
-		}
 	}
 
 }
